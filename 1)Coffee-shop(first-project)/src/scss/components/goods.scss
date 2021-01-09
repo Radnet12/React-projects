@@ -1,0 +1,37 @@
+.goods {
+    padding-top: 70px;   
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 870px;
+        margin: 0 auto;
+
+        span {
+            font-weight: 700;
+        }
+    }
+
+    .title-secondary--image {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    &__image {
+        margin-right: 15px;
+        flex: 0 0 auto;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__country {
+        margin-bottom: 15px;
+    }
+    &__descr {
+        margin-bottom: 15px;
+        line-height: 150%;
+    }
+}

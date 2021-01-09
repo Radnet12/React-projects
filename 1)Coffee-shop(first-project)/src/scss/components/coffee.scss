@@ -1,0 +1,14 @@
+.coffee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../img/coffee-main/main-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 260px;
+
+    &__title {
+        text-align: center;
+    }
+}

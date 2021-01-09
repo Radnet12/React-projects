@@ -1,0 +1,71 @@
+.footer {
+    padding: 30px 0;
+
+    &__wrapper {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 400px;
+
+        position: relative;
+        padding-bottom: 60px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 235px;
+            height: 35px;
+            background-image: url('../../img/decorations/beans-black.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            transform: translateX(-50%);
+        }
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__item {
+        position: relative;
+        padding-bottom: 4px;
+        margin-bottom: -4px;
+
+        &:not(:last-child) {
+            margin-right: 40px;
+        }
+
+        a {
+            font-size: 12px;
+            color: var(--color-black);
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 1px;
+                background-color: var(--color-black);
+                transition: width 0.5s ease;
+                transform: translateX(-50%);
+            }
+
+            @media (min-width: 992px) {
+                &:hover {
+                    &::after {
+                        width: 100%;
+                        transition: width 0.5s ease;
+                    }
+                }
+            }
+        }
+    }
+}

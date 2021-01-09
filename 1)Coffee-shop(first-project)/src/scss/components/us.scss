@@ -1,0 +1,16 @@
+.us {
+    padding: 90px 0;
+    text-align: center;
+
+    &__text {
+        margin: 0 auto;
+        max-width: 590px;
+        line-height: 130%;
+
+        p {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
