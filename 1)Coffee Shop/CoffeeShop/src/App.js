@@ -5,7 +5,7 @@ import CoffeePage from './pages/CoffeePage';
 import PleasurePage from './pages/PleasurePage';
 import ItemPage from './pages/ItemPage';
 
-function App({state}) {    
+function App({state}) {
     return (
         <div className="wrapper">
             <Switch>
