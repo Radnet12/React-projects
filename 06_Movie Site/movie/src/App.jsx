@@ -7,16 +7,21 @@ import { MainTemplate } from "./components/UI/MainTemplate/MainTemplate";
 import { Sidebar } from "./components/UI/Sidebar/Sidebar";
 
 function App(props) {
-    const movies = async () => {
+    const movies = async (url) => {
         const response = await fetch(
-            "https://api.themoviedb.org/3/movie/550?api_key=5daf90e431960f20b1aca24657c54316&language=en-US"
+            url
         );
         const data = await response.json();
 
         console.log(data);
     };
 
-    movies();
+    movies(
+        "https://api.themoviedb.org/3/movie/550?api_key=5daf90e431960f20b1aca24657c54316&language=en-US"
+    );
+    movies(
+        "https://api.themoviedb.org/3/tv/243?api_key=5daf90e431960f20b1aca24657c54316&language=en-US"
+    );
 
     return (
         <>
