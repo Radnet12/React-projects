@@ -3,10 +3,6 @@ html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
 }
-html,
-body {
-    height: 100%;
-}
 body {
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
@@ -222,5 +218,7 @@ body {
     background: rgb(2, 0, 36);
     background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(4, 0, 64, 1) 50%, rgba(1, 1, 89, 1) 100%);
     background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--color-white);
 }

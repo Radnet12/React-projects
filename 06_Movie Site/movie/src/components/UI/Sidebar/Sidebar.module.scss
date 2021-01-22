@@ -8,6 +8,11 @@
     padding: 20px 15px;
     border-radius: 10px;
 
+    @media (max-width: 992px) {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
 }
 
 .sidebar__item {
@@ -70,14 +75,16 @@
             border-bottom: none;
         }
 
-        &:focus,
-        &:hover {
-            background-color: var(--color-header);
-            transition: background-color 0.3s ease;
+        @media (min-width: 992px) {
+            &:focus,
+            &:hover {
+                background-color: var(--color-header);
+                transition: background-color 0.3s ease;
 
-            a {
-                color: var(--color-white);
-                transition: color 0.3s ease;
+                a {
+                    color: var(--color-white);
+                    transition: color 0.3s ease;
+                }
             }
         }
     }
