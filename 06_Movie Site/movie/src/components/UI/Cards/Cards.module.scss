@@ -24,7 +24,7 @@
         &:focus,
         &:hover {
             .item__hovered {
-                height: 450px;
+                height: calc(100% - 20px);
                 transform: translateX(-50%) scale(1);
                 transition: transform 0.2s, height 0.2s;
             }
@@ -37,9 +37,8 @@
 
             .item__rating {
                 top: 35px;
-                right: -52px;
                 z-index: 3;
-                transition: right 0.3s, top 0.3s;
+                transition: top 0.3s;
             }
             .item__bottom {
                 opacity: 0;
@@ -85,15 +84,15 @@
     top: 20px;
     right: 0;
     z-index: 0;
-    width: 60px;
+    width: 45px;
     height: 30px;
     background-color: var(--color-white);
     clip-path: polygon(100% 100%, 0 100%, 30% 50%, 0 0, 100% 0);
-    transition: right 0.3s, top 0.3s;
+    transition: top 0.3s;
     span {
         position: absolute;
         top: 7px;
-        left: 27px;
+        left: 18px;
         font-weight: 600;
     }
 }
@@ -102,7 +101,7 @@
     z-index: 2;
     top: 20px;
     left: 50%;
-    width: 380px;
+    width: 277px;
     height: 0;
     background-color: rgba(0, 0, 0, 0.9);
     border-radius: 10px;
@@ -112,7 +111,7 @@
 .item__info {
     position: absolute;
     z-index: 3;
-    top: 40%;
+    top: 47%;
     left: 20px;
     right: 20px;
     color: var(--color-gray);

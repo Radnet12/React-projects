@@ -10,12 +10,10 @@ import {BrowserRouter as Router} from 'react-router-dom';
 // const store = createStore(rootReducer);
 
 ReactDOM.render(
-    <React.StrictMode>
-        {/* <Provider store={store}> */}
+        <React.StrictMode>
             <Router>
                 <App/>
             </Router>
-        {/* </Provider> */}
-    </React.StrictMode>,
+        </React.StrictMode>,
     document.getElementById('root')
 );
