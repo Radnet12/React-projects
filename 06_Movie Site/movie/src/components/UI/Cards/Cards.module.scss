@@ -31,7 +31,7 @@
 
             .item__image {
                 z-index: 3;
-                transform: scale(0.55) translateY(-170px);
+                transform: scale(0.55) translateY(-48%);
                 transition: transform 0.2s;
             }
 
@@ -52,7 +52,7 @@
     position: relative;
     z-index: 0;
     width: 100%;
-    height: 350px;
+    height: 412px;
     overflow: hidden;
     transition: transform 0.2s;
     img {
@@ -110,7 +110,7 @@
 }
 .item__info {
     height: 100%;
-    padding: 175px 20px 20px 20px;
+    padding: 205px 20px 20px 20px;
     color: var(--color-gray);
     font-size: 1.2rem;
     line-height: 145%;

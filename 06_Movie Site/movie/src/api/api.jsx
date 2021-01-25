@@ -13,5 +13,12 @@ export const api = {
         );
         const {genres} = await response.json();
         return genres;
+    },
+    getMovieWithGenre: async (format = 'movie', id = 80) => {
+        const response = await fetch(
+            `${base_uri}/discover/${format}?api_key=5daf90e431960f20b1aca24657c54316&language=ru-RU&sort_by=popularity.desc&page=1&with_genres=${id}`
+        );
+        const {results} = await response.json();
+        return results;
     }
 };

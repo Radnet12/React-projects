@@ -81,18 +81,22 @@
                 background-color: var(--color-header);
                 transition: background-color 0.3s ease;
 
-                a {
+                .sidebar__link {
                     color: var(--color-white);
                     transition: color 0.3s ease;
                 }
             }
         }
-    }
+        .sidebar__link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--color-black);
+            transition: color 0.3s ease;
 
-    a {
-        display: block;
-        padding: 10px 15px;
-        color: var(--color-black);
-        transition: color 0.3s ease;
+            &_active {
+                color: var(--color-white);
+                background-color: var(--color-header);
+            }
+        }
     }
 }

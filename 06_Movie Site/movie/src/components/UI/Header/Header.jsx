@@ -84,7 +84,7 @@ export const Header = () => {
                             <NavLink
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
-                                to="/films"
+                                to="/movies"
                             >
                                 Фильмы
                             </NavLink>
@@ -93,7 +93,7 @@ export const Header = () => {
                             <NavLink
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
-                                to="/tv"
+                                to="/tvs"
                             >
                                 Сериалы
                             </NavLink>

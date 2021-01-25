@@ -8,10 +8,17 @@ export const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [isFetchingMovies, setIsFetchingMovies] = useState(true);
     const [isFetchingGenres, setIsFetchingGenres] = useState(true);
+    const sortMovie = [
+        { name: "Популярное", link: "popular" },
+        { name: "Сейчас смотрят", link: "now_playing" },
+        { name: "Лучшее", link: "top_rated" },
+        { name: "Скоро", link: "upcoming" },
+    ];
 
-    const getMovies = async () => {
+    const getMovies = async (filter) => {
         try {
-            const list = await api.getLists("movie");
+            setIsFetchingMovies(true);
+            const list = await api.getLists("movie", filter);
             setMovies(list);
         } catch (error) {
             console.log(error);
@@ -22,6 +29,7 @@ export const Movies = () => {
 
     const getGenreList = async () => {
         try {
+            setIsFetchingGenres(true);
             const list = await api.getGenres("movie");
             setGenres(list);
         } catch (error) {
@@ -31,14 +39,34 @@ export const Movies = () => {
         }
     };
 
+    const getMoviesWithGenre = async (id) => {
+        try {
+            setIsFetchingMovies(true);
+            const list = await api.getMovieWithGenre("movie", id);
+            setMovies(list);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsFetchingMovies(false);
+        }
+    }
+
     useEffect(() => {
         getMovies();
         getGenreList();
     }, []);
-    
+
     return (
         <>
-            {isFetchingGenres === false ? <Sidebar genres={genres} /> : null}
+            {isFetchingGenres === false ? (
+                <Sidebar
+                    genres={genres}
+                    sort={sortMovie}
+                    filterMovies={getMoviesWithGenre}
+                    genreFormat="movies"
+                    sortMovies={getMovies}
+                />
+            ) : null}
             {isFetchingMovies === false ? (
                 <Cards movies={movies} genreFormat="movie" genres={genres} />
             ) : null}

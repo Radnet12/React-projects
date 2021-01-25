@@ -15,8 +15,8 @@ function App() {
                 <Container>
                     <MainTemplate>
                         <Switch>
-                            <Route path="/films" component={Movies} />
-                            <Route path="/tv" component={Tvs} />
+                            <Route path="/movies" component={Movies} />
+                            <Route path="/tvs" component={Tvs} />
                         </Switch>
                     </MainTemplate>
                 </Container>
