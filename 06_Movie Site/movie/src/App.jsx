@@ -1,37 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { api } from "./api/api";
-import { Cards } from "./components/UI/Cards/Cards";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { Movies } from "./components/Movies/Movies";
+import { Tvs } from "./components/Tvs/Tvs";
 import { Container } from "./components/UI/Container/Container";
 import { Header } from "./components/UI/Header/Header";
 import { Main } from "./components/UI/Main/Main";
 import { MainTemplate } from "./components/UI/MainTemplate/MainTemplate";
-import { Sidebar } from "./components/UI/Sidebar/Sidebar";
 
 function App() {
-    const [movies, setMovies] = useState([]);
-    const [isFetching, setIsFetching] = useState(true);
-
-    const getMovies = async () => {
-        try {
-            const list = await api.getLists("tv");
-            setMovies(list);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setIsFetching(false);
-        }
-    };
-    useEffect(() => {
-        getMovies()
-    }, []);
     return (
         <>
             <Header />
             <Main>
                 <Container>
                     <MainTemplate>
-                        <Sidebar />
-                        {isFetching === false ? <Cards movies={movies} /> : null}
+                        <Switch>
+                            <Route path="/films" component={Movies} />
+                            <Route path="/tv" component={Tvs} />
+                        </Switch>
                     </MainTemplate>
                 </Container>
             </Main>
