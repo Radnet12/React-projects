@@ -4,8 +4,10 @@ import { Cards } from '../UI/Cards/Cards';
 import { Sidebar } from '../UI/Sidebar/Sidebar';
 
 export const Movies = () => {
+    const [genres, setGenres] = useState([]);
     const [movies, setMovies] = useState([]);
-    const [isFetching, setIsFetching] = useState(true);
+    const [isFetchingMovies, setIsFetchingMovies] = useState(true);
+    const [isFetchingGenres, setIsFetchingGenres] = useState(true);
 
     const getMovies = async () => {
         try {
@@ -14,17 +16,32 @@ export const Movies = () => {
         } catch (error) {
             console.log(error);
         } finally {
-            setIsFetching(false);
+            setIsFetchingMovies(false);
         }
     };
+
+    const getGenreList = async () => {
+        try {
+            const list = await api.getGenres("movie");
+            setGenres(list);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsFetchingGenres(false);
+        }
+    };
+
     useEffect(() => {
         getMovies();
+        getGenreList();
     }, []);
-
+    
     return (
         <>
-            <Sidebar />
-            {isFetching === false ? <Cards movies={movies} genreFormat="movie" /> : null}
+            {isFetchingGenres === false ? <Sidebar genres={genres} /> : null}
+            {isFetchingMovies === false ? (
+                <Cards movies={movies} genreFormat="movie" genres={genres} />
+            ) : null}
         </>
     );
 };

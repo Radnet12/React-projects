@@ -1,7 +1,11 @@
 import React from "react";
 import s from "./Sidebar.module.scss";
 
-export const Sidebar = () => {
+export const Sidebar = ({genres}) => {
+    const capitalizeFirstLetter = (name) => {
+        return name.charAt(0).toUpperCase() + name.substring(1);
+    };
+
     return (
         <div className={s.sidebar}>
             <h2 className={s.sidebar__title}>Фильтры</h2>
@@ -9,15 +13,13 @@ export const Sidebar = () => {
                 <div className={s.sidebar__main}>
                     <h3 className={s.sidebar__subtitle}>Жанр</h3>
                     <ul className={s.sidebar__list}>
-                        <li className={s.sidebar__list_item}>
-                            <a href="#">Боевик</a>
-                        </li>
-                        <li className={s.sidebar__list_item}>
-                            <a href="#">Триллер</a>
-                        </li>
-                        <li className={s.sidebar__list_item}>
-                            <a href="#">Комедия</a>
-                        </li>
+                        {genres.map(genre => {
+                            return (
+                                <li key={genre.id} className={s.sidebar__list_item}>
+                                    <a href="#">{capitalizeFirstLetter(genre.name)}</a>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             </div>
