@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies }) => {
     const [isFilterClosed, setIsFilterClosed] = useState(false);
+
     const capitalizeFirstLetter = (name) => {
         return name.charAt(0).toUpperCase() + name.substring(1);
     };

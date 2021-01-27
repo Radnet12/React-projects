@@ -20,24 +20,24 @@ export const loadingMovies = () => {
 }
 
 
-export const loadMovies = (filter) => {
+export const loadMovies = (format, filter) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const list = await api.getLists("movie", filter);
+        const list = await api.getLists(format, filter);
         dispatch(getMovies(list));
     }
 }
-export const loadGenres = () => {
+export const loadGenres = (format) => {
     return async (dispatch) => {
-        const list = await api.getGenres("movie");
+        const list = await api.getGenres(format);
         dispatch(getGenres(list));
     }
 }
 
-export const loadMovieWithGenre = (id) => {
+export const loadMovieWithGenre = (format, id) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const list = await api.getMovieWithGenre("movie", id);
+        const list = await api.getMovieWithGenre(format, id);
         dispatch(getMovies(list));
     };;
 };

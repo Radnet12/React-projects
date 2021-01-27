@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Movies from "./components/Movies/Movies";
-import { Tvs } from "./components/Tvs/Tvs";
+import Movie from "./components/Movies/Movie";
+import Tv from "./components/Tvs/Tv";
 import { Container } from "./components/UI/Container/Container";
 import { Header } from "./components/UI/Header/Header";
 import { Main } from "./components/UI/Main/Main";
@@ -15,8 +15,8 @@ function App() {
                 <Container>
                     <MainTemplate>
                         <Switch>
-                            <Route path="/movies" component={Movies} />
-                            <Route path="/tvs" component={Tvs} />
+                            <Route path="/movie" component={Movie} />
+                            <Route path="/tv" component={Tv} />
                         </Switch>
                     </MainTemplate>
                 </Container>

@@ -29,7 +29,7 @@ export const Cards = ({ movies, genres }) => {
                                 <a href="#" className={s.item__link}>
                                     <img
                                         src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
-                                        alt={movie.title}
+                                        alt={movie.title || movie.original_name}
                                     />
                                 </a>
                             </div>

@@ -6,7 +6,7 @@ import { loadGenres, loadMovies, loadMovieWithGenre } from '../../store/actions/
 import { Loader } from '../UI/Loader/Loader';
 
 
-const Movies = (props) => {
+const Movie = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,18 +20,21 @@ const Movies = (props) => {
                 <Sidebar
                     genres={props.genres}
                     sort={props.sorted}
-                    filterMovies={(id) => dispatch(loadMovieWithGenre(id))}
-                    genreFormat="movies"
-                    sortMovies={(filter) => dispatch(loadMovies(filter))}
+                    filterMovies={(id) =>
+                        dispatch(loadMovieWithGenre(props.format, id))
+                    }
+                    genreFormat={props.format}
+                    sortMovies={(filter) =>
+                        dispatch(loadMovies(props.format, filter))
+                    }
                 />
-            ) : <Loader/>}
+            ) : <Loader />}
             {props.isFetchingMovies === false ? (
                 <Cards
                     movies={props.movies}
-                    genreFormat="movie"
                     genres={props.genres}
                 />
-            ) : <Loader/>}
+            ) : <Loader />}
         </>
     );
 };
@@ -41,8 +44,9 @@ function mapStateToProps(state) {
         movies: state.moviesPage.movies,
         isFetchingGenres: state.moviesPage.isFetchingGenres,
         isFetchingMovies: state.moviesPage.isFetchingMovies,
-        sorted: state.moviesPage.sorted,
-        genres: state.moviesPage.genres
+        sorted: state.moviesPage.sortedMovies,
+        genres: state.moviesPage.genres,
+        format: state.moviesPage.format[1]
     };
 }
-export default connect(mapStateToProps)(Movies);
+export default connect(mapStateToProps)(Movie);
