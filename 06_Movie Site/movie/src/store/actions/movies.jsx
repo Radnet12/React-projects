@@ -38,7 +38,6 @@ export const loadMovieWithGenre = (id) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
         const list = await api.getMovieWithGenre("movie", id);
-        console.log(list);
         dispatch(getMovies(list));
     };;
 };

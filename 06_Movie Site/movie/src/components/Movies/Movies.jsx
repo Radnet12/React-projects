@@ -3,6 +3,8 @@ import { Cards } from '../UI/Cards/Cards';
 import { Sidebar } from '../UI/Sidebar/Sidebar';
 import { connect, useDispatch } from 'react-redux';
 import { loadGenres, loadMovies, loadMovieWithGenre } from '../../store/actions/movies';
+import { Loader } from '../UI/Loader/Loader';
+
 
 const Movies = (props) => {
     const dispatch = useDispatch();
@@ -22,14 +24,14 @@ const Movies = (props) => {
                     genreFormat="movies"
                     sortMovies={(filter) => dispatch(loadMovies(filter))}
                 />
-            ) : null}
+            ) : <Loader/>}
             {props.isFetchingMovies === false ? (
                 <Cards
                     movies={props.movies}
                     genreFormat="movie"
                     genres={props.genres}
                 />
-            ) : null}
+            ) : <Loader/>}
         </>
     );
 };
