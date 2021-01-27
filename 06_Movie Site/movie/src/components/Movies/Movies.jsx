@@ -1,75 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { api } from '../../api/api';
+import React, { useEffect } from 'react';
 import { Cards } from '../UI/Cards/Cards';
 import { Sidebar } from '../UI/Sidebar/Sidebar';
+import { connect, useDispatch } from 'react-redux';
+import { loadGenres, loadMovies, loadMovieWithGenre } from '../../store/actions/movies';
 
-export const Movies = () => {
-    const [genres, setGenres] = useState([]);
-    const [movies, setMovies] = useState([]);
-    const [isFetchingMovies, setIsFetchingMovies] = useState(true);
-    const [isFetchingGenres, setIsFetchingGenres] = useState(true);
-    const sortMovie = [
-        { name: "Популярное", link: "popular" },
-        { name: "Сейчас смотрят", link: "now_playing" },
-        { name: "Лучшее", link: "top_rated" },
-        { name: "Скоро", link: "upcoming" },
-    ];
-
-    const getMovies = async (filter) => {
-        try {
-            setIsFetchingMovies(true);
-            const list = await api.getLists("movie", filter);
-            setMovies(list);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setIsFetchingMovies(false);
-        }
-    };
-
-    const getGenreList = async () => {
-        try {
-            setIsFetchingGenres(true);
-            const list = await api.getGenres("movie");
-            setGenres(list);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setIsFetchingGenres(false);
-        }
-    };
-
-    const getMoviesWithGenre = async (id) => {
-        try {
-            setIsFetchingMovies(true);
-            const list = await api.getMovieWithGenre("movie", id);
-            setMovies(list);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setIsFetchingMovies(false);
-        }
-    }
+const Movies = (props) => {
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getMovies();
-        getGenreList();
-    }, []);
+        dispatch(loadMovies());
+        dispatch(loadGenres());
+    }, [dispatch]);
 
     return (
         <>
-            {isFetchingGenres === false ? (
+            {props.isFetchingGenres === false ? (
                 <Sidebar
-                    genres={genres}
-                    sort={sortMovie}
-                    filterMovies={getMoviesWithGenre}
+                    genres={props.genres}
+                    sort={props.sorted}
+                    filterMovies={(id) => dispatch(loadMovieWithGenre(id))}
                     genreFormat="movies"
-                    sortMovies={getMovies}
+                    sortMovies={(filter) => dispatch(loadMovies(filter))}
                 />
             ) : null}
-            {isFetchingMovies === false ? (
-                <Cards movies={movies} genreFormat="movie" genres={genres} />
+            {props.isFetchingMovies === false ? (
+                <Cards
+                    movies={props.movies}
+                    genreFormat="movie"
+                    genres={props.genres}
+                />
             ) : null}
         </>
     );
 };
+
+function mapStateToProps(state) {
+    return {
+        movies: state.moviesPage.movies,
+        isFetchingGenres: state.moviesPage.isFetchingGenres,
+        isFetchingMovies: state.moviesPage.isFetchingMovies,
+        sorted: state.moviesPage.sorted,
+        genres: state.moviesPage.genres
+    };
+}
+export default connect(mapStateToProps)(Movies);

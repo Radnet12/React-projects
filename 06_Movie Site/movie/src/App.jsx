@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Movies } from "./components/Movies/Movies";
+import Movies from "./components/Movies/Movies";
 import { Tvs } from "./components/Tvs/Tvs";
 import { Container } from "./components/UI/Container/Container";
 import { Header } from "./components/UI/Header/Header";

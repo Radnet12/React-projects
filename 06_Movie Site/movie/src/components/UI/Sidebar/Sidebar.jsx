@@ -8,21 +8,19 @@ export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies })
         return name.charAt(0).toUpperCase() + name.substring(1);
     };
 
-    const closeSidebar = () => {
-        setIsFilterClosed((prevState) => !prevState);
-    }
     return (
         <div
             className={`${s.sidebar} ${isFilterClosed ? s.sidebar_close : ""}`}
         >
-            <h2 className={s.sidebar__title} onClick={closeSidebar}>
+            <h2
+                className={s.sidebar__title}
+                onClick={() => setIsFilterClosed((prevState) => !prevState)}
+            >
                 Фильтры
             </h2>
             <div className={s.sidebar__item}>
                 <div className={s.sidebar__main}>
-                    <h3 className={s.sidebar__subtitle}>
-                        Жанр
-                    </h3>
+                    <h3 className={s.sidebar__subtitle}>Жанр</h3>
                     <ul className={s.sidebar__list}>
                         {genres.map((genre) => {
                             return (
@@ -48,9 +46,7 @@ export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies })
             </div>
             <div className={s.sidebar__item}>
                 <div className={s.sidebar__main}>
-                    <h3 className={s.sidebar__subtitle}>
-                        Отсортируйте
-                    </h3>
+                    <h3 className={s.sidebar__subtitle}>Отсортируйте</h3>
                     <ul className={s.sidebar__list}>
                         {sort.map((item, index) => {
                             return (
