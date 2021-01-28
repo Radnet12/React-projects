@@ -1,26 +1,28 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Movie from "./components/Movies/Movie";
-import Tv from "./components/Tvs/Tv";
+import Movie from "./components/Movie/Movie";
+import Tv from "./components/Tv/Tv";
 import { Container } from "./components/UI/Container/Container";
 import { Header } from "./components/UI/Header/Header";
-import { Main } from "./components/UI/Main/Main";
+import { MainWrap } from "./components/UI/Main/Main";
+import { Main } from "./components/Main/Main";
 import { MainTemplate } from "./components/UI/MainTemplate/MainTemplate";
 
 function App() {
     return (
         <>
             <Header />
-            <Main>
+            <MainWrap>
                 <Container>
-                    <MainTemplate>
-                        <Switch>
+                    <Switch>
+                        <Route exact path="/" component={Main} />
+                        <MainTemplate>
                             <Route path="/movie" component={Movie} />
                             <Route path="/tv" component={Tv} />
-                        </Switch>
-                    </MainTemplate>
+                        </MainTemplate>
+                    </Switch>
                 </Container>
-            </Main>
+            </MainWrap>
         </>
     );
 }
