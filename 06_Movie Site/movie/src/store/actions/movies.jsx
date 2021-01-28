@@ -5,6 +5,7 @@ import {
     LOADING_MOVIES,
     UPDATE_TEXT,
     GET_SEARCHED_MOVIES,
+    ZERO_OUT_SEARCH_RESULTS
 } from "./actionTypes";
 
 export const getMovies = (movies) => {
@@ -65,3 +66,8 @@ export const getSearchResults = (text) => {
         dispatch(getSearchedMovies(list));
     };
 };
+export const zeroOutSearchResults = () => {
+    return {
+        type: ZERO_OUT_SEARCH_RESULTS
+    }
+}

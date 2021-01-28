@@ -74,6 +74,7 @@
     height: 40px;
 }
 .header__searched_list {
+    display: none;
     position: absolute;
     top: 32px;
     right: 0;
@@ -88,6 +89,7 @@
     }
 
     &_active {
+        display: block;
         padding: 5px 0;
     }
 }
@@ -121,4 +123,7 @@
         height: 20px;
         transition: fill 0.3s;
     }
+}
+.header__searched_info {
+    padding: 7px 12px;
 }

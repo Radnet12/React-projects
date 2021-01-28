@@ -1,4 +1,4 @@
-import { GET_GENRES, GET_MOVIES, GET_SEARCHED_MOVIES, LOADING_MOVIES, UPDATE_TEXT } from "../actions/actionTypes";
+import { GET_GENRES, GET_MOVIES, GET_SEARCHED_MOVIES, LOADING_MOVIES, UPDATE_TEXT, ZERO_OUT_SEARCH_RESULTS } from "../actions/actionTypes";
 
 const initialState = {
     sortedMovies: [
@@ -50,6 +50,11 @@ export const moviesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchedMovies: action.movies
+            };
+        case ZERO_OUT_SEARCH_RESULTS:
+            return {
+                ...state,
+                searchedMovies: []
             };
         default:
             return state;
