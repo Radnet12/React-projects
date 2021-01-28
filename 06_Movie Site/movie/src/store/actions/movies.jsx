@@ -1,5 +1,11 @@
 import { api } from "../../api/api";
-import { GET_MOVIES, GET_GENRES, LOADING_MOVIES } from "./actionTypes";
+import {
+    GET_MOVIES,
+    GET_GENRES,
+    LOADING_MOVIES,
+    UPDATE_TEXT,
+    GET_SEARCHED_MOVIES,
+} from "./actionTypes";
 
 export const getMovies = (movies) => {
     return {
@@ -40,4 +46,22 @@ export const loadMovieWithGenre = (format, id) => {
         const list = await api.getMovieWithGenre(format, id);
         dispatch(getMovies(list));
     };;
+};
+export const updateText = (text) => {
+    return {
+        type: UPDATE_TEXT,
+        text
+    };
+};
+export const getSearchedMovies = (movies) => {
+    return {
+        type: GET_SEARCHED_MOVIES,
+        movies
+    }
+}
+export const getSearchResults = (text) => {
+    return async (dispatch) => {
+        const list = await api.searchMovies(text);
+        dispatch(getSearchedMovies(list));
+    };
 };

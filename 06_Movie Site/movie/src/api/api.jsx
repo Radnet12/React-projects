@@ -22,5 +22,12 @@ export const api = {
         );
         const {results} = await response.json();
         return results;
+    },
+    searchMovies: async (text) => {
+        const response = await fetch(
+            `${base_uri}/search/multi?${api_key}&language=ru-RU&query=${text}`
+        );
+        const {results} = await response.json();
+        return results;
     }
 };

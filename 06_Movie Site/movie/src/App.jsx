@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Movie from "./components/Movie/Movie";
 import Tv from "./components/Tv/Tv";
 import { Container } from "./components/UI/Container/Container";
-import { Header } from "./components/UI/Header/Header";
+import Header from "./components/UI/Header/Header";
 import { MainWrap } from "./components/UI/Main/Main";
 import { Main } from "./components/Main/Main";
 import { MainTemplate } from "./components/UI/MainTemplate/MainTemplate";

@@ -38,36 +38,40 @@ export const Cards = ({ movies, genres }) => {
                             </div>
                             <div className={s.item__bottom}>
                                 <div className={s.item__title}>
-                                    <a href="#">
-                                        {movie.title || movie.name}
-                                    </a>
+                                    <a href="#">{movie.title || movie.name}</a>
                                 </div>
                                 <div className={s.item__date}>
-                                    {getCorrectDate(movie.release_date) || getCorrectDate(movie.first_air_date)}
+                                    {getCorrectDate(movie.release_date) ||
+                                        getCorrectDate(movie.first_air_date)}
                                 </div>
                             </div>
                             <div className={s.item__hovered}>
                                 <a href="#">
                                     <div className={s.item__info}>
-                                    <p>
-                                        Название:{" "}
-                                        <span>
-                                            {movie.title || movie.name}
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Жанры:{" "}
-                                        <span>
-                                            {defineGenres(movie.genre_ids)}
-                                        </span>
-                                    </p>
-                                    <p>
-                                        Дата выхода:{" "}
-                                        <span>
-                                            {getCorrectDate(movie.release_date) || getCorrectDate(movie.first_air_date)}
-                                        </span>
-                                    </p>
-                                </div>
+                                        <p>
+                                            Название:{" "}
+                                            <span>
+                                                {movie.title || movie.name}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            Жанры:{" "}
+                                            <span>
+                                                {defineGenres(movie.genre_ids)}
+                                            </span>
+                                        </p>
+                                        <p>
+                                            Дата выхода:{" "}
+                                            <span>
+                                                {getCorrectDate(
+                                                    movie.release_date
+                                                ) ||
+                                                    getCorrectDate(
+                                                        movie.first_air_date
+                                                    )}
+                                            </span>
+                                        </p>
+                                    </div>
                                 </a>
                             </div>
                         </li>

@@ -1,3 +1,5 @@
 export const GET_MOVIES = "GET_MOVIES";
 export const GET_GENRES = "GET_GENRES";
 export const LOADING_MOVIES = "LOADING_MOVIES";
+export const UPDATE_TEXT = "UPDATE_TEXT";
+export const GET_SEARCHED_MOVIES = "GET_SEARCHED_MOVIES";

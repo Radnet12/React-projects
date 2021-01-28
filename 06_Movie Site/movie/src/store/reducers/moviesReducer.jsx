@@ -1,4 +1,4 @@
-import { GET_GENRES, GET_MOVIES, LOADING_MOVIES } from "../actions/actionTypes";
+import { GET_GENRES, GET_MOVIES, GET_SEARCHED_MOVIES, LOADING_MOVIES, UPDATE_TEXT } from "../actions/actionTypes";
 
 const initialState = {
     sortedMovies: [
@@ -13,14 +13,13 @@ const initialState = {
         { name: "Лучшее", link: "top_rated" },
         { name: "По телевиденью", link: "on_the_air" },
     ],
-    format: [
-        "tv",
-        "movie"
-    ],
+    format: ["tv", "movie"],
     isFetchingMovies: true,
     isFetchingGenres: true,
     movies: [],
     genres: [],
+    searchedMovies: [],
+    searchText: ""
 };
 
 export const moviesReducer = (state = initialState, action) => {
@@ -40,7 +39,17 @@ export const moviesReducer = (state = initialState, action) => {
         case LOADING_MOVIES:
             return {
                 ...state,
-                isFetchingMovies: true
+                isFetchingMovies: true,
+            };
+        case UPDATE_TEXT:
+            return {
+                ...state,
+                searchText: action.text,
+            };
+        case GET_SEARCHED_MOVIES:
+            return {
+                ...state,
+                searchedMovies: action.movies
             };
         default:
             return state;
