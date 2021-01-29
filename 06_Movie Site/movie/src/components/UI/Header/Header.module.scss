@@ -68,6 +68,11 @@
         color: var(--color-white);
         opacity: 0.7;
     }
+
+    &:focus + .header__searched_list {
+        display: block;
+        padding: 5px 0;
+    }
 }
 .header__logo {
     width: 40px;
@@ -86,11 +91,6 @@
 
     @media (max-width: 768px) {
         width: 100%;
-    }
-
-    &_active {
-        display: block;
-        padding: 5px 0;
     }
 }
 .header__searched_item {
