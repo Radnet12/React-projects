@@ -31,9 +31,14 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                 </li>
             )
         } else {
+            const regexp = new RegExp(searchText, "g");
             return movies
                 .filter((movie) => movie.media_type !== "person")
                 .map((movie) => {
+                    const name = (movie.title || movie.name).replace(
+                        regexp,
+                        `<span style="background-color: var(--color-highlight)" class="s.header__search_highlited">${searchText}</span>`
+                    );
                     return (
                         <li key={movie.id} className={s.header__searched_item}>
                             {movie.media_type === "movie" ? (
@@ -112,7 +117,12 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                     <path d="M0 61h512v300H0zM341 421v-30H171v30h-50v30h270v-30z" />
                                 </svg>
                             )}
-                            {movie.title || movie.name}{" "}
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: `${name}`,
+                                }}
+                            >
+                            </span>
                             <span className={s.header__searched_indicator}>
                                 {movie.media_type === "movie"
                                     ? "Фильм"
@@ -225,7 +235,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                             type="text"
                             value={searchText}
                             onChange={(e) => {
-                                updateText(e.target.value.toLowerCase());
+                                updateText(e.target.value);
                             }}
                         />
                         <ul className={s.header__searched_list}>
