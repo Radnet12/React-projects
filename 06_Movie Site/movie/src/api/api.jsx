@@ -2,12 +2,12 @@ const base_uri = "https://api.themoviedb.org/3";
 const api_key = "api_key=5daf90e431960f20b1aca24657c54316";
 
 export const api = {
-    getLists: async (format = 'movie', filter = 'popular', params = '') => {
+    getLists: async (format = 'movie', filter = 'popular', params = '&page=3') => {
         const response = await fetch(
             `${base_uri}/${format}/${filter}?${api_key}&language=ru-RU${params}`
         );
-        const {results} = await response.json();
-        return results;
+        const {results, total_pages} = await response.json();
+        return [results, total_pages];
     },
     getGenres: async (format = 'movie') => {
         const response = await fetch(
@@ -18,7 +18,7 @@ export const api = {
     },
     getMovieWithGenre: async (format = 'movie', id = 80) => {
         const response = await fetch(
-            `${base_uri}/discover/${format}?${api_key}&language=ru-RU&sort_by=popularity.desc&page=1&with_genres=${id}`
+            `${base_uri}/discover/${format}?${api_key}&language=ru-RU&sort_by=popularity.desc&page=500&with_genres=${id}`
         );
         const {results} = await response.json();
         return results;

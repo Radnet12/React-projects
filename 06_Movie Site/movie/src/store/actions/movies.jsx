@@ -5,7 +5,9 @@ import {
     LOADING_MOVIES,
     UPDATE_TEXT,
     GET_SEARCHED_MOVIES,
-    ZERO_OUT_SEARCH_RESULTS
+    ZERO_OUT_SEARCH_RESULTS,
+    SET_PAGE,
+    SET_TOTAL_PAGES
 } from "./actionTypes";
 
 export const getMovies = (movies) => {
@@ -25,12 +27,18 @@ export const loadingMovies = () => {
         type: LOADING_MOVIES
     }
 }
-
+export const setTotalPages = (totalPages) => {
+    return {
+        type: SET_TOTAL_PAGES,
+        totalPages,
+    };
+};
 
 export const loadMovies = (format, filter) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const list = await api.getLists(format, filter);
+        const [list, totalPages] = await api.getLists(format, filter);
+        dispatch(setTotalPages(totalPages));
         dispatch(getMovies(list));
     }
 }
@@ -71,3 +79,14 @@ export const zeroOutSearchResults = () => {
         type: ZERO_OUT_SEARCH_RESULTS
     }
 }
+export const setPage = (page) => {
+    return {
+        type: SET_PAGE,
+        page
+    }
+};
+export const changePage = (page) => {
+    return (dispatch) => {
+        dispatch(setPage(page));
+    }
+};

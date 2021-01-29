@@ -1,7 +1,8 @@
 import React from "react";
+import { Pagination } from "../Pagination/Pagination";
 import s from "./Cards.module.scss";
 
-export const Cards = ({ movies, genres }) => {
+export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, totalPages }) => {
     const getCorrectDate = (date) => {
         if (date !== undefined) {
             return date.split("-").reverse().join(".");
@@ -18,6 +19,7 @@ export const Cards = ({ movies, genres }) => {
         });
         return allGenres.join(", ");
     };
+    console.log(totalPages);
 
     return (
         <div className={s.cards}>
@@ -78,6 +80,7 @@ export const Cards = ({ movies, genres }) => {
                     );
                 })}
             </ul>
+            <Pagination totalPages={totalPages} currentPage={currentPage} />
         </div>
     );
 };

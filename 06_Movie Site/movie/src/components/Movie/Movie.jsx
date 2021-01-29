@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Cards } from '../UI/Cards/Cards';
 import { Sidebar } from '../UI/Sidebar/Sidebar';
 import { connect, useDispatch } from 'react-redux';
-import { loadGenres, loadMovies, loadMovieWithGenre } from '../../store/actions/movies';
+import { changePage, loadGenres, loadMovies, loadMovieWithGenre } from '../../store/actions/movies';
 import { Loader } from '../UI/Loader/Loader';
 
 
@@ -31,8 +31,12 @@ const Movie = (props) => {
             ) : <Loader />}
             {props.isFetchingMovies === false ? (
                 <Cards
+                    genreFormat={props.format}
                     movies={props.movies}
                     genres={props.genres}
+                    changePage={(page) => dispatch(changePage(page))}
+                    currentPage={props.currentPage}
+                    totalPages={props.totalPages}
                 />
             ) : <Loader />}
         </>
@@ -46,7 +50,9 @@ function mapStateToProps(state) {
         isFetchingMovies: state.moviesPage.isFetchingMovies,
         sorted: state.moviesPage.sortedMovies,
         genres: state.moviesPage.genres,
-        format: state.moviesPage.format[1]
+        format: state.moviesPage.format[1],
+        currentPage: state.moviesPage.currentPage,
+        totalPages: state.moviesPage.totalPages
     };
 }
 export default connect(mapStateToProps)(Movie);

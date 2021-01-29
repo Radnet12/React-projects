@@ -1,4 +1,4 @@
-import { GET_GENRES, GET_MOVIES, GET_SEARCHED_MOVIES, LOADING_MOVIES, UPDATE_TEXT, ZERO_OUT_SEARCH_RESULTS } from "../actions/actionTypes";
+import { GET_GENRES, GET_MOVIES, GET_SEARCHED_MOVIES, LOADING_MOVIES, SET_PAGE, SET_TOTAL_PAGES, UPDATE_TEXT, ZERO_OUT_SEARCH_RESULTS } from "../actions/actionTypes";
 
 const initialState = {
     sortedMovies: [
@@ -19,7 +19,9 @@ const initialState = {
     movies: [],
     genres: [],
     searchedMovies: [],
-    searchText: ""
+    searchText: "",
+    currentPage: 1,
+    totalPages: 1
 };
 
 export const moviesReducer = (state = initialState, action) => {
@@ -56,6 +58,16 @@ export const moviesReducer = (state = initialState, action) => {
                 ...state,
                 searchedMovies: []
             };
+        case SET_PAGE:
+            return {
+                ...state,
+                currentPage: action.page
+            }
+        case SET_TOTAL_PAGES:
+            return {
+                ...state,
+                totalPages: action.totalPages
+            }
         default:
             return state;
     }

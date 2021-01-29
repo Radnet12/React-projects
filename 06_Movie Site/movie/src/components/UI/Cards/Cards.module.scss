@@ -126,3 +126,19 @@
         }
     }
 }
+.cards__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+    font-size: 25px;
+}
+.cards__pagination_item {
+    &:not(:last-child) {
+        margin-right: 15px;
+    }
+}
+.cards__pagination_link {
+    cursor: pointer;
+    color: var(--color-white);
+}
