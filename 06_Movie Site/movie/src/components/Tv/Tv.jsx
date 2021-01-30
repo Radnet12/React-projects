@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage } from "../../store/actions/movies";
 import { Cards } from "../UI/Cards/Cards";
 import { Loader } from "../UI/Loader/Loader";
 import { Sidebar } from "../UI/Sidebar/Sidebar";
 
 const Tv = (props) => {
-    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(loadMovies("tv"));
-        dispatch(loadGenres("tv"));
-    }, [dispatch]);
+        props.loadMovies("tv");
+        props.loadGenres("tv");
+    }, []);
 
     return (
         <>
@@ -19,13 +18,13 @@ const Tv = (props) => {
                     genres={props.genres}
                     sort={props.sorted}
                     filterMovies={(id) =>
-                        dispatch(loadMovieWithGenre(props.format, id))
+                        props.loadMovieWithGenre(props.format, id)
                     }
                     genreFormat={props.format}
                     sortMovies={(filter) =>
-                        dispatch(loadMovies(props.format, filter))
+                        props.loadMovies(props.format, filter)
                     }
-                    resetPage={(url) => dispatch(resetPage(url))}
+                    resetPage={(url) => props.resetPage(url)}
                 />
             ) : (
                 <Loader />
@@ -36,7 +35,7 @@ const Tv = (props) => {
                     movies={props.movies}
                     genres={props.genres}
                     changePage={(format, url, page) =>
-                        dispatch(changePage(format, url, page))
+                        props.changePage(format, url, page)
                     }
                     currentPage={props.currentPage}
                     totalPages={props.totalPages}
@@ -61,4 +60,4 @@ function mapStateToProps (state) {
         url: state.moviesPage.url,
     };
 }
-export default connect(mapStateToProps)(Tv);
+export default connect(mapStateToProps, {changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage})(Tv);
