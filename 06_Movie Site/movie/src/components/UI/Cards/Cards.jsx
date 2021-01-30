@@ -41,6 +41,7 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                         title={
                                             movie.title || movie.original_name
                                         }
+                                        loading='lazy'
                                     />
                                 </a>
                             </div>
