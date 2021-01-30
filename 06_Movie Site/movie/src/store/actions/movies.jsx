@@ -35,11 +35,10 @@ export const setTotalPages = (totalPages) => {
     };
 };
 
-export const loadMovies = (format, filter, params) => {
+export const loadMovies = (format, filter, page) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const [list, totalPages] = await api.getLists(format, filter, params);
-        console.log(totalPages);
+        const [list, totalPages] = await api.getLists(format, filter, page);
         dispatch(setTotalPages(totalPages));
         dispatch(getMovies(list));
     }
@@ -51,11 +50,11 @@ export const loadGenres = (format) => {
     }
 }
 
-export const loadMovieWithGenre = (format, id) => {
+export const loadMovieWithGenre = (format, id, page) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const [list, totalPages] = await api.getMovieWithGenre(format, id);
-        console.log(totalPages);
+        const [list, totalPages] = await api.getMovieWithGenre(format, id, page);
+        dispatch(setTotalPages(totalPages));
         dispatch(getMovies(list));
     };;
 };
@@ -88,14 +87,26 @@ export const setPage = (page) => {
         page
     }
 };
-export const changePage = (page) => {
+export const changePage = (format, url, page) => {
+    console.log(format,typeof url === 'number', url, page);
     return (dispatch) => {
         dispatch(setPage(page));
+        if (typeof url === 'string') {
+            dispatch(loadMovies(format, url, page));
+        } else if (typeof url === 'number') {
+            dispatch(loadMovieWithGenre(format, url, page));
+        }
     }
 };
 export const setURL = (url) => {
     return {
         type: SET_URL,
-        url
+        url,
+    };
+};
+export const resetPage = (url) => {
+    return (dispatch) => {
+        dispatch(setURL(url));
+        dispatch(setPage(1));
     }
 };

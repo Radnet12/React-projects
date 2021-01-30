@@ -5,13 +5,12 @@ import {Link} from 'react-router-dom';
 export const Pagination = ({totalPages, pageSize, currentPage, changePage, portionSize = 10, genreFormat, url}) => {
     const pages = [];
     // const pagesCount = Math.ceil(totalPages / pageSize);
-    const pagesCount = totalPages;
 
-    for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
     }
 
-    const portionCount = Math.ceil(pagesCount / portionSize);
+    const portionCount = Math.ceil(totalPages / portionSize);
     const [portionNumber, setPortionNumber] = useState(1);
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
@@ -48,8 +47,8 @@ export const Pagination = ({totalPages, pageSize, currentPage, changePage, porti
                         >
                             <Link
                                 className={s.pagination__link}
-                                to={`/${genreFormat}/${url}/page/${page}`}
-                                onClick={(e) => changePage(e.target.innerHTML)}
+                                to={`/${genreFormat}${url === '' ? '' : `/${url}`}/page/${page}`}
+                                onClick={(e) => changePage(genreFormat, url, e.target.innerHTML)}
                             >
                                 {page}
                             </Link>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Cards } from '../UI/Cards/Cards';
 import { Sidebar } from '../UI/Sidebar/Sidebar';
 import { connect, useDispatch } from 'react-redux';
-import { changePage, loadGenres, loadMovies, loadMovieWithGenre, setURL } from '../../store/actions/movies';
+import { changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage } from '../../store/actions/movies';
 import { Loader } from '../UI/Loader/Loader';
 
 
@@ -27,7 +27,7 @@ const Movie = (props) => {
                     sortMovies={(filter) =>
                         dispatch(loadMovies(props.format, filter))
                     }
-                    setURL={(url) => dispatch(setURL(url))}
+                    resetPage={(url) => dispatch(resetPage(url))}
                 />
             ) : (
                 <Loader />
@@ -37,7 +37,9 @@ const Movie = (props) => {
                     genreFormat={props.format}
                     movies={props.movies}
                     genres={props.genres}
-                    changePage={(page) => dispatch(changePage(page))}
+                    changePage={(format, url, page) =>
+                        dispatch(changePage(format, url, page))
+                    }
                     currentPage={props.currentPage}
                     totalPages={props.totalPages}
                     url={props.url}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import s from "./Sidebar.module.scss";
 import { NavLink } from "react-router-dom";
 
-export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies, setURL }) => {
+export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies, resetPage }) => {
     const [isFilterClosed, setIsFilterClosed] = useState(false);
 
     const capitalizeFirstLetter = (name) => {
@@ -35,7 +35,7 @@ export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies, s
                                         to={`/${genreFormat}/${genre.id}`}
                                         onClick={() => {
                                             filterMovies(genre.id);
-                                            setURL(genre.id);
+                                            resetPage(genre.id);
                                         }}
                                     >
                                         {capitalizeFirstLetter(genre.name)}
@@ -62,7 +62,7 @@ export const Sidebar = ({ genres, sort, filterMovies, genreFormat, sortMovies, s
                                         to={`/${genreFormat}/${item.link}`}
                                         onClick={() => {
                                             sortMovies(item.link);
-                                            setURL(item.link);
+                                            resetPage(item.link);
                                         }}
                                     >
                                         {item.name}
