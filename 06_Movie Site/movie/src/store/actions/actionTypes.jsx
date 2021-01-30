@@ -6,3 +6,4 @@ export const GET_SEARCHED_MOVIES = "GET_SEARCHED_MOVIES";
 export const ZERO_OUT_SEARCH_RESULTS = "ZERO_OUT_SEARCH_RESULTS";
 export const SET_PAGE = "SET_PAGE";
 export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
+export const SET_URL = "SET_URL";

@@ -2,7 +2,7 @@ import React from "react";
 import { Pagination } from "../Pagination/Pagination";
 import s from "./Cards.module.scss";
 
-export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, totalPages }) => {
+export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, totalPages, url }) => {
     const getCorrectDate = (date) => {
         if (date !== undefined) {
             return date.split("-").reverse().join(".");
@@ -19,7 +19,6 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
         });
         return allGenres.join(", ");
     };
-    console.log(totalPages);
 
     return (
         <div className={s.cards}>
@@ -80,7 +79,13 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                     );
                 })}
             </ul>
-            <Pagination totalPages={totalPages} currentPage={currentPage} />
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                changePage={(page) => changePage(page)}
+                genreFormat={genreFormat}
+                url={url}
+            />
         </div>
     );
 };

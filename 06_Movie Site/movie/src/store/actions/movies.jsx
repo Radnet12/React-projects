@@ -7,7 +7,8 @@ import {
     GET_SEARCHED_MOVIES,
     ZERO_OUT_SEARCH_RESULTS,
     SET_PAGE,
-    SET_TOTAL_PAGES
+    SET_TOTAL_PAGES,
+    SET_URL,
 } from "./actionTypes";
 
 export const getMovies = (movies) => {
@@ -34,10 +35,11 @@ export const setTotalPages = (totalPages) => {
     };
 };
 
-export const loadMovies = (format, filter) => {
+export const loadMovies = (format, filter, params) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const [list, totalPages] = await api.getLists(format, filter);
+        const [list, totalPages] = await api.getLists(format, filter, params);
+        console.log(totalPages);
         dispatch(setTotalPages(totalPages));
         dispatch(getMovies(list));
     }
@@ -52,7 +54,8 @@ export const loadGenres = (format) => {
 export const loadMovieWithGenre = (format, id) => {
     return async (dispatch) => {
         dispatch(loadingMovies());
-        const list = await api.getMovieWithGenre(format, id);
+        const [list, totalPages] = await api.getMovieWithGenre(format, id);
+        console.log(totalPages);
         dispatch(getMovies(list));
     };;
 };
@@ -88,5 +91,11 @@ export const setPage = (page) => {
 export const changePage = (page) => {
     return (dispatch) => {
         dispatch(setPage(page));
+    }
+};
+export const setURL = (url) => {
+    return {
+        type: SET_URL,
+        url
     }
 };

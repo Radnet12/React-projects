@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import styles from "./Pagination.module.scss";
+import s from "./Pagination.module.scss";
+import {Link} from 'react-router-dom';
 
-export const Pagination = ({totalPages, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
-
+export const Pagination = ({totalPages, pageSize, currentPage, changePage, portionSize = 10, genreFormat, url}) => {
     const pages = [];
     // const pagesCount = Math.ceil(totalPages / pageSize);
     const pagesCount = totalPages;
@@ -17,23 +17,56 @@ export const Pagination = ({totalPages, pageSize, currentPage, onPageChanged, po
     const rightPortionPageNumber = portionNumber * portionSize;
 
 
-    return <div className={styles.paginator}>
-        { portionNumber > 1 &&
-            <button onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button> }
+    return (
+        <ul className={s.pagination}>
+            {portionNumber > 1 && (
+                <li
+                    className={s.pagination__item}
+                    onClick={() => {
+                        setPortionNumber(portionNumber - 1);
+                    }}
+                >
+                    Prev
+                </li>
+            )}
 
-        {pages.filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
-            .map((page) => {
-            return <span
-                        key={page}
-                        onClick={(e) => {
-                            console.log(e);
-                            // onPageChanged(page);
-                        }}>{page}</span>
-        })}
+            {pages
+                .filter(
+                    (page) =>
+                        page >= leftPortionPageNumber &&
+                        page <= rightPortionPageNumber
+                )
+                .map((page) => {
+                    return (
+                        <li
+                            key={page}
+                            className={
+                                +page === +currentPage
+                                    ? `${s.pagination__item} ${s.pagination__item_active}`
+                                    : `${s.pagination__item}`
+                            }
+                        >
+                            <Link
+                                className={s.pagination__link}
+                                to={`/${genreFormat}/${url}/page/${page}`}
+                                onClick={(e) => changePage(e.target.innerHTML)}
+                            >
+                                {page}
+                            </Link>
+                        </li>
+                    );
+                })}
 
-        { portionCount > portionNumber &&
-            <button onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button> }
-
-
-    </div>
+            {portionCount > portionNumber && (
+                <li
+                    className={s.pagination__item}
+                    onClick={() => {
+                        setPortionNumber(portionNumber + 1);
+                    }}
+                >
+                    Next
+                </li>
+            )}
+        </ul>
+    );
 };
