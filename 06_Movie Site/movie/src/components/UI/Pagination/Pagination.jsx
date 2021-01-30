@@ -2,27 +2,33 @@ import React, {useState} from 'react';
 import s from "./Pagination.module.scss";
 import {Link} from 'react-router-dom';
 
-export const Pagination = ({totalPages, pageSize, currentPage, changePage, portionSize = 10, genreFormat, url }) => {
+export const Pagination = ({totalPages, currentPage, changePage, rangeOfItems = 10, genreFormat, url }) => {
     const pages = [];
     // const pagesCount = Math.ceil(totalPages / pageSize);
-
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
-    }
+    };
 
-    const portionCount = Math.ceil(totalPages / portionSize);
-    const [portionNumber, setPortionNumber] = useState(1);
-    const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-    const rightPortionPageNumber = portionNumber * portionSize;
+    const defineRange = (rangesCount, rangeOfItems, currentPage) => {
+        for (let i = 0; i <= rangesCount; i++) {
+            if (((i - 1) * rangeOfItems + 1) <= currentPage && currentPage <= (i * rangeOfItems)) {
+                return i;
+            }
+        }
+    };
 
+    const rangesCount = Math.ceil(totalPages / rangeOfItems);
+    const [rangeIndex, setRangeIndex] = useState(defineRange(rangesCount, rangeOfItems, currentPage));
+    const startRangeIndex = (rangeIndex - 1) * rangeOfItems + 1;
+    const endRangeIndex = rangeIndex * rangeOfItems;
 
     return (
         <ul className={s.pagination}>
-            {portionNumber > 1 && (
+            {rangeIndex > 1 && (
                 <li
                     className={s.pagination__item}
                     onClick={() => {
-                        setPortionNumber(portionNumber - 1);
+                        setRangeIndex(rangeIndex - 1);
                     }}
                 >
                     Prev
@@ -31,9 +37,7 @@ export const Pagination = ({totalPages, pageSize, currentPage, changePage, porti
 
             {pages
                 .filter(
-                    (page) =>
-                        page >= leftPortionPageNumber &&
-                        page <= rightPortionPageNumber
+                    (page) => page >= startRangeIndex && page <= endRangeIndex
                 )
                 .map((page) => {
                     return (
@@ -47,8 +51,16 @@ export const Pagination = ({totalPages, pageSize, currentPage, changePage, porti
                         >
                             <Link
                                 className={s.pagination__link}
-                                to={`/${genreFormat}${url === '' ? '' : `/${url}`}/page/${page}`}
-                                onClick={(e) => changePage(genreFormat, url, e.target.innerHTML)}
+                                to={`/${genreFormat}${
+                                    url === "" ? "" : `/${url}`
+                                }/page/${page}`}
+                                onClick={(e) => {
+                                    changePage(
+                                        genreFormat,
+                                        url,
+                                        e.target.innerHTML
+                                    )
+                                }}
                             >
                                 {page}
                             </Link>
@@ -56,11 +68,11 @@ export const Pagination = ({totalPages, pageSize, currentPage, changePage, porti
                     );
                 })}
 
-            {portionCount > portionNumber && (
+            {rangesCount > rangeIndex && (
                 <li
                     className={s.pagination__item}
                     onClick={() => {
-                        setPortionNumber(portionNumber + 1);
+                        setRangeIndex(rangeIndex + 1);
                     }}
                 >
                     Next

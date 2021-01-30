@@ -22,7 +22,7 @@ const initialState = {
     searchText: "",
     currentPage: 1,
     totalPages: 1,
-    url: 'popular'
+    url: "popular"
 };
 
 export const moviesReducer = (state = initialState, action) => {
