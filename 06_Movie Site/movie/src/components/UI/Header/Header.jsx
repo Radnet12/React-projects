@@ -6,14 +6,7 @@ import { connect } from "react-redux";
 import { updateText, getSearchResults, zeroOutSearchResults, resetPage } from "../../../store/actions/movies";
 import { useDebounce } from "../../../api/useDebounce";
 
-const Header = ({
-    updateText,
-    searchText,
-    getSearchResults,
-    movies,
-    zeroOutSearchResults,
-    resetPage,
-}) => {
+const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults,resetPage,}) => {
     const debouncedText = useDebounce(searchText, 400);
 
     useEffect(() => {
@@ -262,13 +255,10 @@ function mapStateToProps(state) {
         movies: state.moviesPage.searchedMovies,
     };
 }
-function mapDispatchToProps(dispatch) {
-    return {
-        updateText: (text) => dispatch(updateText(text)),
-        getSearchResults: (text) => dispatch(getSearchResults(text)),
-        zeroOutSearchResults: () => dispatch(zeroOutSearchResults()),
-        resetPage: (url) => dispatch(resetPage(url)),
-    };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, {
+    updateText,
+    getSearchResults,
+    zeroOutSearchResults,
+    resetPage,
+})(Header);
