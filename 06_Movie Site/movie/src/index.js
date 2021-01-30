@@ -10,6 +10,7 @@ import rootReducer from './store/reducers/rootReducer';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
+
 ReactDOM.render(
         <Provider store={store}>
             <React.StrictMode>

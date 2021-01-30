@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pagination } from "../Pagination/Pagination";
 import s from "./Cards.module.scss";
 
 export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, totalPages, url }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const getCorrectDate = (date) => {
         if (date !== undefined) {
             return date.split("-").reverse().join(".");

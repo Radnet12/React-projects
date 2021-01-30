@@ -3,10 +3,17 @@ import s from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
 import { Container } from "../Container/Container";
 import { connect } from "react-redux";
-import { updateText, getSearchResults, zeroOutSearchResults } from "../../../store/actions/movies";
+import { updateText, getSearchResults, zeroOutSearchResults, resetPage } from "../../../store/actions/movies";
 import { useDebounce } from "../../../api/useDebounce";
 
-const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults}) => {
+const Header = ({
+    updateText,
+    searchText,
+    getSearchResults,
+    movies,
+    zeroOutSearchResults,
+    resetPage,
+}) => {
     const debouncedText = useDebounce(searchText, 400);
 
     useEffect(() => {
@@ -29,7 +36,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                 <li className={s.header__searched_info}>
                     Введите что-нибудь для поиска
                 </li>
-            )
+            );
         } else {
             const regexp = new RegExp(searchText, "g");
             return movies
@@ -121,8 +128,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 dangerouslySetInnerHTML={{
                                     __html: `${name}`,
                                 }}
-                            >
-                            </span>
+                            ></span>
                             <span className={s.header__searched_indicator}>
                                 {movie.media_type === "movie"
                                     ? "Фильм"
@@ -214,6 +220,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
                                 to="/movie"
+                                onClick={() => resetPage("popular")}
                             >
                                 Фильмы
                             </NavLink>
@@ -223,6 +230,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
                                 to="/tv"
+                                onClick={() => resetPage("popular")}
                             >
                                 Сериалы
                             </NavLink>
@@ -239,9 +247,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                             }}
                         />
                         <ul className={s.header__searched_list}>
-                            {
-                                getRelevantAnswer()
-                            }
+                            {getRelevantAnswer()}
                         </ul>
                     </div>
                 </div>
@@ -260,7 +266,8 @@ function mapDispatchToProps(dispatch) {
     return {
         updateText: (text) => dispatch(updateText(text)),
         getSearchResults: (text) => dispatch(getSearchResults(text)),
-        zeroOutSearchResults: () => dispatch(zeroOutSearchResults())
+        zeroOutSearchResults: () => dispatch(zeroOutSearchResults()),
+        resetPage: (url) => dispatch(resetPage(url)),
     };
 }
 

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 export const Pagination = ({totalPages, currentPage, changePage, rangeOfItems = 10, genreFormat, url }) => {
     const pages = [];
-    // const pagesCount = Math.ceil(totalPages / pageSize);
+
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
     };
@@ -59,7 +59,7 @@ export const Pagination = ({totalPages, currentPage, changePage, rangeOfItems = 
                                         genreFormat,
                                         url,
                                         e.target.innerHTML
-                                    )
+                                    );
                                 }}
                             >
                                 {page}

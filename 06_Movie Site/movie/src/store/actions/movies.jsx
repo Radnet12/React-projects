@@ -88,7 +88,6 @@ export const setPage = (page) => {
     }
 };
 export const changePage = (format, url , page) => {
-    console.log(format,typeof url === 'number', url, page);
     return (dispatch) => {
         dispatch(setPage(page));
         if (typeof url === 'string') {
