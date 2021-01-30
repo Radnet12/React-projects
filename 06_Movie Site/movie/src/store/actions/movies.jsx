@@ -87,7 +87,7 @@ export const setPage = (page) => {
         page
     }
 };
-export const changePage = (format, url, page) => {
+export const changePage = (format, url , page) => {
     console.log(format,typeof url === 'number', url, page);
     return (dispatch) => {
         dispatch(setPage(page));

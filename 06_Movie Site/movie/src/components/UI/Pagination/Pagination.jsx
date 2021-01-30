@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import s from "./Pagination.module.scss";
 import {Link} from 'react-router-dom';
 
-export const Pagination = ({totalPages, pageSize, currentPage, changePage, portionSize = 10, genreFormat, url}) => {
+export const Pagination = ({totalPages, pageSize, currentPage, changePage, portionSize = 10, genreFormat, url }) => {
     const pages = [];
     // const pagesCount = Math.ceil(totalPages / pageSize);
 
