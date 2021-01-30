@@ -24,13 +24,19 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
         <div className={s.cards}>
             <ul className={s.cards__list}>
                 {movies.map((movie) => {
+                    console.log(movie);
                     return (
                         <li key={movie.id} className={s.item}>
                             <div className={s.item__image}>
                                 <a href="#" className={s.item__link}>
                                     <img
-                                        src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                                        src={
+                                            movie.poster_path !== null
+                                                ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
+                                                : "https://dummyimage.com/275x412/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
+                                        }
                                         alt={movie.title || movie.original_name}
+                                        title={movie.title || movie.original_name}
                                     />
                                 </a>
                             </div>
