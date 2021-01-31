@@ -11,20 +11,15 @@ $maxWidth: 1920;
     background-position: center;
     min-height: 300px;
     height: 100vh;
-    width: calc(100% + 30px);
-    margin: -100px 0 0 -15px;
+    margin-top: -100px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .main__offer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
     max-width: 850px;
     width: 100%;
-    padding: 0 15px;
+    margin: 0 auto;
 }
 .main__search {
     width: 100%;
