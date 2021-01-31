@@ -4,6 +4,7 @@ import { Sidebar } from '../UI/Sidebar/Sidebar';
 import { connect } from 'react-redux';
 import { changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage } from '../../store/actions/movies';
 import { Loader } from '../UI/Loader/Loader';
+import { MainTemplate } from '../UI/MainTemplate/MainTemplate';
 
 
 const Movie = (props) => {
@@ -12,9 +13,8 @@ const Movie = (props) => {
         props.loadMovies();
         props.loadGenres();
     }, []);
-
     return (
-        <>
+        <MainTemplate>
             {props.isFetchingGenres === false ? (
                 <Sidebar
                     genres={props.genres}
@@ -46,7 +46,7 @@ const Movie = (props) => {
             ) : (
                 <Loader />
             )}
-        </>
+        </MainTemplate>
     );
 };
 

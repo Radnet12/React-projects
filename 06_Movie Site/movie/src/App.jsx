@@ -5,7 +5,6 @@ import Tv from "./components/Tv/Tv";
 import Header from "./components/UI/Header/Header";
 import { MainWrap } from "./components/UI/Main/Main";
 import { Main } from "./components/Main/Main";
-import { MainTemplate } from "./components/UI/MainTemplate/MainTemplate";
 
 function App() {
     return (
@@ -14,10 +13,9 @@ function App() {
             <MainWrap>
                 <Switch>
                     <Route exact path="/" component={Main} />
-                    <MainTemplate>
-                            <Route path="/movie" component={Movie} />
-                            <Route path="/tv" component={Tv} />
-                    </MainTemplate>
+                    <Route path="/movie" component={Movie} />
+                    <Route path="/tv" component={Tv} />
+                    <Route path="/catalog/:format/:id" component={Main} />
                 </Switch>
             </MainWrap>
         </>

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Pagination } from "../Pagination/Pagination";
 import s from "./Cards.module.scss";
 
@@ -22,7 +23,6 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
         });
         return allGenres.join(", ");
     };
-
     return (
         <div className={s.cards}>
             <ul className={s.cards__list}>
@@ -30,7 +30,10 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                     return (
                         <li key={movie.id} className={s.item}>
                             <div className={s.item__image}>
-                                <a href="#" className={s.item__link}>
+                                <Link
+                                    to={`/catalog/${genreFormat}/${movie.id}`}
+                                    className={s.item__link}
+                                >
                                     <img
                                         src={
                                             movie.poster_path !== null
@@ -41,16 +44,18 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                         title={
                                             movie.title || movie.original_name
                                         }
-                                        loading='lazy'
+                                        loading="lazy"
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <div className={s.item__rating}>
                                 <span>{movie.vote_average.toFixed(1)}</span>
                             </div>
                             <div className={s.item__bottom}>
                                 <div className={s.item__title}>
-                                    <a href="#">{movie.title || movie.name}</a>
+                                    <Link to={`/catalog/${genreFormat}/${movie.id}`}>
+                                        {movie.title || movie.name}
+                                    </Link>
                                 </div>
                                 <div className={s.item__date}>
                                     {getCorrectDate(movie.release_date) ||
@@ -58,7 +63,7 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                 </div>
                             </div>
                             <div className={s.item__hovered}>
-                                <a href="#">
+                                <Link to={`/catalog/${genreFormat}/${movie.id}`}>
                                     <div className={s.item__info}>
                                         <p>
                                             Название:{" "}
@@ -84,7 +89,7 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                             </span>
                                         </p>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         </li>
                     );

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage } from "../../store/actions/movies";
 import { Cards } from "../UI/Cards/Cards";
 import { Loader } from "../UI/Loader/Loader";
+import { MainTemplate } from "../UI/MainTemplate/MainTemplate";
 import { Sidebar } from "../UI/Sidebar/Sidebar";
 
 const Tv = (props) => {
@@ -12,7 +13,7 @@ const Tv = (props) => {
     }, []);
 
     return (
-        <>
+        <MainTemplate>
             {props.isFetchingGenres === false ? (
                 <Sidebar
                     genres={props.genres}
@@ -44,7 +45,7 @@ const Tv = (props) => {
             ) : (
                 <Loader />
             )}
-        </>
+        </MainTemplate>
     );
 };
 function mapStateToProps (state) {
