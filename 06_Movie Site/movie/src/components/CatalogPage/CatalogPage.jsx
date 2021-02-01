@@ -152,7 +152,63 @@ export const CatalogPage = () => {
                     </div>
                 </Container>
             </section>
-            <section className={s.roles}></section>
+            <div className={s.bottom}>
+                <Container>
+                    <div className={s.bottom__wrapper}>
+                        <section className={s.left}>dfdsf</section>
+                        <section className={s.right}>
+                            <div className={s.right__item}>
+                                <h3 className={s.right__item_title}>
+                                    Оригинальное название
+                                </h3>
+                                <div className={s.right__item_info}>
+                                    Outside
+                                </div>
+                            </div>
+                            <div className={s.right__item}>
+                                <h3 className={s.right__item_title}>
+                                    Язык оригинала
+                                </h3>
+                                <div className={s.right__item_info}>
+                                    Английский
+                                </div>
+                            </div>
+                            <div className={s.right__item}>
+                                <h3 className={s.right__item_title}>Статус</h3>
+                                <div className={s.right__item_info}>
+                                    Выпущен
+                                </div>
+                            </div>
+                            <div className={s.right__item}>
+                                <h3 className={s.right__item_title}>Бюджет</h3>
+                                <div className={s.right__item_info}>
+                                    1 888 000
+                                </div>
+                            </div>
+                            <div className={s.right__item}>
+                                <h3 className={s.right__item_title}>
+                                    Кассовые сборы
+                                </h3>
+                                <div className={s.right__item_info}>
+                                    20 000 000
+                                </div>
+                            </div>
+                            <div className={s.right__item}>
+                                <h3 className={s.right__item_title}>
+                                    Ключевые слова
+                                </h3>
+                                <ul className={s.right__item_list}>
+                                    <li className={s.list__item}>Трансформатор</li>
+                                    <li className={s.list__item}>Киборг</li>
+                                    <li className={s.list__item}>Цветы</li>
+                                    <li className={s.list__item}>Пришельцы</li>
+                                    <li className={s.list__item}>Аннуетет</li>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                </Container>
+            </div>
         </>
     );
 };
