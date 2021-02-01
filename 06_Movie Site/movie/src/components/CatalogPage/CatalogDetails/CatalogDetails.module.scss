@@ -29,19 +29,27 @@
             background-color: var(--color-black);
             transition: width 0.3s;
         }
-
-        &_active {
-            &::before {
-                width: 100%;
-            }
-        }
-
         @media (min-width: 992px) {
             &:hover,
             &:focus {
                 &::after {
                     width: 50%;
                     transition: width 0.3s;
+                }
+            }
+        }
+        &_active {
+            cursor: default;
+            &::after {
+                width: 100%;
+            }
+
+            @media (min-width: 992px) {
+                &:hover,
+                &:focus {
+                    &::after {
+                        width: 100%;
+                    }
                 }
             }
         }
