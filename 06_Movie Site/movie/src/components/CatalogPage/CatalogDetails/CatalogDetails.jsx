@@ -1,14 +1,39 @@
 import React, { useState } from "react";
 import s from "./CatalogDetails.module.scss";
 
-export const CatalogDetails = ({ cast, crew }) => {
+export const CatalogDetails = ({ cast, crew, feedbacks }) => {
     const [tab, setTab] = useState(1);
-    if (cast !== undefined && crew !== undefined) {
+    if (cast !== undefined && crew !== undefined && feedbacks !== undefined) {
         const returnCorrectTab = () => {
             if (tab === 3) {
                 return (
-                    <ul></ul>
-                )
+                    <ul className={s.feedback}>
+                        {feedbacks.length !== 0 ? feedbacks.map((feedback) => {
+                            return (
+                                <li className={s.feedback__item}>
+                                    <div className={s.feedback__details}>
+                                        <div className={s.feedback__image}>
+                                            <img
+                                                src={feedback.author_details.avatar_path.replace(
+                                                    /\//,
+                                                    ""
+                                                )}
+                                                alt={feedback.author}
+                                                title={feedback.author}
+                                            />
+                                        </div>
+                                        <span className={s.feedback__name}>
+                                            {feedback.author}
+                                        </span>
+                                    </div>
+                                    <div className={s.feedback__content}>
+                                        {feedback.content}
+                                    </div>
+                                </li>
+                            );
+                        }) : <p>К сожаления, отзывов ещё нет</p>}
+                    </ul>
+                );
             } else if (tab === 2) {
                 return (
                     <ul className={s.person}>
@@ -39,7 +64,7 @@ export const CatalogDetails = ({ cast, crew }) => {
                             );
                         })}
                     </ul>
-                )
+                );
             } else {
                 return (
                     <ul className={s.person}>
@@ -80,9 +105,36 @@ export const CatalogDetails = ({ cast, crew }) => {
         return (
             <section className={s.details}>
                 <ul className={s.details__tabs}>
-                    <li className={tab === 1 ? `${s.details__tabs_item} ${s.details__tabs_item_active}` : `${s.details__tabs_item}`} onClick={() => setTab(1)}>Актёрский состав</li>
-                    <li className={tab === 2 ? `${s.details__tabs_item} ${s.details__tabs_item_active}` : `${s.details__tabs_item}`} onClick={() => setTab(2)}>Съемочная группа</li>
-                    <li className={tab === 3 ? `${s.details__tabs_item} ${s.details__tabs_item_active}` : `${s.details__tabs_item}`} onClick={() => setTab(3)}>Отзывы</li>
+                    <li
+                        className={
+                            tab === 1
+                                ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                : `${s.details__tabs_item}`
+                        }
+                        onClick={() => setTab(1)}
+                    >
+                        Актёрский состав
+                    </li>
+                    <li
+                        className={
+                            tab === 2
+                                ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                : `${s.details__tabs_item}`
+                        }
+                        onClick={() => setTab(2)}
+                    >
+                        Съемочная группа
+                    </li>
+                    <li
+                        className={
+                            tab === 3
+                                ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                : `${s.details__tabs_item}`
+                        }
+                        onClick={() => setTab(3)}
+                    >
+                        Отзывы
+                    </li>
                 </ul>
                 <div>
                     <div className={s.details__content}>

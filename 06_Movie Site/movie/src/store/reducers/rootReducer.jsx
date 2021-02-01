@@ -1,6 +1,8 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
+import { catalogReducer } from './catalogReducer';
 import { moviesReducer } from './moviesReducer';
 
 export default combineReducers({
-    moviesPage: moviesReducer
+    moviesPage: moviesReducer,
+    catalogPage: catalogReducer
 })

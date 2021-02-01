@@ -1,44 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Container } from "../UI/Container/Container";
 import { CatalogDetails } from "./CatalogDetails/CatalogDetails";
 import { CatalogMain } from "./CatalogMain/CatalogMain";
 import s from "./CatalogPage.module.scss";
 import { CatalogSidebar } from "./CatalogSidebar/CatalogSidebar";
+import {loadMovie} from '../../store/actions/catalog';
+import {connect} from 'react-redux';
 
-export const CatalogPage = () => {
-    const [film, setFilm] = useState([]);
-    const [credits, setCredits] = useState([]);
-    console.log(film);
+const CatalogPage = (props) => {
     useEffect(() => {
-        const loadMovie = () => {
-            fetch(
-                // "https://api.themoviedb.org/3/configuration?api_key=5daf90e431960f20b1aca24657c54316"
-                "https://api.themoviedb.org/3/movie/775996?api_key=5daf90e431960f20b1aca24657c54316&language=ru-RU"
-            )
-                .then((response) => response.json())
-                .then((data) => setFilm(data));
-        };
-        const loadCredits = () => {
-            fetch(
-                "https://api.themoviedb.org/3/movie/775996/credits?api_key=5daf90e431960f20b1aca24657c54316&language=ru-RU"
-            )
-                .then((response) => response.json())
-                .then((data) => setCredits(data));
-        };
-        loadMovie();
-        loadCredits();
+        props.loadMovie(props.match.params.format, props.match.params.id);
     }, []);
     return (
         <>
-            <CatalogMain film={film}/>
+            <CatalogMain movie={props.movie}/>
             <div className={s.bottom}>
                 <Container>
                     <div className={s.bottom__wrapper}>
-                        <CatalogDetails cast={credits.cast} crew={credits.crew}/>
-                        <CatalogSidebar/>
+                        {/* <CatalogDetails cast='{credits.cast}' crew='{credits.crew}' feedbacks='{feedbacks}'/>
+                        <CatalogSidebar/> */}
                     </div>
                 </Container>
             </div>
         </>
     );
 };
+const mapStateToProps = (state) => {
+    return {
+        movie: state.catalogPage.movie
+    }
+};
+export default connect(mapStateToProps, {loadMovie})(CatalogPage);

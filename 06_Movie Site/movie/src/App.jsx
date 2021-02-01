@@ -5,7 +5,7 @@ import Tv from "./components/Tv/Tv";
 import Header from "./components/UI/Header/Header";
 import { MainWrap } from "./components/UI/Main/Main";
 import { Main } from "./components/Main/Main";
-import { CatalogPage } from "./components/CatalogPage/CatalogPage";
+import CatalogPage from "./components/CatalogPage/CatalogPage";
 
 function App() {
     return (

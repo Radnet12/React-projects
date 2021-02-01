@@ -40,10 +40,8 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                                 ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
                                                 : "https://dummyimage.com/275x412/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
                                         }
-                                        alt={movie.title || movie.original_name}
-                                        title={
-                                            movie.title || movie.original_name
-                                        }
+                                        alt={(movie.title || movie.original_title) || (movie.name || movie.original_name)}
+                                        title={(movie.title || movie.original_title) || (movie.name || movie.original_name)}
                                         loading="lazy"
                                     />
                                 </Link>
@@ -54,12 +52,11 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                             <div className={s.item__bottom}>
                                 <div className={s.item__title}>
                                     <Link to={`/catalog/${genreFormat}/${movie.id}`}>
-                                        {movie.title || movie.name}
+                                        {(movie.title || movie.original_title) || (movie.name || movie.original_name)}
                                     </Link>
                                 </div>
                                 <div className={s.item__date}>
-                                    {getCorrectDate(movie.release_date) ||
-                                        getCorrectDate(movie.first_air_date)}
+                                    {getCorrectDate(movie.release_date) || getCorrectDate(movie.first_air_date)}
                                 </div>
                             </div>
                             <div className={s.item__hovered}>
@@ -68,7 +65,7 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                         <p>
                                             Название:{" "}
                                             <span>
-                                                {movie.title || movie.name}
+                                                {(movie.title || movie.original_title) || (movie.name || movie.original_name)}
                                             </span>
                                         </p>
                                         <p>
@@ -80,12 +77,7 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
                                         <p>
                                             Дата выхода:{" "}
                                             <span>
-                                                {getCorrectDate(
-                                                    movie.release_date
-                                                ) ||
-                                                    getCorrectDate(
-                                                        movie.first_air_date
-                                                    )}
+                                                {getCorrectDate(movie.release_date) ||getCorrectDate(movie.first_air_date)}
                                             </span>
                                         </p>
                                     </div>
