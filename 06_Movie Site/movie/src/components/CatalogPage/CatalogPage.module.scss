@@ -18,6 +18,7 @@
     }
 }
 .movie__wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 50px 0;
@@ -35,6 +36,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 10px;
     }
 }
 .movie__title {
@@ -48,6 +50,7 @@
     margin-bottom: 25px;
 }
 .movie__detail {
+    opacity: 0.7;
     &:not(:last-child) {
         margin-right: 30px;
     }
@@ -77,6 +80,14 @@
 }
 .movie__genre_link {
     color: var(--color-white);
+    transition: color 0.3s;
+
+    @media (min-width: 992px) {
+        &:hover {
+            color: var(--color-highlight);
+            transition: color 0.3s;
+        }
+    }
 }
 .movie__descr {
     max-width: 750px;
@@ -89,5 +100,84 @@
     &_info {
         letter-spacing: 0.5px;
         line-height: 150%;
+    }
+}
+.movie__actions {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 280px;
+    padding: 10px;
+    background-color: var(--color-actions);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 15px 0px var(--color-actions);
+}
+.movie__action {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: rgba(0,0,0, 1);
+            transition: background-color 0.3s;
+        }
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+    a {
+        display: flex;
+    }
+
+    @media (min-width: 992px) {
+        &:hover,
+        &:focus {
+            .movie__action_tooltip {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.5s, visibility 0.5s;
+            }
+        }
+    }
+}
+
+.movie__action_tooltip {
+    position: absolute;
+    bottom: -50px;
+    border-radius: 10px;
+    padding: 7px 15px;
+    background-color: var(--color-actions);
+    backdrop-filter: blur(5px);
+    white-space: nowrap;
+    font-size: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 6px 6px 6px;
+        border-color: transparent transparent rgba(0,0,0,0.5) transparent;
+        transform: translateX(-50%);
     }
 }
