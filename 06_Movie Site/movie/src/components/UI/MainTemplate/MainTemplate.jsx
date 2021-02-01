@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from '../Container/Container';
-
 import s from './MainTemplate.module.scss';
 
 export const MainTemplate = ({children}) => {

@@ -7,7 +7,7 @@ export const Main = () => {
         <section className={s.main}>
             <Container>
                 <div className={s.main__offer}>
-                    <h1>Смотрите любимое кино здесь</h1>
+                    <h1 className={s.main__title}>Смотрите любимое кино здесь</h1>
                     <div className={s.main__search}>
                         <input
                             type="text"
