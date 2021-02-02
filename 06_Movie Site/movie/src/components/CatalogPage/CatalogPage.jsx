@@ -8,6 +8,7 @@ import {loadMovie} from '../../store/actions/catalog';
 import {connect} from 'react-redux';
 
 const CatalogPage = (props) => {
+    console.log('render');
     useEffect(() => {
         props.loadMovie(props.match.params.format, props.match.params.id);
     }, []);
