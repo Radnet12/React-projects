@@ -12,6 +12,7 @@ import {
 } from "./actionTypes";
 
 export const getMovies = (movies) => {
+    debugger
     return {
         type: GET_MOVIES,
         movies
@@ -50,11 +51,14 @@ export const loadGenres = (format) => {
     }
 }
 
-export const loadMovieWithGenre = (format, id, page) => {
+export const loadMovieWithGenre = (format, id = 80, page = "1") => {
     return async (dispatch) => {
         dispatch(loadingMovies());
+        dispatch(setURL(id));
+        dispatch(setPage(page));
         const [list, totalPages] = await api.getMovieWithGenre(format, id, page);
         dispatch(setTotalPages(totalPages));
+        debugger
         dispatch(getMovies(list));
     };;
 };

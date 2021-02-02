@@ -5,16 +5,17 @@ import { CatalogMain } from "./CatalogMain/CatalogMain";
 import s from "./CatalogPage.module.scss";
 import { CatalogSidebar } from "./CatalogSidebar/CatalogSidebar";
 import {loadMovie} from '../../store/actions/catalog';
+import {Loader} from '../UI/Loader/Loader';
 import {connect} from 'react-redux';
 
-const CatalogPage = (props) => {
-    console.log('render');
+const CatalogPage = ({match: {params: {format, id}}, movie, loadMovie, isFetchingMovie}) => {
+    console.log("render", isFetchingMovie);
     useEffect(() => {
-        props.loadMovie(props.match.params.format, props.match.params.id);
-    }, []);
+        loadMovie(format, id);
+    }, [format, id]);
     return (
         <>
-            <CatalogMain movie={props.movie} format={props.match.params.format}/>
+            {isFetchingMovie === false ? <CatalogMain movie={movie} format={format} /> : <Loader/>}
             <div className={s.bottom}>
                 <Container>
                     <div className={s.bottom__wrapper}>
@@ -28,7 +29,8 @@ const CatalogPage = (props) => {
 };
 const mapStateToProps = (state) => {
     return {
-        movie: state.catalogPage.movie
+        movie: state.catalogPage.movie,
+        isFetchingMovie: state.catalogPage.isFetchingMovie
     }
 };
 export default connect(mapStateToProps, {loadMovie})(CatalogPage);

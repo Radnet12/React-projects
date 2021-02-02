@@ -14,7 +14,7 @@ function App() {
             <MainWrap>
                 <Switch>
                     <Route exact path="/" component={Main} />
-                    <Route path="/movie" component={Movie} />
+                    <Route path="/movie/:id?/:page?/:pageId?" component={Movie} />
                     <Route path="/tv" component={Tv} />
                     <Route path="/catalog/:format/:id" component={CatalogPage} />
                 </Switch>

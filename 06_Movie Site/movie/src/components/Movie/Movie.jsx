@@ -10,18 +10,25 @@ import { MainTemplate } from '../UI/MainTemplate/MainTemplate';
 const Movie = (props) => {
     console.log(props);
     useEffect(() => {
+        console.log("renderEffect");
         props.loadMovies();
         props.loadGenres();
     }, []);
+    useEffect(() => {
+        console.log("propsEffect");
+        debugger
+        props.loadMovieWithGenre("movie", props.match.params.id, props.match.params.pageId);
+    }, [props.match.params.id, props.match.params.pageId]);
+
+
+
     return (
         <MainTemplate>
             {props.isFetchingGenres === false ? (
                 <Sidebar
                     genres={props.genres}
                     sort={props.sorted}
-                    filterMovies={(id) =>
-                        props.loadMovieWithGenre(props.format, id)
-                    }
+                    filterMovies={ (id) => props.loadMovieWithGenre(props.format, id)}
                     genreFormat={props.format}
                     sortMovies={(filter) =>
                         props.loadMovies(props.format, filter)
