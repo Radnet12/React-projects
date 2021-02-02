@@ -8,7 +8,7 @@ import { MainTemplate } from '../UI/MainTemplate/MainTemplate';
 
 
 const Movie = (props) => {
-
+    console.log(props);
     useEffect(() => {
         props.loadMovies();
         props.loadGenres();

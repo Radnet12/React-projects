@@ -13,7 +13,7 @@ const CatalogPage = (props) => {
     }, []);
     return (
         <>
-            <CatalogMain movie={props.movie}/>
+            <CatalogMain movie={props.movie} format={props.match.params.format}/>
             <div className={s.bottom}>
                 <Container>
                     <div className={s.bottom__wrapper}>
