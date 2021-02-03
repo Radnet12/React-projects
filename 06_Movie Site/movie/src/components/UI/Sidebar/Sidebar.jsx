@@ -42,7 +42,7 @@ export const Sidebar = ({
                                         to={`/${genreFormat}/${genre.id}`}
                                         onClick={() => {
                                             // filterMovies(genre.id);
-                                            resetPage(genre.id);
+                                            // resetPage(genre.id);
                                         }}
                                     >
                                         {capitalizeFirstLetter(genre.name)}

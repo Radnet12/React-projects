@@ -90,9 +90,9 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
             <Pagination
                 totalPages={totalPages}
                 currentPage={currentPage}
-                changePage={(format, url, page) =>
-                    changePage(format, url, page)
-                }
+                // changePage={(format, url, page) =>
+                //     changePage(format, url, page)
+                // }
                 genreFormat={genreFormat}
                 url={url}
             />

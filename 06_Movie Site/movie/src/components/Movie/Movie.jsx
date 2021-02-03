@@ -13,10 +13,24 @@ const Movie = (props) => {
         if (props.genres.length === 0) {props.loadGenres()}
         if (props.match.params.id === undefined) {
             props.loadMovies();
-        } else if (typeof props.match.params.id === "number") {
-            props.loadMovieWithGenre(props.format, props.match.params.id, props.match.params.pageId);
-        } else if (typeof props.match.params.id === "string") {
-            props.loadMovies(props.format, props.match.params.id, props.match.params.pageId);
+        } else if (isNaN(parseInt(props.match.params.id))) {
+            props.loadMovies(
+                props.format,
+                props.match.params.id,
+                props.match.params.pageId
+            );
+        } else if (isNaN(parseInt(props.match.params.id)) === false) {
+            props.loadMovieWithGenre(
+                props.format,
+                props.match.params.id,
+                props.match.params.pageId
+            );
+        } else {
+            props.loadMovies(
+                props.format,
+                props.match.params.id,
+                props.match.params.pageId
+            );
         }
     }, [props.match.params.id, props.match.params.pageId]);
 
