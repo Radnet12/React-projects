@@ -4,7 +4,6 @@ import { Container } from "../../UI/Container/Container";
 import { Link } from "react-router-dom";
 
 export const CatalogMain = ({ movie, format }) => {
-    console.log("renderMain", movie);
     const getCorrectDate = (date) => {
         if (date !== undefined) {
             return date.split("-").reverse().join(".");

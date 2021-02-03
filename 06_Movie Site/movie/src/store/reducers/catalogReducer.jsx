@@ -1,4 +1,4 @@
-import { GET_MOVIE, LOADING_MOVIE } from "../actions/actionTypes";
+import { GET_MOVIE_INFO, LOADING_MOVIE } from "../actions/actionTypes";
 
 const initialState = {
     movie: [],
@@ -8,20 +8,22 @@ const initialState = {
 };
 export const catalogReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_MOVIE: {
+        case GET_MOVIE_INFO: {
             return {
                 ...state,
                 movie: action.movie,
-                isFetchingMovie: false
-            }
+                credits: action.credits,
+                reviews: action.reviews,
+                isFetchingMovie: false,
+            };
         }
         case LOADING_MOVIE: {
             return {
                 ...state,
-                isFetchingMovie: true
-            }
+                isFetchingMovie: true,
+            };
         }
         default:
-            return state
+            return state;
     }
 };

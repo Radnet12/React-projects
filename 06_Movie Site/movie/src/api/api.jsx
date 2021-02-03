@@ -46,7 +46,7 @@ export const api = {
     },
     getReviews: async (format = 'movie', id) => {
         const response = await fetch(
-            `${base_uri}/${format}/${id}/reviews?${api_key}`
+            `${base_uri}/${format}/${id}/reviews?api_key=5daf90e431960f20b1aca24657c54316`
         );
         const {results} = await response.json();
         return results;

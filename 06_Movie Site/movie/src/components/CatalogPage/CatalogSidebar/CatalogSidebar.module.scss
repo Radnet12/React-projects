@@ -30,3 +30,9 @@
     color: var(--color-white);
     background-color: var(--color-header);
 }
+.sidebar__item_lang {
+    &:not(:last-child) {
+        display: inline-block;
+        margin-right: 7px;
+    }
+}

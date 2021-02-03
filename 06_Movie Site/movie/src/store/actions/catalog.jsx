@@ -1,21 +1,25 @@
 import { api } from "../../api/api";
-import { GET_MOVIE, LOADING_MOVIE } from "./actionTypes";
+import { GET_MOVIE_INFO, LOADING_MOVIE } from "./actionTypes";
 
-export const getMovie = (movie) => {
+export const getMovieInfo = (movie, credits, reviews) => {
     return {
-        type: GET_MOVIE,
-        movie
+        type: GET_MOVIE_INFO,
+        movie,
+        credits,
+        reviews
     }
 };
-export const loadingMovie = () => {
+export const loadingMovieInfo = () => {
     return {
         type: LOADING_MOVIE
     };
 };
-export const loadMovie = (format, id) => {
+export const loadMovieInfo = (format, id) => {
     return async (dispatch) => {
-        dispatch(loadingMovie());
-        const result = await api.getMovie(format, id);
-        dispatch(getMovie(result));
+        dispatch(loadingMovieInfo());
+        const movie = await api.getMovie(format, id);
+        const credits = await api.getCredits(format, id);
+        const reviews = await api.getReviews(format, id);
+        dispatch(getMovieInfo(movie, credits, reviews));
     };
 };
