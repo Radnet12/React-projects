@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage } from "../../store/actions/movies";
+import { loadGenres, loadMovies, loadMovieWithGenre } from "../../store/actions/movies";
 import { Cards } from "../UI/Cards/Cards";
 import { Loader } from "../UI/Loader/Loader";
 import { MainTemplate } from "../UI/MainTemplate/MainTemplate";
@@ -8,9 +8,29 @@ import { Sidebar } from "../UI/Sidebar/Sidebar";
 
 const Tv = (props) => {
     useEffect(() => {
-        props.loadMovies("tv");
-        props.loadGenres("tv");
-    }, []);
+        if (props.match.params.id === undefined) {
+            props.loadGenres(props.format);
+            props.loadMovies(props.format);
+        } else if (isNaN(parseInt(props.match.params.id))) {
+            props.loadMovies(
+                props.format,
+                props.match.params.id,
+                props.match.params.pageId
+            );
+        } else if (isNaN(parseInt(props.match.params.id)) === false) {
+            props.loadMovieWithGenre(
+                props.format,
+                props.match.params.id,
+                props.match.params.pageId
+            );
+        } else {
+            props.loadMovies(
+                props.format,
+                props.match.params.id,
+                props.match.params.pageId
+            );
+        }
+    }, [props.match.params.id, props.match.params.pageId]);
 
     return (
         <MainTemplate>
@@ -18,14 +38,7 @@ const Tv = (props) => {
                 <Sidebar
                     genres={props.genres}
                     sort={props.sorted}
-                    filterMovies={(id) =>
-                        props.loadMovieWithGenre(props.format, id)
-                    }
                     genreFormat={props.format}
-                    sortMovies={(filter) =>
-                        props.loadMovies(props.format, filter)
-                    }
-                    resetPage={(url) => props.resetPage(url)}
                 />
             ) : (
                 <Loader />
@@ -35,9 +48,6 @@ const Tv = (props) => {
                     genreFormat={props.format}
                     movies={props.movies}
                     genres={props.genres}
-                    changePage={(format, url, page) =>
-                        props.changePage(format, url, page)
-                    }
                     currentPage={props.currentPage}
                     totalPages={props.totalPages}
                     url={props.url}
@@ -61,4 +71,4 @@ function mapStateToProps (state) {
         url: state.moviesPage.url,
     };
 }
-export default connect(mapStateToProps, {changePage, loadGenres, loadMovies, loadMovieWithGenre, resetPage})(Tv);
+export default connect(mapStateToProps, { loadGenres, loadMovies, loadMovieWithGenre})(Tv);

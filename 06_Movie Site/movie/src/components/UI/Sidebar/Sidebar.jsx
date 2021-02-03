@@ -5,10 +5,7 @@ import { NavLink } from "react-router-dom";
 export const Sidebar = ({
     genres,
     sort,
-    filterMovies,
     genreFormat,
-    sortMovies,
-    resetPage,
 }) => {
     const [isFilterClosed, setIsFilterClosed] = useState(false);
 
@@ -40,10 +37,6 @@ export const Sidebar = ({
                                         activeClassName={s.sidebar__link_active}
                                         className={s.sidebar__link}
                                         to={`/${genreFormat}/${genre.id}`}
-                                        onClick={() => {
-                                            // filterMovies(genre.id);
-                                            // resetPage(genre.id);
-                                        }}
                                     >
                                         {capitalizeFirstLetter(genre.name)}
                                     </NavLink>
@@ -67,10 +60,6 @@ export const Sidebar = ({
                                         activeClassName={s.sidebar__link_active}
                                         className={s.sidebar__link}
                                         to={`/${genreFormat}/${item.link}`}
-                                        onClick={() => {
-                                            // sortMovies(item.link);
-                                            resetPage(item.link);
-                                        }}
                                     >
                                         {item.name}
                                     </NavLink>

@@ -2,7 +2,7 @@ const base_uri = "https://api.themoviedb.org/3";
 const api_key = "api_key=5daf90e431960f20b1aca24657c54316&language=ru-RU";
 
 export const api = {
-    getLists: async (format = 'movie', filter = 'popular', page = '1') => {
+    getMovies: async (format = 'movie', filter = 'popular', page = '1') => {
         const response = await fetch(
             `${base_uri}/${format}/${filter}?${api_key}&page=${page}`
         );

@@ -1,11 +1,8 @@
 export const GET_MOVIES = "GET_MOVIES";
 export const GET_GENRES = "GET_GENRES";
-export const LOADING_MOVIES = "LOADING_MOVIES";
 export const LOADING_MOVIE = "LOADING_MOVIE";
 export const UPDATE_TEXT = "UPDATE_TEXT";
 export const GET_SEARCHED_MOVIES = "GET_SEARCHED_MOVIES";
 export const ZERO_OUT_SEARCH_RESULTS = "ZERO_OUT_SEARCH_RESULTS";
-export const SET_PAGE = "SET_PAGE";
-export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
-export const SET_URL = "SET_URL";
 export const GET_MOVIE = "GET_MOVIE";
+export const SET_PAGE_PARAMS = "SET_PAGE_PARAMS";

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Pagination } from "../Pagination/Pagination";
 import s from "./Cards.module.scss";
 
-export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, totalPages, url }) => {
+export const Cards = ({ movies, genres, genreFormat, currentPage, totalPages, url }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -90,9 +90,6 @@ export const Cards = ({ movies, genres, changePage, genreFormat, currentPage, to
             <Pagination
                 totalPages={totalPages}
                 currentPage={currentPage}
-                // changePage={(format, url, page) =>
-                //     changePage(format, url, page)
-                // }
                 genreFormat={genreFormat}
                 url={url}
             />

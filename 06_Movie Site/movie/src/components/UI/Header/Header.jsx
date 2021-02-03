@@ -3,10 +3,10 @@ import s from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
 import { Container } from "../Container/Container";
 import { connect } from "react-redux";
-import { updateText, getSearchResults, zeroOutSearchResults, resetPage } from "../../../store/actions/movies";
+import { updateText, getSearchResults, zeroOutSearchResults } from "../../../store/actions/movies";
 import { useDebounce } from "../../../api/useDebounce";
 
-const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults,resetPage,}) => {
+const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults}) => {
     const debouncedText = useDebounce(searchText, 400);
     useEffect(() => {
         if (searchText.length > 0) {
@@ -214,7 +214,6 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
                                 to="/movie"
-                                onClick={() => resetPage("popular")}
                             >
                                 Фильмы
                             </NavLink>
@@ -224,7 +223,6 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
                                 to="/tv"
-                                onClick={() => resetPage("popular")}
                             >
                                 Сериалы
                             </NavLink>
@@ -260,6 +258,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     updateText,
     getSearchResults,
-    zeroOutSearchResults,
-    resetPage,
+    zeroOutSearchResults
 })(Header);
