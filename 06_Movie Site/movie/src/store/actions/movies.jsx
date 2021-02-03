@@ -2,9 +2,6 @@ import { api } from "../../api/api";
 import {
     GET_MOVIES,
     GET_GENRES,
-    UPDATE_TEXT,
-    GET_SEARCHED_MOVIES,
-    ZERO_OUT_SEARCH_RESULTS,
     SET_PAGE_PARAMS,
 } from "./actionTypes";
 
@@ -41,7 +38,6 @@ export const loadGenres = (format) => {
         dispatch(getGenres(list));
     }
 }
-
 export const loadMovieWithGenre = (format, id = 80, page = "1") => {
     return async (dispatch) => {
         dispatch(setPageParams(id, page));
@@ -49,26 +45,3 @@ export const loadMovieWithGenre = (format, id = 80, page = "1") => {
         dispatch(getMovies(list, totalPages));
     };;
 };
-export const updateText = (text) => {
-    return {
-        type: UPDATE_TEXT,
-        text
-    };
-};
-export const getSearchedMovies = (movies) => {
-    return {
-        type: GET_SEARCHED_MOVIES,
-        movies
-    }
-}
-export const getSearchResults = (text) => {
-    return async (dispatch) => {
-        const list = await api.searchMovies(text);
-        dispatch(getSearchedMovies(list));
-    };
-};
-export const zeroOutSearchResults = () => {
-    return {
-        type: ZERO_OUT_SEARCH_RESULTS
-    }
-}

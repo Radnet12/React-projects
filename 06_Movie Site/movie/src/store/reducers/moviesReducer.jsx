@@ -1,4 +1,4 @@
-import {SET_PAGE_PARAMS, GET_GENRES, GET_MOVIES, GET_SEARCHED_MOVIES, UPDATE_TEXT, ZERO_OUT_SEARCH_RESULTS } from "../actions/actionTypes";
+import {SET_PAGE_PARAMS, GET_GENRES, GET_MOVIES} from "../actions/actionTypes";
 
 const initialState = {
     sortedMovies: [
@@ -18,8 +18,6 @@ const initialState = {
     isFetchingGenres: true,
     movies: [],
     genres: [],
-    searchedMovies: [],
-    searchText: "",
     currentPage: 1,
     totalPages: 1,
     url: "popular"
@@ -39,21 +37,6 @@ export const moviesReducer = (state = initialState, action) => {
                 ...state,
                 genres: action.genres,
                 isFetchingGenres: false,
-            };
-        case UPDATE_TEXT:
-            return {
-                ...state,
-                searchText: action.text,
-            };
-        case GET_SEARCHED_MOVIES:
-            return {
-                ...state,
-                searchedMovies: action.movies
-            };
-        case ZERO_OUT_SEARCH_RESULTS:
-            return {
-                ...state,
-                searchedMovies: []
             };
         case SET_PAGE_PARAMS: {
             return {

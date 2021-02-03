@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import s from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
 import { Container } from "../Container/Container";
 import { connect } from "react-redux";
-import { updateText, getSearchResults, zeroOutSearchResults } from "../../../store/actions/movies";
+import {
+    updateText,
+    getSearchResults,
+    zeroOutSearchResults,
+    setIsSearchOpen,
+} from "../../../store/actions/search";
 import { useDebounce } from "../../../api/useDebounce";
 
-const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults}) => {
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
+const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults,isSearchOpen,setIsSearchOpen}) => {
     const debouncedText = useDebounce(searchText, 400);
     useEffect(() => {
         if (searchText.length > 0) {
@@ -21,7 +25,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
         if (movies.length === 0 && searchText.length > 0) {
             return (
                 <li className={s.header__searched_info}>
-                    К сожаления, по Вашему запросу ничего не найдено
+                    К сожаления, по Вашему запросу ничего не найдено &#128532;
                 </li>
             );
         } else if (movies.length === 0 && searchText.length === 0) {
@@ -35,13 +39,25 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
             return movies
                 .filter((movie) => movie.media_type !== "person")
                 .map((movie) => {
-                    const name = (movie.title || movie.original_title || movie.name || movie.original_name).replace(
+                    const name = (
+                        movie.title ||
+                        movie.original_title ||
+                        movie.name ||
+                        movie.original_name
+                    ).replace(
                         regexp,
                         `<span style="background-color: var(--color-highlight)" class="s.header__search_highlited">${searchText}</span>`
                     );
                     return (
-                        <li key={movie.id} className={s.header__searched_item}>
-                            <Link to={`/catalog/${movie.media_type}/${movie.id}`} className={s.header__searched_link}>
+                        <li
+                            key={movie.id}
+                            className={s.header__searched_item}
+                            onClick={() => {setIsSearchOpen(); zeroOutSearchResults()}}
+                        >
+                            <Link
+                                to={`/catalog/${movie.media_type}/${movie.id}`}
+                                className={s.header__searched_link}
+                            >
                                 {movie.media_type === "movie" ? (
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +154,10 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
         <header className={s.header}>
             <Container>
                 <div className={s.header__wrapper}>
-                    <div className={s.header__logo}>
+                    <div
+                        className={s.header__logo}
+                        onClick={isSearchOpen ? () => setIsSearchOpen() : null}
+                    >
                         <Link to="/">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -215,6 +234,11 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
                                 to="/movie"
+                                onClick={
+                                    isSearchOpen
+                                        ? () => setIsSearchOpen()
+                                        : null
+                                }
                             >
                                 Фильмы
                             </NavLink>
@@ -224,6 +248,11 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 activeClassName={s.header__link_active}
                                 className={s.header__link}
                                 to="/tv"
+                                onClick={
+                                    isSearchOpen
+                                        ? () => setIsSearchOpen()
+                                        : null
+                                }
                             >
                                 Сериалы
                             </NavLink>
@@ -245,9 +274,7 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                         />
                         <button
                             className={s.header__search_btn}
-                            onClick={() =>
-                                setIsSearchOpen((prevState) => !prevState)
-                            }
+                            onClick={() => setIsSearchOpen()}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -263,7 +290,13 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                                 />
                             </svg>
                         </button>
-                        <ul className={s.header__searched_list}>
+                        <ul
+                            className={
+                                isSearchOpen === true
+                                    ? `${s.header__searched_list} ${s.header__searched_list_active}`
+                                    : `${s.header__searched_list}`
+                            }
+                        >
                             {getRelevantAnswer()}
                         </ul>
                     </div>
@@ -275,13 +308,15 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
 
 function mapStateToProps(state) {
     return {
-        searchText: state.moviesPage.searchText,
-        movies: state.moviesPage.searchedMovies,
+        searchText: state.search.searchText,
+        movies: state.search.searchedMovies,
+        isSearchOpen: state.search.isSearchOpen
     };
 }
 
 export default connect(mapStateToProps, {
     updateText,
     getSearchResults,
-    zeroOutSearchResults
+    zeroOutSearchResults,
+    setIsSearchOpen
 })(Header);

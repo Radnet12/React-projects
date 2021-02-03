@@ -8,8 +8,8 @@ import { Sidebar } from "../UI/Sidebar/Sidebar";
 
 const Tv = (props) => {
     useEffect(() => {
+        if (props.genres.length === 19 || props.genres.length === 0) {props.loadGenres(props.format);}
         if (props.match.params.id === undefined) {
-            props.loadGenres(props.format);
             props.loadMovies(props.format);
         } else if (isNaN(parseInt(props.match.params.id))) {
             props.loadMovies(
