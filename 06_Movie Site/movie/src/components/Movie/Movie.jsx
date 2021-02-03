@@ -10,14 +10,14 @@ import { MainTemplate } from '../UI/MainTemplate/MainTemplate';
 const Movie = (props) => {
     console.log(props);
     useEffect(() => {
-        console.log("renderEffect");
-        props.loadMovies();
-        props.loadGenres();
-    }, []);
-    useEffect(() => {
-        console.log("propsEffect");
-        debugger
-        props.loadMovieWithGenre("movie", props.match.params.id, props.match.params.pageId);
+        if (props.genres.length === 0) {props.loadGenres()}
+        if (props.match.params.id === undefined) {
+            props.loadMovies();
+        } else if (typeof props.match.params.id === "number") {
+            props.loadMovieWithGenre(props.format, props.match.params.id, props.match.params.pageId);
+        } else if (typeof props.match.params.id === "string") {
+            props.loadMovies(props.format, props.match.params.id, props.match.params.pageId);
+        }
     }, [props.match.params.id, props.match.params.pageId]);
 
 
@@ -28,11 +28,11 @@ const Movie = (props) => {
                 <Sidebar
                     genres={props.genres}
                     sort={props.sorted}
-                    filterMovies={ (id) => props.loadMovieWithGenre(props.format, id)}
+                    // filterMovies={ (id) => props.loadMovieWithGenre(props.format, id)}
                     genreFormat={props.format}
-                    sortMovies={(filter) =>
-                        props.loadMovies(props.format, filter)
-                    }
+                    // sortMovies={(filter) =>
+                    //     props.loadMovies(props.format, filter)
+                    // }
                     resetPage={(url) => props.resetPage(url)}
                 />
             ) : (
@@ -43,9 +43,9 @@ const Movie = (props) => {
                     genreFormat={props.format}
                     movies={props.movies}
                     genres={props.genres}
-                    changePage={(format, url, page) =>
-                        props.changePage(format, url, page)
-                    }
+                    // changePage={(format, url, page) =>
+                    //     props.changePage(format, url, page)
+                    // }
                     currentPage={props.currentPage}
                     totalPages={props.totalPages}
                     url={props.url}

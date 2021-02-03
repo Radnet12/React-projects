@@ -41,7 +41,7 @@ export const Sidebar = ({
                                         className={s.sidebar__link}
                                         to={`/${genreFormat}/${genre.id}`}
                                         onClick={() => {
-                                            filterMovies(genre.id);
+                                            // filterMovies(genre.id);
                                             resetPage(genre.id);
                                         }}
                                     >
@@ -68,7 +68,7 @@ export const Sidebar = ({
                                         className={s.sidebar__link}
                                         to={`/${genreFormat}/${item.link}`}
                                         onClick={() => {
-                                            sortMovies(item.link);
+                                            // sortMovies(item.link);
                                             resetPage(item.link);
                                         }}
                                     >

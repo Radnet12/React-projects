@@ -74,13 +74,13 @@ export const Pagination = ({totalPages,currentPage,changePage, rangeOfItems = 10
                                         to={`/${genreFormat}${
                                             url === "" ? "" : `/${url}`
                                         }/page/${page}`}
-                                        onClick={(e) => {
-                                            changePage(
-                                                genreFormat,
-                                                url,
-                                                e.target.innerHTML
-                                            );
-                                        }}
+                                        // onClick={(e) => {
+                                        //     changePage(
+                                        //         genreFormat,
+                                        //         url,
+                                        //         e.target.innerHTML
+                                        //     );
+                                        // }}
                                     >
                                         {page}
                                     </Link>

@@ -12,7 +12,6 @@ import {
 } from "./actionTypes";
 
 export const getMovies = (movies) => {
-    debugger
     return {
         type: GET_MOVIES,
         movies
@@ -36,14 +35,16 @@ export const setTotalPages = (totalPages) => {
     };
 };
 
-export const loadMovies = (format, filter, page) => {
+export const loadMovies = (format, filter = "popular", page = "1") => {
     return async (dispatch) => {
         dispatch(loadingMovies());
+        dispatch(setURL(filter));
+        dispatch(setPage(page));
         const [list, totalPages] = await api.getLists(format, filter, page);
         dispatch(setTotalPages(totalPages));
         dispatch(getMovies(list));
-    }
-}
+    };
+};
 export const loadGenres = (format) => {
     return async (dispatch) => {
         const list = await api.getGenres(format);
@@ -58,7 +59,6 @@ export const loadMovieWithGenre = (format, id = 80, page = "1") => {
         dispatch(setPage(page));
         const [list, totalPages] = await api.getMovieWithGenre(format, id, page);
         dispatch(setTotalPages(totalPages));
-        debugger
         dispatch(getMovies(list));
     };;
 };
