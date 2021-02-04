@@ -3,15 +3,16 @@ import s from "./CatalogDetails.module.scss";
 
 export const CatalogDetails = ({ cast, crew, reviews }) => {
     const [tab, setTab] = useState(1);
+    const [isContentHidden, setIsContentHidden] = useState(true);
     const getCorrectImage = (src) => {
         if (src === null) {
             return "https://dummyimage.com/60x60/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0";
         } else if (src.search("http").toString() === "-1") {
-            return `https://secure.gravatar.com/avatar${src}`
+            return `https://secure.gravatar.com/avatar${src}`;
         } else {
             return src.replace(/\//, "");
         }
-    }
+    };
     const returnCorrectTab = () => {
         if (tab === 3) {
             return (
@@ -23,7 +24,10 @@ export const CatalogDetails = ({ cast, crew, reviews }) => {
                                     <div className={s.review__details}>
                                         <div className={s.review__image}>
                                             <img
-                                                src={getCorrectImage(review.author_details.avatar_path)}
+                                                src={getCorrectImage(
+                                                    review.author_details
+                                                        .avatar_path
+                                                )}
                                                 alt={review.author}
                                                 title={review.author}
                                                 loading="lazy"
@@ -125,40 +129,67 @@ export const CatalogDetails = ({ cast, crew, reviews }) => {
     };
     return (
         <section className={s.details}>
-            <ul className={s.details__tabs}>
-                <li
-                    className={
-                        tab === 1
-                            ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
-                            : `${s.details__tabs_item}`
-                    }
-                    onClick={() => setTab(1)}
-                >
-                    Актёрский состав
-                </li>
-                <li
-                    className={
-                        tab === 2
-                            ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
-                            : `${s.details__tabs_item}`
-                    }
-                    onClick={() => setTab(2)}
-                >
-                    Съемочная группа
-                </li>
-                <li
-                    className={
-                        tab === 3
-                            ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
-                            : `${s.details__tabs_item}`
-                    }
-                    onClick={() => setTab(3)}
-                >
-                    Отзывы
-                </li>
-            </ul>
-            <div>
-                <div className={s.details__content}>{returnCorrectTab()}</div>
+            <div className={s.details__header}>
+                <ul className={s.details__tabs}>
+                    <li
+                        className={
+                            tab === 1
+                                ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                : `${s.details__tabs_item}`
+                        }
+                        onClick={() => {
+                            setTab(1);
+                            setIsContentHidden(true);
+                        }}
+                    >
+                        Актёрский состав
+                    </li>
+                    <li
+                        className={
+                            tab === 2
+                                ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                : `${s.details__tabs_item}`
+                        }
+                        onClick={() => {
+                            setTab(2);
+                            setIsContentHidden(true);
+                        }}
+                    >
+                        Съемочная группа
+                    </li>
+                    <li
+                        className={
+                            tab === 3
+                                ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                : `${s.details__tabs_item}`
+                        }
+                        onClick={() => {
+                            setTab(3);
+                            setIsContentHidden(false);
+                        }}
+                    >
+                        Отзывы
+                    </li>
+                </ul>
+                {tab !== 3 && (
+                    <div
+                        className={s.details__tabs_item}
+                        onClick={() =>
+                            setIsContentHidden((prevState) => !prevState)
+                        }
+                    >
+                        {isContentHidden ? "Показать всех" : "Скрыть всех"}
+                    </div>
+                )}
+            </div>
+            <div
+                className={
+                    isContentHidden
+                        ? `${s.details__content}`
+                        : `${s.details__content} ${s.details__content_active}`
+                }
+            >
+                {returnCorrectTab()}
             </div>
         </section>
     );

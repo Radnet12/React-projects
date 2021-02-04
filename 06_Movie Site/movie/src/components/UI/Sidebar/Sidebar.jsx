@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import s from "./Sidebar.module.scss";
 import { NavLink } from "react-router-dom";
 
-export const Sidebar = ({
-    genres,
-    sort,
-    genreFormat,
-}) => {
+export const Sidebar = ({ genres, sort, genreFormat }) => {
     const [isFilterClosed, setIsFilterClosed] = useState(false);
 
     const capitalizeFirstLetter = (name) => {

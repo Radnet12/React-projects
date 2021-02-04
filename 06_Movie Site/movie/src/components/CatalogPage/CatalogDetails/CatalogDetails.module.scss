@@ -5,12 +5,16 @@
     background-color: var(--color-white);
     color: var(--color-black);
     border-radius: var(--border-radius);
-
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 18px;
+    }
     &__tabs {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        font-size: 18px;
     }
     &__tabs_item {
         position: relative;
@@ -57,6 +61,12 @@
 
     &__content {
         padding-top: 30px;
+        height: 350px;
+        overflow: hidden;
+
+        &_active {
+            height: 100%;
+        }
     }
 }
 .person {
