@@ -1,12 +1,13 @@
 import { api } from "../../api/api";
 import { GET_MOVIE_INFO, LOADING_MOVIE } from "./actionTypes";
 
-export const getMovieInfo = (movie, credits, reviews) => {
+export const getMovieInfo = (movie, credits, reviews, keywords) => {
     return {
         type: GET_MOVIE_INFO,
         movie,
         credits,
-        reviews
+        reviews,
+        keywords
     }
 };
 export const loadingMovieInfo = () => {
@@ -19,7 +20,8 @@ export const loadMovieInfo = (format, id) => {
         dispatch(loadingMovieInfo());
         const movie = await api.getMovie(format, id);
         const credits = await api.getCredits(format, id);
-        const reviews = await api.getReviews(format, id);
-        dispatch(getMovieInfo(movie, credits, reviews));
+        const reviews = await api.getAnotherMovieInfo(format, id, "reviews");
+        const keywords = await api.getAnotherMovieInfo(format, id, "keywords");
+        dispatch(getMovieInfo(movie, credits, reviews, keywords));
     };
 };

@@ -1,8 +1,7 @@
 import React from "react";
 import s from "./CatalogSidebar.module.scss";
 
-export const CatalogSidebar = ({ movie }) => {
-    console.log(movie);
+export const CatalogSidebar = ({ movie, keywords }) => {
     const defineStatus = (status) => {
         if (status === "Released") {
             return "Выпущен";
@@ -65,25 +64,33 @@ export const CatalogSidebar = ({ movie }) => {
             {!!movie.budget && (
                 <div className={s.sidebar__item}>
                     <h3 className={s.sidebar__item_title}>Бюджет</h3>
-                    <div className={s.sidebar__item_info}>{getCorrectNumber(movie.budget)}</div>
+                    <div className={s.sidebar__item_info}>
+                        {getCorrectNumber(movie.budget)}
+                    </div>
                 </div>
             )}
             {!!movie.revenue && (
                 <div className={s.sidebar__item}>
                     <h3 className={s.sidebar__item_title}>Кассовые сборы</h3>
-                    <div className={s.sidebar__item_info}>{getCorrectNumber(movie.revenue)}</div>
+                    <div className={s.sidebar__item_info}>
+                        {getCorrectNumber(movie.revenue)}
+                    </div>
                 </div>
             )}
-            <div className={s.sidebar__item}>
-                <h3 className={s.sidebar__item_title}>Ключевые слова</h3>
-                <ul className={s.sidebar__item_list}>
-                    <li className={s.list__item}>Трансформатор</li>
-                    <li className={s.list__item}>Киборг</li>
-                    <li className={s.list__item}>Цветы</li>
-                    <li className={s.list__item}>Пришельцы</li>
-                    <li className={s.list__item}>Аннуетет</li>
-                </ul>
-            </div>
+            {keywords.length !== 0 && (
+                <div className={s.sidebar__item}>
+                    <h3 className={s.sidebar__item_title}>Ключевые слова</h3>
+                    <ul className={s.sidebar__item_list}>
+                        {keywords.map((keyword) => {
+                            return (
+                                <li key={keyword.id} className={s.list__item}>
+                                    {keyword.name}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )}
         </section>
     );
 };

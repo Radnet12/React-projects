@@ -44,11 +44,15 @@ export const api = {
         const result = await response.json();
         return result;
     },
-    getReviews: async (format = 'movie', id) => {
+    getAnotherMovieInfo: async (format = 'movie', id, query) => {
         const response = await fetch(
-            `${base_uri}/${format}/${id}/reviews?api_key=5daf90e431960f20b1aca24657c54316`
+            `${base_uri}/${format}/${id}/${query}?api_key=5daf90e431960f20b1aca24657c54316`
         );
-        const {results} = await response.json();
-        return results;
+        const {results, keywords} = await response.json();
+        if (results !== undefined) {
+            return results;
+        } else {
+            return keywords;
+        }
     }
 };

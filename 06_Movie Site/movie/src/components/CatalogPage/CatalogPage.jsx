@@ -16,6 +16,7 @@ const CatalogPage = ({
     loadMovieInfo,
     credits,
     reviews,
+    keywords,
     isFetchingMovie,
 }) => {
     useEffect(() => {
@@ -34,7 +35,7 @@ const CatalogPage = ({
                                     crew={credits.crew}
                                     reviews={reviews}
                                 />
-                                <CatalogSidebar movie={movie} />
+                                <CatalogSidebar movie={movie} keywords={keywords} />
                             </div>
                         </Container>
                     </div>
@@ -50,6 +51,7 @@ const mapStateToProps = (state) => {
         movie: state.catalogPage.movie,
         credits: state.catalogPage.credits,
         reviews: state.catalogPage.reviews,
+        keywords: state.catalogPage.keywords,
         isFetchingMovie: state.catalogPage.isFetchingMovie,
     };
 };

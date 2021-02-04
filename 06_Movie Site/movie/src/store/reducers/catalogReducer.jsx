@@ -4,6 +4,7 @@ const initialState = {
     movie: [],
     credits: [],
     reviews: [],
+    keywords: [],
     isFetchingMovie: true
 };
 export const catalogReducer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ export const catalogReducer = (state = initialState, action) => {
                 movie: action.movie,
                 credits: action.credits,
                 reviews: action.reviews,
+                keywords: action.keywords,
                 isFetchingMovie: false,
             };
         }
