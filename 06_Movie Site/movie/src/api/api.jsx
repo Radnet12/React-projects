@@ -44,9 +44,9 @@ export const api = {
         const result = await response.json();
         return result;
     },
-    getAnotherMovieInfo: async (format = 'movie', id, query) => {
+    getAnotherMovieInfo: async (format = 'movie', id, query, params = '') => {
         const response = await fetch(
-            `${base_uri}/${format}/${id}/${query}?api_key=5daf90e431960f20b1aca24657c54316`
+            `${base_uri}/${format}/${id}/${query}?api_key=5daf90e431960f20b1aca24657c54316${params}`
         );
         const {results, keywords} = await response.json();
         if (results !== undefined) {

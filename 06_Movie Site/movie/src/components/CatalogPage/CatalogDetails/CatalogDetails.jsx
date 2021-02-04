@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import s from "./CatalogDetails.module.scss";
 
 export const CatalogDetails = ({ cast, crew, reviews, seasons }) => {
-    console.log(seasons);
     const [tab, setTab] = useState(1);
     const [isContentHidden, setIsContentHidden] = useState(true);
     const getCorrectImage = (src) => {
@@ -162,7 +161,7 @@ export const CatalogDetails = ({ cast, crew, reviews, seasons }) => {
         }
     };
     return (
-        <section className={s.details}>
+        <div className={s.details}>
             <div className={s.details__header}>
                 <ul className={s.details__tabs}>
                     <li
@@ -240,6 +239,6 @@ export const CatalogDetails = ({ cast, crew, reviews, seasons }) => {
             >
                 {returnCorrectTab()}
             </div>
-        </section>
+        </div>
     );
 };

@@ -7,6 +7,7 @@ import { CatalogSidebar } from "./CatalogSidebar/CatalogSidebar";
 import { loadMovieInfo } from "../../store/actions/catalog";
 import { Loader } from "../UI/Loader/Loader";
 import { connect } from "react-redux";
+import { CatalogRecomend } from "./CatalogRecomend/CatalogRecomend";
 
 const CatalogPage = ({
     match: {
@@ -17,9 +18,9 @@ const CatalogPage = ({
     credits,
     reviews,
     keywords,
+    recommend,
     isFetchingMovie,
 }) => {
-    console.log(movie);
     useEffect(() => {
         loadMovieInfo(format, id);
     }, [format, id]);
@@ -31,12 +32,15 @@ const CatalogPage = ({
                     <div className={s.bottom}>
                         <Container>
                             <div className={s.bottom__wrapper}>
-                                <CatalogDetails
-                                    cast={credits.cast}
-                                    crew={credits.crew}
-                                    reviews={reviews}
-                                    seasons={movie.seasons}
-                                />
+                                <div style={{minWidth: 0}}>
+                                    <CatalogDetails
+                                        cast={credits.cast}
+                                        crew={credits.crew}
+                                        reviews={reviews}
+                                        seasons={movie.seasons}
+                                    />
+                                    <CatalogRecomend movies={recommend} format={format}/>
+                                </div>
                                 <CatalogSidebar
                                     movie={movie}
                                     keywords={keywords}
@@ -57,6 +61,7 @@ const mapStateToProps = (state) => {
         credits: state.catalogPage.credits,
         reviews: state.catalogPage.reviews,
         keywords: state.catalogPage.keywords,
+        recommend: state.catalogPage.recommend,
         isFetchingMovie: state.catalogPage.isFetchingMovie,
     };
 };
