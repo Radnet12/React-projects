@@ -47,64 +47,78 @@ export const CatalogDetails = ({ cast, crew, reviews }) => {
         } else if (tab === 2) {
             return (
                 <ul className={s.person}>
-                    {crew.map((person) => {
-                        return (
-                            <li key={person.credit_id} className={s.person__item}>
-                                <div className={s.person__image}>
-                                    <img
-                                        src={
-                                            person.profile_path !== null
-                                                ? `https://image.tmdb.org/t/p/w45${person.profile_path}`
-                                                : "https://dummyimage.com/45x68/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
-                                        }
-                                        alt={person.name}
-                                        title={person.name}
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className={s.person__info}>
-                                    <div className={s.person__detail}>
-                                        <span>Имя:</span> {person.name}
+                    {crew.length !== 0 ? (
+                        crew.map((person) => {
+                            return (
+                                <li
+                                    key={person.credit_id}
+                                    className={s.person__item}
+                                >
+                                    <div className={s.person__image}>
+                                        <img
+                                            src={
+                                                person.profile_path !== null
+                                                    ? `https://image.tmdb.org/t/p/w45${person.profile_path}`
+                                                    : "https://dummyimage.com/45x68/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
+                                            }
+                                            alt={person.name}
+                                            title={person.name}
+                                            loading="lazy"
+                                        />
                                     </div>
-                                    <div className={s.person__detail}>
-                                        <span>Должность:</span> {person.job}
+                                    <div className={s.person__info}>
+                                        <div className={s.person__detail}>
+                                            <span>Имя:</span> {person.name}
+                                        </div>
+                                        <div className={s.person__detail}>
+                                            <span>Должность:</span> {person.job}
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        );
-                    })}
+                                </li>
+                            );
+                        })
+                    ) : (
+                        <p>К сожаления, данной информации нет</p>
+                    )}
                 </ul>
             );
         } else {
             return (
                 <ul className={s.person}>
-                    {cast.map((person) => {
-                        return (
-                            <li key={person.credit_id} className={s.person__item}>
-                                <div className={s.person__image}>
-                                    <img
-                                        src={
-                                            person.profile_path !== null
-                                                ? `https://image.tmdb.org/t/p/w45${person.profile_path}`
-                                                : "https://dummyimage.com/45x68/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
-                                        }
-                                        alt={person.name}
-                                        title={person.name}
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className={s.person__info}>
-                                    <div className={s.person__detail}>
-                                        <span>Имя:</span> {person.name}
+                    {cast.length !== 0 ? (
+                        cast.map((person) => {
+                            return (
+                                <li
+                                    key={person.credit_id}
+                                    className={s.person__item}
+                                >
+                                    <div className={s.person__image}>
+                                        <img
+                                            src={
+                                                person.profile_path !== null
+                                                    ? `https://image.tmdb.org/t/p/w45${person.profile_path}`
+                                                    : "https://dummyimage.com/45x68/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
+                                            }
+                                            alt={person.name}
+                                            title={person.name}
+                                            loading="lazy"
+                                        />
                                     </div>
-                                    <div className={s.person__detail}>
-                                        <span>Персонаж:</span>{" "}
-                                        {person.character}
+                                    <div className={s.person__info}>
+                                        <div className={s.person__detail}>
+                                            <span>Имя:</span> {person.name}
+                                        </div>
+                                        <div className={s.person__detail}>
+                                            <span>Персонаж:</span>{" "}
+                                            {person.character}
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        );
-                    })}
+                                </li>
+                            );
+                        })
+                    ) : (
+                        <p>К сожаления, данной информации нет</p>
+                    )}
                 </ul>
             );
         }

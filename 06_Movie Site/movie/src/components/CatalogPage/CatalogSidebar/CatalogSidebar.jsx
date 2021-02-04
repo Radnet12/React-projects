@@ -16,6 +16,25 @@ export const CatalogSidebar = ({ movie }) => {
             return "Ожидается";
         }
     };
+    const getCorrectNumber = (value) => {
+        const strArray = value.toString().split("").reverse();
+        const range = strArray.length / 3;
+        if (Number.isInteger(range)) {
+            let j = 0;
+            for (let i = 1; i <= range - 1; i++) {
+                strArray.splice(i * 3 + j, 0, ",");
+                j++;
+            }
+        } else {
+            let j = 0;
+            for (let i = 1; i <= Math.floor(range); i++) {
+                strArray.splice(i * 3 + j, 0, ",");
+                j++;
+            }
+        }
+        strArray.push("$");
+        return strArray.reverse().join("");
+    };
     return (
         <section className={s.sidebar}>
             <div className={s.sidebar__item}>
@@ -25,7 +44,7 @@ export const CatalogSidebar = ({ movie }) => {
                 </div>
             </div>
             <div className={s.sidebar__item}>
-                <h3 className={s.sidebar__item_title}>Язык оригинала</h3>
+                <h3 className={s.sidebar__item_title}>Разговорные языки</h3>
                 <div className={s.sidebar__item_info}>
                     {movie.spoken_languages.map((lang) => (
                         <span
@@ -46,13 +65,13 @@ export const CatalogSidebar = ({ movie }) => {
             {!!movie.budget && (
                 <div className={s.sidebar__item}>
                     <h3 className={s.sidebar__item_title}>Бюджет</h3>
-                    <div className={s.sidebar__item_info}>{movie.budget}</div>
+                    <div className={s.sidebar__item_info}>{getCorrectNumber(movie.budget)}</div>
                 </div>
             )}
             {!!movie.revenue && (
                 <div className={s.sidebar__item}>
                     <h3 className={s.sidebar__item_title}>Кассовые сборы</h3>
-                    <div className={s.sidebar__item_info}>{movie.revenue}</div>
+                    <div className={s.sidebar__item_info}>{getCorrectNumber(movie.revenue)}</div>
                 </div>
             )}
             <div className={s.sidebar__item}>
