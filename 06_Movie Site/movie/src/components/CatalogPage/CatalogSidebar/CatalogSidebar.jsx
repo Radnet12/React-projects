@@ -61,6 +61,14 @@ export const CatalogSidebar = ({ movie, keywords }) => {
                     {defineStatus(movie.status)}
                 </div>
             </div>
+            {!!movie.seasons && (
+                <div className={s.sidebar__item}>
+                    <h3 className={s.sidebar__item_title}>Сезонов</h3>
+                    <div className={s.sidebar__item_info}>
+                        {movie.seasons.length}
+                    </div>
+                </div>
+            )}
             {!!movie.budget && (
                 <div className={s.sidebar__item}>
                     <h3 className={s.sidebar__item_title}>Бюджет</h3>

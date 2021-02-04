@@ -19,6 +19,7 @@ const CatalogPage = ({
     keywords,
     isFetchingMovie,
 }) => {
+    console.log(movie);
     useEffect(() => {
         loadMovieInfo(format, id);
     }, [format, id]);
@@ -34,8 +35,12 @@ const CatalogPage = ({
                                     cast={credits.cast}
                                     crew={credits.crew}
                                     reviews={reviews}
+                                    seasons={movie.seasons}
                                 />
-                                <CatalogSidebar movie={movie} keywords={keywords} />
+                                <CatalogSidebar
+                                    movie={movie}
+                                    keywords={keywords}
+                                />
                             </div>
                         </Container>
                     </div>

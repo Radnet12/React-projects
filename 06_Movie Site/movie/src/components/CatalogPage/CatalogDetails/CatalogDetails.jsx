@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import s from "./CatalogDetails.module.scss";
 
-export const CatalogDetails = ({ cast, crew, reviews }) => {
+export const CatalogDetails = ({ cast, crew, reviews, seasons }) => {
+    console.log(seasons);
     const [tab, setTab] = useState(1);
     const [isContentHidden, setIsContentHidden] = useState(true);
     const getCorrectImage = (src) => {
@@ -84,6 +85,39 @@ export const CatalogDetails = ({ cast, crew, reviews }) => {
                     ) : (
                         <p>К сожаления, данной информации нет</p>
                     )}
+                </ul>
+            );
+        } else if (tab === 4) {
+            return (
+                <ul className={s.seasons}>
+                    {seasons.map((season) => {
+                        return (
+                            <li key={season.id} className={s.seasons__season}>
+                                <div className={s.seasons__poster}>
+                                    <img
+                                        src={
+                                            season.poster_path !== null
+                                                ? `https://image.tmdb.org/t/p/w154${season.poster_path}`
+                                                : "https://dummyimage.com/154x231/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
+                                        }
+                                        alt={`Постер ${season.poster_path}`}
+                                        title={`Постер ${season.poster_path}`}
+                                    />
+                                </div>
+                                <div className={s.seasons__info}>
+                                    <div className={s.seasons__top}>
+                                        <span>{season.name}</span>
+                                        <span>
+                                            Эпизодов: {season.episode_count}
+                                        </span>
+                                    </div>
+                                    <div className={s.seasons__overview}>
+                                        {season.overview ? season.overview : "К сожалению, к данному сезону нет описания"}
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })}
                 </ul>
             );
         } else {
@@ -170,8 +204,23 @@ export const CatalogDetails = ({ cast, crew, reviews }) => {
                     >
                         Отзывы
                     </li>
+                    {seasons && (
+                        <li
+                            className={
+                                tab === 4
+                                    ? `${s.details__tabs_item} ${s.details__tabs_item_active}`
+                                    : `${s.details__tabs_item}`
+                            }
+                            onClick={() => {
+                                setTab(4);
+                                setIsContentHidden(false);
+                            }}
+                        >
+                            О сезонах
+                        </li>
+                    )}
                 </ul>
-                {tab !== 3 && (
+                {(tab !== 3 && tab !== 4) && (
                     <div
                         className={s.details__tabs_item}
                         onClick={() =>
