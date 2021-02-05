@@ -23,7 +23,7 @@ export const loadMovieInfo = (format, id) => {
         const credits = await api.getCredits(format, id);
         const reviews = await api.getAnotherMovieInfo(format, id, "reviews");
         const keywords = await api.getAnotherMovieInfo(format, id, "keywords");
-        const recommend = await api.getAnotherMovieInfo(format, id, "recommendations", "&language=ru-RU");
+        const recommend = await api.getAnotherMovieInfo(format, id, "recommendations");
         dispatch(getMovieInfo(movie, credits, reviews, keywords, recommend));
     };
 };

@@ -54,5 +54,12 @@ export const api = {
         } else {
             return keywords;
         }
+    },
+    getMoviesWithKeywords: async (format = "movie", keywords, page = 1) => {
+        const response = await fetch(
+            `${base_uri}/discover/${format}?${api_key}&sort_by=popularity.desc&with_keywords=${keywords}&page=${page}`
+        );
+        const {results} = await response.json();
+        return results;
     }
 };

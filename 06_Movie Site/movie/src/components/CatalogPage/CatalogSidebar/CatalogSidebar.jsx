@@ -2,6 +2,7 @@ import React from "react";
 import s from "./CatalogSidebar.module.scss";
 
 export const CatalogSidebar = ({ movie, keywords }) => {
+    console.log(keywords);
     const defineStatus = (status) => {
         if (status === "Released") {
             return "Выпущен";
