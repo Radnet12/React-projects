@@ -157,7 +157,7 @@
 .movie__action_tooltip {
     position: absolute;
     bottom: -50px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     padding: 7px 15px;
     background-color: var(--color-actions);
     backdrop-filter: blur(5px);
