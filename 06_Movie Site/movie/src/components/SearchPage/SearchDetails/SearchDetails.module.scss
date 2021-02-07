@@ -1,0 +1,21 @@
+.search {
+    margin-left: 15px;
+    flex-grow: 1;
+
+    &__item {
+        border-radius: var(--border-radius);
+        padding: 20px;
+        background-color: var(--color-white);
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    }
+    &__link {
+        display: flex;
+        align-items: center;
+        color: var(--color-black);
+    }
+    &__info {
+        margin-left: 15px;
+    }
+}

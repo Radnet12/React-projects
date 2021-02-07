@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 
 export const SearchSidebar = () => {
     return (
-        <div className={s.sidebar}>
+        <section className={s.sidebar}>
             <h3 className={s.sidebar__title}>Результаты поиска</h3>
             <ul className={s.sidebar__list}>
                 <li className={s.sidebar__item}>
@@ -48,6 +48,6 @@ export const SearchSidebar = () => {
                     </NavLink>
                 </li>
             </ul>
-        </div>
+        </section>
     );
 };
