@@ -5,7 +5,7 @@ import Tv from "./components/TvPage/Tv";
 import { MainWrap } from "./components/UI/Main/Main";
 import Main from "./components/MainPage/Main";
 import CatalogPage from "./components/CatalogPage/CatalogPage";
-import { SearchPage } from "./components/SearchPage/SearchPage";
+import SearchPage from "./components/SearchPage/SearchPage";
 
 function App() {
     return (

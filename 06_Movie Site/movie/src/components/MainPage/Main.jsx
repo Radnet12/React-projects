@@ -1,29 +1,12 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { loadSearchResults, updateSearchText, zeroOutSearchResults } from '../../store/actions/mainSearch';
-import { Container } from '../UI/Container/Container';
-import s from './Main.module.scss';
-import { useDebounce} from '../../api/useDebounce';
+import React from "react";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { updateSearchText } from "../../store/actions/mainSearch";
+import { Container } from "../UI/Container/Container";
+import s from "./Main.module.scss";
 
-const Main = ({
-    searchText,
-    updateSearchText,
-    loadSearchResults,
-    zeroOutSearchResults,
-    results,
-}) => {
-    console.log(results);
+const Main = ({ searchText, updateSearchText }) => {
     const history = useHistory();
-    const debouncedText = useDebounce(searchText, 1000);
-
-    useEffect(() => {
-        if (searchText.length > 0) {
-            loadSearchResults(searchText, "multi");
-        } else {
-            zeroOutSearchResults();
-        }
-    }, [debouncedText]);
 
     return (
         <section className={s.main}>
@@ -41,7 +24,9 @@ const Main = ({
                         />
                         <button
                             className={s.search__btn}
-                            onClick={() => history.push("/search")}
+                            onClick={() => {
+                                history.push("/search");
+                            }}
                             aria-label="Начать поиск по введённым символам"
                             disabled={searchText.length !== 0 ? false : true}
                         >
@@ -61,11 +46,8 @@ const Main = ({
 const mapStateToProps = (state) => {
     return {
         searchText: state.mainSearch.searchText,
-        results: state.mainSearch.results,
     };
 };
 export default connect(mapStateToProps, {
     updateSearchText,
-    loadSearchResults,
-    zeroOutSearchResults,
 })(Main);

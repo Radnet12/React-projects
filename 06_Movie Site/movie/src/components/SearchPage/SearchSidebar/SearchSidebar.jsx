@@ -2,7 +2,7 @@ import React from 'react';
 import s from './SearchSidebar.module.scss';
 import {NavLink} from 'react-router-dom';
 
-export const SearchSidebar = () => {
+export const SearchSidebar = ({quantity}) => {
     return (
         <section className={s.sidebar}>
             <h3 className={s.sidebar__title}>Результаты поиска</h3>
@@ -14,7 +14,9 @@ export const SearchSidebar = () => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Фильмы</span>{" "}
-                        <span className={s.sidebar__quantity}>20</span>
+                        <span className={s.sidebar__quantity}>
+                            {quantity.movie}
+                        </span>
                     </NavLink>
                 </li>
                 <li className={s.sidebar__item}>
@@ -24,7 +26,7 @@ export const SearchSidebar = () => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Сериалы</span>{" "}
-                        <span className={s.sidebar__quantity}>124</span>
+                        <span className={s.sidebar__quantity}>{quantity.tv}</span>
                     </NavLink>
                 </li>
                 <li className={s.sidebar__item}>
@@ -34,7 +36,7 @@ export const SearchSidebar = () => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Ключевые слова</span>{" "}
-                        <span className={s.sidebar__quantity}>2</span>
+                        <span className={s.sidebar__quantity}>{quantity.keyword}</span>
                     </NavLink>
                 </li>
                 <li className={s.sidebar__item}>
@@ -44,7 +46,7 @@ export const SearchSidebar = () => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Люди</span>{" "}
-                        <span className={s.sidebar__quantity}>0</span>
+                        <span className={s.sidebar__quantity}>{quantity.person}</span>
                     </NavLink>
                 </li>
             </ul>

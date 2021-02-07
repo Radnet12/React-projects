@@ -1,18 +1,28 @@
-import { GET_SEARCH_RESULTS, UPDATE_SEARCH_TEXT, ZERO_OUT_SEARCH_RESULTS } from "../actions/actionTypes";
+import { GET_SEARCH_RESULTS, SET_SEARCH_LOADING, UPDATE_SEARCH_TEXT } from "../actions/actionTypes";
 
 const initialState = {
     searchText: "",
-    results: [],
-    isFetchingResults: true
+    results: {
+        movies: {},
+        tvs: {},
+        keywords: {},
+        persons: {},
+    },
+    isFetchingResults: true,
 };
 export const mainSearchReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_SEARCH_RESULTS: {
             return {
                 ...state,
-                results: action.list,
-                isFetchingResults: false
-            }
+                results: {...state.results,
+                    movies: action.movies,
+                    tvs: action.tvs,
+                    keywords: action.keywords,
+                    persons: action.persons
+                },
+                isFetchingResults: false,
+            };
         }
         case UPDATE_SEARCH_TEXT: {
             return {
@@ -20,10 +30,10 @@ export const mainSearchReducer = (state = initialState, action) => {
                 searchText: action.text
             }
         }
-        case ZERO_OUT_SEARCH_RESULTS: {
+        case SET_SEARCH_LOADING: {
             return {
                 ...state,
-                results: []
+                isFetchingResults: true
             }
         }
         default: {

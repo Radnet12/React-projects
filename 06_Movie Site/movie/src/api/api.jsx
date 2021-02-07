@@ -27,7 +27,7 @@ export const api = {
         const response = await fetch(
             `${base_uri}/search/${type}?${api_key}&query=${text}`
         );
-        const {results} = await response.json();
+        const results = await response.json();
         return results;
     },
     getMovie: async (format = 'movie', id) => {
