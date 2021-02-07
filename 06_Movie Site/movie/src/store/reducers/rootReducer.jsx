@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { catalogReducer } from './catalogReducer';
 import { moviesReducer } from './moviesReducer';
-import { searchReducer } from './searchReducer';
+import { headerSearchReducer } from "./headerSearchReducer";
+import { mainSearchReducer } from './mainSearchReducer';
 
 export default combineReducers({
     moviesPage: moviesReducer,
     catalogPage: catalogReducer,
-    search: searchReducer
+    headerSearch: headerSearchReducer,
+    mainSearch: mainSearchReducer
 })

@@ -22,11 +22,12 @@ $maxWidth: 1920;
     margin: 0 auto;
 }
 .main__search {
+    position: relative;
     width: 100%;
 
     input {
-        border-radius: 40px;
-        padding: 12px 15px;
+        border-radius: calc(var(--border-radius) * 3);
+        padding: 12px 100px 12px 15px;
         width: 100%;
     }
 }
@@ -34,4 +35,21 @@ $maxWidth: 1920;
     @include adaptiv-font(50, 25);
     margin-bottom: 20px;
     text-align: center;
+}
+.search__btn {
+    position: absolute;
+    top: 0;
+    right: -1px;
+    border-radius: calc(var(--border-radius) * 3);
+    padding: 0 25px;
+    height: 100%;
+    background-color: #0bc8ce;
+    transition: background-color 0.3s;
+
+    @media (min-width: 992px) {
+        &:hover {
+            background-color: #007aff;
+            transition: background-color 0.3s;
+        }
+    }
 }

@@ -18,9 +18,9 @@ export const getSearchedMovies = (movies) => {
         movies,
     };
 };
-export const getSearchResults = (text) => {
+export const getSearchResults = (text, type) => {
     return async (dispatch) => {
-        const list = await api.searchMovies(text);
+        const list = await api.search(text, type);
         dispatch(getSearchedMovies(list));
     };
 };

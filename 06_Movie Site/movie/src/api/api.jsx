@@ -23,9 +23,9 @@ export const api = {
         const {results, total_pages} = await response.json();
         return [results, total_pages];
     },
-    searchMovies: async (text) => {
+    search: async (text, type) => {
         const response = await fetch(
-            `${base_uri}/search/multi?${api_key}&query=${text}`
+            `${base_uri}/search/${type}?${api_key}&query=${text}`
         );
         const {results} = await response.json();
         return results;

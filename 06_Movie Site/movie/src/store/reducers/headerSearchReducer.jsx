@@ -5,7 +5,7 @@ const initialStata = {
     searchText: "",
     isSearchOpen: false
 };
-export const searchReducer = (state = initialStata, action) => {
+export const headerSearchReducer = (state = initialStata, action) => {
     switch (action.type) {
         case UPDATE_TEXT:
             return {

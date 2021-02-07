@@ -8,14 +8,14 @@ import {
     getSearchResults,
     zeroOutSearchResults,
     setIsSearchOpen,
-} from "../../../store/actions/search";
+} from "../../../store/actions/headerSearch";
 import { useDebounce } from "../../../api/useDebounce";
 
 const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults,isSearchOpen,setIsSearchOpen}) => {
     const debouncedText = useDebounce(searchText, 400);
     useEffect(() => {
         if (searchText.length > 0) {
-            getSearchResults(searchText);
+            getSearchResults(searchText, "multi");
         } else {
             zeroOutSearchResults();
         }
@@ -310,9 +310,9 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
 
 function mapStateToProps(state) {
     return {
-        searchText: state.search.searchText,
-        movies: state.search.searchedMovies,
-        isSearchOpen: state.search.isSearchOpen
+        searchText: state.headerSearch.searchText,
+        movies: state.headerSearch.searchedMovies,
+        isSearchOpen: state.headerSearch.isSearchOpen,
     };
 }
 
