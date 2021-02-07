@@ -1,8 +1,9 @@
 import React from "react";
 import s from "./SearchDetails.module.scss";
+import {Link} from 'react-router-dom';
 
-export const SearchDetails = ({ items }) => {
-    console.log("details",items);
+export const SearchDetails = ({ items, format }) => {
+    console.log("details", items);
     if (items === undefined) {
         return (
             <div className={s.search}>
@@ -16,30 +17,66 @@ export const SearchDetails = ({ items }) => {
             </div>
         );
     } else {
+        const getCorrectDate = (date) => {
+            if (date !== undefined) {
+                return date.split("-").reverse().join(".");
+            }
+        };
         return (
             <div className={s.search}>
                 <ul className={s.search__list}>
-                    <li className={s.search__item}>
-                        <a href="#" className={s.search__link}>
-                            <div className={s.search__poster}>
-                                <img src="" alt="" />
-                            </div>
-                            <div className={s.search__info}>
-                                <div className={s.search__title}>
-                                    Название фильма
+                    {items.map((item) => {
+                        return (
+                            <li key={item.id} className={s.item}>
+                                <div className={s.item__image}>
+                                    <Link
+                                        to={`/catalog/${format}/${item.id}`}
+                                        className={s.item__link}
+                                    >
+                                        <img
+                                            src={
+                                                item.poster_path !== null
+                                                    ? `https://image.tmdb.org/t/p/w342${item.poster_path}`
+                                                    : "https://dummyimage.com/275x412/a6a6a6/fff.jpg&text=%D0%9D%D0%B5%D1%82+%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80%D0%B0"
+                                            }
+                                            alt={
+                                                item.title ||
+                                                item.original_title ||
+                                                item.name ||
+                                                item.original_name
+                                            }
+                                            title={
+                                                item.title ||
+                                                item.original_title ||
+                                                item.name ||
+                                                item.original_name
+                                            }
+                                            loading="lazy"
+                                        />
+                                    </Link>
                                 </div>
-                                <div className={s.search__date}>10.10.2020</div>
-                                <div className={s.search__overview}>
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Enim quae, neque
-                                    repellendus asperiores aliquid dolorum
-                                    perspiciatis eum recusandae eos cum suscipit
-                                    odit corrupti, molestias dolores, impedit
-                                    labore reiciendis consequuntur est.
+                                <div className={s.item__rating}>
+                                    <span>{item.vote_average.toFixed(1)}</span>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
+                                <div className={s.item__bottom}>
+                                    <div className={s.item__title}>
+                                        <Link
+                                            to={`/catalog/${format}/${item.id}`}
+                                        >
+                                            {item.title ||
+                                                item.original_title ||
+                                                item.name ||
+                                                item.original_name}
+                                        </Link>
+                                    </div>
+                                    <div className={s.item__date}>
+                                        {getCorrectDate(item.release_date) ||
+                                            getCorrectDate(item.first_air_date)}
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         );

@@ -51,7 +51,7 @@ const SearchPage = ({
                                 person: personQuantity,
                             }}
                         />
-                        <SearchDetails items={items} />
+                        <SearchDetails items={items} format={format} />
                     </>
                 );
             } else {
