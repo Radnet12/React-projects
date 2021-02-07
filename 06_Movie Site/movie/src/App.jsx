@@ -15,7 +15,7 @@ function App() {
                     <Route path="/movie/:id?/:page?/:pageId?" component={Movie} />
                     <Route path="/tv/:id?/:page?/:pageId?" component={Tv} />
                     <Route path="/catalog/:format/:id" component={CatalogPage} />
-                    <Route path="/search" component={SearchPage} />
+                    <Route path="/search/:format" component={SearchPage} />
                 </Switch>
             </MainWrap>
     );

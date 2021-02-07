@@ -25,7 +25,7 @@ const Main = ({ searchText, updateSearchText }) => {
                         <button
                             className={s.search__btn}
                             onClick={() => {
-                                history.push("/search");
+                                history.push("/search/movie");
                             }}
                             aria-label="Начать поиск по введённым символам"
                             disabled={searchText.length !== 0 ? false : true}

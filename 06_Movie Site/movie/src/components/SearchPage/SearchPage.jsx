@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loadSearchResults } from "../../store/actions/mainSearch";
 import { Container } from "../UI/Container/Container";
@@ -11,38 +11,65 @@ import { SearchTop } from "./SearchTop/SearchTop";
 const SearchPage = ({
     searchText,
     results: {
-        movies: {total_results: movieQuantity, results: movies, total_pages: moviePages},
-        tvs: {total_results: tvQuantity, results: tvss, total_pages: tvPages},
-        keywords: {total_results: keywordQuantity, results: keywords, total_pages: keywordPages},
-        persons: {total_results: personQuantity, results: persons, total_pages: personPages},
+        movies: {total_results: movieQuantity, total_pages: moviePages},
+        tvs: {total_results: tvQuantity, total_pages: tvPages},
+        keywords: {total_results: keywordQuantity, total_pages: keywordPages},
+        persons: {total_results: personQuantity, total_pages: personPages},
     },
+    results,
     isFetchingResults,
-    loadSearchResults
+    loadSearchResults,
+    match: {
+        params: {format}
+    }
 }) => {
-    console.log("render", movies, tvss);
+    const [items, setItems] = useState([]);
     useEffect(() => {
-        loadSearchResults(searchText);
+        if (isFetchingResults === false) {
+            Object.entries(results).forEach((item) => {
+                if (item[0].indexOf(format) > -1) {
+                    setItems(item[1].results);
+                }
+            });
+        }
+    }, [format, isFetchingResults]);
+    useEffect(() => {
+        if (searchText.length !== 0) {
+            loadSearchResults(searchText);
+        }
     }, []);
+    const returnRelevantAnswer = () => {
+        if (searchText.length !== 0) {
+            if (isFetchingResults === false) {
+                return (
+                    <>
+                        <SearchSidebar
+                            quantity={{
+                                movie: movieQuantity,
+                                tv: tvQuantity,
+                                keyword: keywordQuantity,
+                                person: personQuantity,
+                            }}
+                        />
+                        <SearchDetails items={items} />
+                    </>
+                );
+            } else {
+                return <Loader />;
+            }
+        } else {
+            return (
+                    <p>Введите что-нибудь в поисковую строку ещё раз</p>
+            );
+        }
+    };
+
     return (
         <section className={s.search}>
             <Container>
                 <SearchTop />
                 <div className={s.search__wrapper}>
-                    {isFetchingResults === false ? (
-                        <>
-                            <SearchSidebar
-                                quantity={{
-                                    movie: movieQuantity,
-                                    tv: tvQuantity,
-                                    keyword: keywordQuantity,
-                                    person: personQuantity,
-                                }}
-                            />
-                            <SearchDetails />
-                        </>
-                    ) : (
-                        <Loader />
-                    )}
+                    {returnRelevantAnswer()}
                 </div>
             </Container>
         </section>

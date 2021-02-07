@@ -15,7 +15,7 @@ export const SearchSidebar = ({quantity}) => {
                     >
                         <span className={s.sidebar__label}>Фильмы</span>{" "}
                         <span className={s.sidebar__quantity}>
-                            {quantity.movie}
+                            {quantity.movie || 0}
                         </span>
                     </NavLink>
                 </li>
@@ -26,7 +26,9 @@ export const SearchSidebar = ({quantity}) => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Сериалы</span>{" "}
-                        <span className={s.sidebar__quantity}>{quantity.tv}</span>
+                        <span className={s.sidebar__quantity}>
+                            {quantity.tv || 0}
+                        </span>
                     </NavLink>
                 </li>
                 <li className={s.sidebar__item}>
@@ -36,7 +38,9 @@ export const SearchSidebar = ({quantity}) => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Ключевые слова</span>{" "}
-                        <span className={s.sidebar__quantity}>{quantity.keyword}</span>
+                        <span className={s.sidebar__quantity}>
+                            {quantity.keyword || 0}
+                        </span>
                     </NavLink>
                 </li>
                 <li className={s.sidebar__item}>
@@ -46,7 +50,9 @@ export const SearchSidebar = ({quantity}) => {
                         activeClassName={s.sidebar__link_active}
                     >
                         <span className={s.sidebar__label}>Люди</span>{" "}
-                        <span className={s.sidebar__quantity}>{quantity.person}</span>
+                        <span className={s.sidebar__quantity}>
+                            {quantity.person || 0}
+                        </span>
                     </NavLink>
                 </li>
             </ul>
