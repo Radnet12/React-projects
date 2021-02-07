@@ -228,36 +228,38 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                             </svg>
                         </Link>
                     </div>
-                    <ul className={s.header__list}>
-                        <li className={s.header__item}>
-                            <NavLink
-                                activeClassName={s.header__link_active}
-                                className={s.header__link}
-                                to="/movie"
-                                onClick={
-                                    isSearchOpen
-                                        ? () => setIsSearchOpen()
-                                        : null
-                                }
-                            >
-                                Фильмы
-                            </NavLink>
-                        </li>
-                        <li className={s.header__item}>
-                            <NavLink
-                                activeClassName={s.header__link_active}
-                                className={s.header__link}
-                                to="/tv"
-                                onClick={
-                                    isSearchOpen
-                                        ? () => setIsSearchOpen()
-                                        : null
-                                }
-                            >
-                                Сериалы
-                            </NavLink>
-                        </li>
-                    </ul>
+                    <nav>
+                        <ul className={s.header__list}>
+                            <li className={s.header__item}>
+                                <NavLink
+                                    activeClassName={s.header__link_active}
+                                    className={s.header__link}
+                                    to="/movie"
+                                    onClick={
+                                        isSearchOpen
+                                            ? () => setIsSearchOpen()
+                                            : null
+                                    }
+                                >
+                                    Фильмы
+                                </NavLink>
+                            </li>
+                            <li className={s.header__item}>
+                                <NavLink
+                                    activeClassName={s.header__link_active}
+                                    className={s.header__link}
+                                    to="/tv"
+                                    onClick={
+                                        isSearchOpen
+                                            ? () => setIsSearchOpen()
+                                            : null
+                                    }
+                                >
+                                    Сериалы
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </nav>
                     <div className={s.header__search}>
                         <input
                             className={

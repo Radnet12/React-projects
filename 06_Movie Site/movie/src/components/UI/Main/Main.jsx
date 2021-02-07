@@ -1,6 +1,12 @@
-import React from 'react';
-import s from './Main.module.scss';
+import React from "react";
+import Header from "../Header/Header";
+import s from "./Main.module.scss";
 
 export const MainWrap = ({ children }) => {
-    return <main className={s.main}>{children}</main>;
+    return (
+        <>
+            <Header />
+            <main className={s.main}>{children}</main>
+        </>
+    );
 };
