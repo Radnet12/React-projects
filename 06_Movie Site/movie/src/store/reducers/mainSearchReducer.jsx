@@ -2,12 +2,14 @@ import {
     GET_SEARCH_RESULTS,
     SET_INITIAL_SETTINGS,
     UPDATE_SEARCH_TEXT,
+    ZERO_OUT_SEARCH_RESULTS,
 } from "../actions/actionTypes";
 
 const initialState = {
     searchText: "",
     results: [],
     totalPages: 1,
+    totalResults: 0,
     currentPage: 1,
     isFetchingResults: true,
 };
@@ -18,6 +20,7 @@ export const mainSearchReducer = (state = initialState, action) => {
                 ...state,
                 results: action.results,
                 totalPages: action.totalPages,
+                totalResults: action.totalResults,
                 isFetchingResults: false,
             };
         }
@@ -33,6 +36,13 @@ export const mainSearchReducer = (state = initialState, action) => {
                 currentPage: action.page,
                 isFetchingResults: true,
             };
+        }
+        case ZERO_OUT_SEARCH_RESULTS: {
+            return {
+                ...state,
+                results: [],
+                totalResults: 0
+            }
         }
         default: {
             return state;

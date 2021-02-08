@@ -27,8 +27,8 @@ export const api = {
         const response = await fetch(
             `${base_uri}/search/${type}?${api_key}&query=${text}&page=${page}`
         );
-        const { results, total_pages } = await response.json();
-        return [results, total_pages];
+        const { results, total_pages, total_results } = await response.json();
+        return [results, total_pages, total_results];
     },
     getMovie: async (format = "movie", id) => {
         const response = await fetch(`${base_uri}/${format}/${id}?${api_key}`);

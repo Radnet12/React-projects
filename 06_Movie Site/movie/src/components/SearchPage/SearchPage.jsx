@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { loadSearchResults } from "../../store/actions/mainSearch";
+import { useDebounce } from "../../api/useDebounce";
+import {
+    loadSearchResults,
+    updateSearchText,
+    zeroOutSearchResults,
+} from "../../store/actions/mainSearch";
 import { Container } from "../UI/Container/Container";
 import { Loader } from "../UI/Loader/Loader";
 import { SearchDetails } from "./SearchDetails/SearchDetails";
@@ -15,16 +20,21 @@ const SearchPage = ({
     loadSearchResults,
     currentPage,
     totalPages,
+    totalResults,
+    updateSearchText,
+    zeroOutSearchResults,
     match: {
         params: {format, pageId}
     }
 }) => {
-
+    const debouncedText = useDebounce(searchText, 500);
     useEffect(() => {
         if (searchText.length !== 0) {
             loadSearchResults(searchText, format, pageId);
+        } else {
+            zeroOutSearchResults();
         }
-    }, [format, pageId]);
+    }, [format, pageId, debouncedText]);
 
 
     const returnRelevantAnswer = () => {
@@ -52,7 +62,15 @@ const SearchPage = ({
     return (
         <section className={s.search}>
             <Container>
-                <SearchTop searchText={searchText} itemsCount={format === "movie" ? `${totalPages * 20} фильмов` : `${totalPages * 20} сериалов`}/>
+                <SearchTop
+                    searchText={searchText}
+                    itemsCount={
+                        format === "movie"
+                            ? `${totalResults} фильмов`
+                            : `${totalResults} сериалов`
+                    }
+                    updateSearchText={updateSearchText}
+                />
                 <div className={s.search__wrapper}>
                     <>
                         <SearchSidebar />
@@ -70,6 +88,11 @@ const mapStateToProps = (state) => {
         isFetchingResults: state.mainSearch.isFetchingResults,
         currentPage: state.mainSearch.currentPage,
         totalPages: state.mainSearch.totalPages,
+        totalResults: state.mainSearch.totalResults,
     };
 };
-export default connect(mapStateToProps, { loadSearchResults })(SearchPage);
+export default connect(mapStateToProps, {
+    loadSearchResults,
+    updateSearchText,
+    zeroOutSearchResults,
+})(SearchPage);

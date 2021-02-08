@@ -17,9 +17,17 @@
     }
 
     &__query {
+        flex-basis: 100%;
+        margin-right: 30px;
+        overflow: hidden;
+        white-space: nowrap;
         span {
             font-weight: 500;
         }
+    }
+
+    &__results {
+        flex-shrink: 0;
     }
 
     &__bottom {
@@ -37,6 +45,7 @@
             flex-grow: 1;
             padding: 6px 5px;
             font-size: 18px;
+            border-bottom: 1px solid var(--color-gray);
         }
     }
 }

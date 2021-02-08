@@ -1,15 +1,14 @@
 import React from 'react';
-import { updateSearchText } from '../../../store/actions/mainSearch';
 import s from './SearchTop.module.scss';
 
-export const SearchTop = ({ searchText, itemsCount }) => {
+export const SearchTop = ({ searchText, itemsCount, updateSearchText }) => {
     return (
         <div className={s.top}>
             <div className={s.top__top}>
                 <div className={s.top__query}>
                     Ваш запрос: <span>{searchText}</span>
                 </div>
-                <div>Найдено {itemsCount}</div>
+                <div className={s.top__results}>Найдено {itemsCount}</div>
             </div>
             <div className={s.top__bottom}>
                 <svg
