@@ -22,6 +22,7 @@ export const SearchDetails = ({ items, format, totalPages, currentPage }) => {
                 return date.split("-").reverse().join(".");
             }
         };
+
         return (
             <div className={s.search}>
                 <ul className={s.search__list}>

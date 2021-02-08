@@ -1,0 +1,42 @@
+.top {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
+        padding: 20px;
+        background: rgb(125,56,96);
+        background: linear-gradient(260deg, rgba(125,56,96,1) 0%, rgba(35,135,161,1) 60%);
+        color: var(--color-white);
+        font-size: 20px;
+    }
+
+    &__query {
+        span {
+            font-weight: 500;
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        svg {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        input {
+            flex-grow: 1;
+            padding: 6px 5px;
+            font-size: 18px;
+        }
+    }
+}

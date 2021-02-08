@@ -6,12 +6,8 @@ import {
 
 const initialState = {
     searchText: "",
-    results: {
-        movies: {},
-        tvs: {},
-        keywords: {},
-        persons: {},
-    },
+    results: [],
+    totalPages: 1,
     currentPage: 1,
     isFetchingResults: true,
 };
@@ -20,13 +16,8 @@ export const mainSearchReducer = (state = initialState, action) => {
         case GET_SEARCH_RESULTS: {
             return {
                 ...state,
-                results: {
-                    ...state.results,
-                    movies: action.movies,
-                    tvs: action.tvs,
-                    keywords: action.keywords,
-                    persons: action.persons,
-                },
+                results: action.results,
+                totalPages: action.totalPages,
                 isFetchingResults: false,
             };
         }

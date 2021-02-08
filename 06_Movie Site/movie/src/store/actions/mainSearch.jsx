@@ -10,13 +10,11 @@ export const updateSearchText = (text) => {
         text
     }
 };
-export const getSearchResults = (movies, tvs, keywords, persons) => {
+export const getSearchResults = (results, totalPages) => {
     return {
         type: GET_SEARCH_RESULTS,
-        movies,
-        tvs,
-        keywords,
-        persons,
+        results,
+        totalPages
     };
 };
 export const setInitialSettings = (page) => {
@@ -24,13 +22,10 @@ export const setInitialSettings = (page) => {
         type: SET_INITIAL_SETTINGS,page
     };
 }
-export const loadSearchResults = (text, page = 1) => {
+export const loadSearchResults = (text, format, page = 1) => {
     return async (dispatch) => {
         dispatch(setInitialSettings(page));
-        const movies = await api.search(text, "movie", page);
-        const tvs = await api.search(text, "tv", page);
-        const keywords = await api.search(text, "keyword", page);
-        const persons = await api.search(text, "person", page);
-        dispatch(getSearchResults(movies, tvs, keywords, persons));
+        const [results, totalPages] = await api.search(text, format, page);
+        dispatch(getSearchResults(results, totalPages));
     };
 };
