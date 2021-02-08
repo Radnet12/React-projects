@@ -1,9 +1,9 @@
 import React from "react";
 import s from "./SearchDetails.module.scss";
 import {Link} from 'react-router-dom';
+import {Pagination} from '../../UI/Pagination/Pagination';
 
-export const SearchDetails = ({ items, format }) => {
-    console.log("details", items);
+export const SearchDetails = ({ items, format, totalPages, currentPage }) => {
     if (items === undefined) {
         return (
             <div className={s.search}>
@@ -78,6 +78,11 @@ export const SearchDetails = ({ items, format }) => {
                         );
                     })}
                 </ul>
+                <Pagination
+                    totalPages={totalPages}
+                    genreFormat={`search/${format}`}
+                    currentPage={currentPage}
+                />
             </div>
         );
     }

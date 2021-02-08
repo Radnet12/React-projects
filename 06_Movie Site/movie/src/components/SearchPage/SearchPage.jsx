@@ -11,33 +11,37 @@ import { SearchTop } from "./SearchTop/SearchTop";
 const SearchPage = ({
     searchText,
     results: {
-        movies: {total_results: movieQuantity, total_pages: moviePages},
-        tvs: {total_results: tvQuantity, total_pages: tvPages},
-        keywords: {total_results: keywordQuantity, total_pages: keywordPages},
-        persons: {total_results: personQuantity, total_pages: personPages},
+        movies: {total_results: movieQuantity},
+        tvs: {total_results: tvQuantity},
+        keywords: {total_results: keywordQuantity},
+        persons: {total_results: personQuantity},
     },
     results,
     isFetchingResults,
     loadSearchResults,
+    currentPage,
     match: {
-        params: {format}
+        params: {format, pageId}
     }
 }) => {
     const [items, setItems] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
     useEffect(() => {
         if (isFetchingResults === false) {
             Object.entries(results).forEach((item) => {
                 if (item[0].indexOf(format) > -1) {
                     setItems(item[1].results);
+                    setTotalPages(item[1].total_pages);
+
                 }
             });
         }
     }, [format, isFetchingResults]);
     useEffect(() => {
         if (searchText.length !== 0) {
-            loadSearchResults(searchText);
+            loadSearchResults(searchText, pageId);
         }
-    }, []);
+    }, [pageId]);
     const returnRelevantAnswer = () => {
         if (searchText.length !== 0) {
             if (isFetchingResults === false) {
@@ -51,7 +55,12 @@ const SearchPage = ({
                                 person: personQuantity,
                             }}
                         />
-                        <SearchDetails items={items} format={format} />
+                        <SearchDetails
+                            items={items}
+                            format={format}
+                            totalPages={totalPages}
+                            currentPage={currentPage}
+                        />
                     </>
                 );
             } else {
@@ -59,7 +68,7 @@ const SearchPage = ({
             }
         } else {
             return (
-                    <p>Введите что-нибудь в поисковую строку ещё раз</p>
+                <p>Введите что-нибудь в поисковую строку ещё раз</p>
             );
         }
     };
@@ -80,6 +89,7 @@ const mapStateToProps = (state) => {
         searchText: state.mainSearch.searchText,
         results: state.mainSearch.results,
         isFetchingResults: state.mainSearch.isFetchingResults,
+        currentPage: state.mainSearch.currentPage
     };
 };
 export default connect(mapStateToProps, { loadSearchResults })(SearchPage);

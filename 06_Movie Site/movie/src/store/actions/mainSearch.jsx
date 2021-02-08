@@ -2,7 +2,7 @@ import { api } from '../../api/api';
 import {
     UPDATE_SEARCH_TEXT,
     GET_SEARCH_RESULTS,
-    SET_SEARCH_LOADING,
+    SET_INITIAL_SETTINGS,
 } from "../actions/actionTypes";
 export const updateSearchText = (text) => {
     return {
@@ -19,18 +19,18 @@ export const getSearchResults = (movies, tvs, keywords, persons) => {
         persons,
     };
 };
-export const setSearchLoading = () => {
+export const setInitialSettings = (page) => {
     return {
-        type: SET_SEARCH_LOADING
+        type: SET_INITIAL_SETTINGS,page
     };
 }
-export const loadSearchResults = (text) => {
+export const loadSearchResults = (text, page = 1) => {
     return async (dispatch) => {
-        dispatch(setSearchLoading());
-        const movies = await api.search(text, "movie");
-        const tvs = await api.search(text, "tv");
-        const keywords = await api.search(text, "keyword");
-        const persons = await api.search(text, "person");
+        dispatch(setInitialSettings(page));
+        const movies = await api.search(text, "movie", page);
+        const tvs = await api.search(text, "tv", page);
+        const keywords = await api.search(text, "keyword", page);
+        const persons = await api.search(text, "person", page);
         dispatch(getSearchResults(movies, tvs, keywords, persons));
     };
 };

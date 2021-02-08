@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import s from "./Pagination.module.scss";
 import { Link } from "react-router-dom";
 
-export const Pagination = ({totalPages,currentPage, rangeOfItems = 10,genreFormat,url }) => {
+export const Pagination = ({totalPages,currentPage, rangeOfItems = 10, genreFormat,url = "" }) => {
     const [itemsRange, setItemsRange] = useState(rangeOfItems);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
