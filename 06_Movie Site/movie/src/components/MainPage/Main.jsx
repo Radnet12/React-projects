@@ -21,6 +21,10 @@ const Main = ({ searchText, updateSearchText }) => {
                             placeholder="Найти фильм или сериал..."
                             value={searchText}
                             onChange={(e) => updateSearchText(e.target.value)}
+                            onKeyDown={(e) =>
+                                (e.key === "Enter" && searchText.length > 0) &&
+                                history.push("/search/movie")
+                            }
                         />
                         <button
                             className={s.search__btn}
