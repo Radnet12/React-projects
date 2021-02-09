@@ -89,7 +89,7 @@ export const CatalogDetails = ({ cast, crew, reviews, seasons }) => {
         } else if (tab === 4) {
             return (
                 <ul className={s.seasons}>
-                    {seasons.map((season) => {
+                    {seasons.length !== 0 ? (seasons.map((season) => {
                         return (
                             <li key={season.id} className={s.seasons__season}>
                                 <div className={s.seasons__poster}>
@@ -116,7 +116,7 @@ export const CatalogDetails = ({ cast, crew, reviews, seasons }) => {
                                 </div>
                             </li>
                         );
-                    })}
+                    })) : <p>К сожаления, данной информации нет</p>}
                 </ul>
             );
         } else {

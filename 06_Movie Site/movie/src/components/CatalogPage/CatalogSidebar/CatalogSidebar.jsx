@@ -2,6 +2,7 @@ import React from "react";
 import s from "./CatalogSidebar.module.scss";
 
 export const CatalogSidebar = ({ movie, keywords }) => {
+    console.log(movie.spoken_languages.length);
     const defineStatus = (status) => {
         if (status === "Released") {
             return "Выпущен";
@@ -42,25 +43,29 @@ export const CatalogSidebar = ({ movie, keywords }) => {
                     {movie.original_name || movie.original_title}
                 </div>
             </div>
-            <div className={s.sidebar__item}>
-                <h3 className={s.sidebar__item_title}>Разговорные языки</h3>
-                <div className={s.sidebar__item_info}>
-                    {movie.spoken_languages.map((lang) => (
-                        <span
-                            key={lang.english_name}
-                            className={s.sidebar__item_lang}
-                        >
-                            {lang.english_name}
-                        </span>
-                    ))}
+            {movie.spoken_languages.length !== 0 && (
+                <div className={s.sidebar__item}>
+                    <h3 className={s.sidebar__item_title}>Разговорные языки</h3>
+                    <div className={s.sidebar__item_info}>
+                        {movie.spoken_languages.map((lang) => (
+                            <span
+                                key={lang.english_name}
+                                className={s.sidebar__item_lang}
+                            >
+                                {lang.english_name}
+                            </span>
+                        ))}
+                    </div>
                 </div>
-            </div>
-            <div className={s.sidebar__item}>
-                <h3 className={s.sidebar__item_title}>Статус</h3>
-                <div className={s.sidebar__item_info}>
-                    {defineStatus(movie.status)}
+            )}
+            {!!movie.status && (
+                <div className={s.sidebar__item}>
+                    <h3 className={s.sidebar__item_title}>Статус</h3>
+                    <div className={s.sidebar__item_info}>
+                        {defineStatus(movie.status)}
+                    </div>
                 </div>
-            </div>
+            )}
             {!!movie.seasons && (
                 <div className={s.sidebar__item}>
                     <h3 className={s.sidebar__item_title}>Сезонов</h3>

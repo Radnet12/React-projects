@@ -21,6 +21,7 @@ const CatalogPage = ({
     recommend,
     isFetchingMovie,
 }) => {
+    console.log(recommend);
     useEffect(() => {
         loadMovieInfo(format, id);
         window.scrollTo(0, 0);
@@ -33,14 +34,19 @@ const CatalogPage = ({
                     <div className={s.bottom}>
                         <Container>
                             <div className={s.bottom__wrapper}>
-                                <div style={{minWidth: 0}}>
+                                <div className={s.bottom__main}>
                                     <CatalogDetails
                                         cast={credits.cast}
                                         crew={credits.crew}
                                         reviews={reviews}
                                         seasons={movie.seasons}
                                     />
-                                    <CatalogRecomend movies={recommend} format={format}/>
+                                    {recommend.length > 0 && (
+                                        <CatalogRecomend
+                                            movies={recommend}
+                                            format={format}
+                                        />
+                                    )}
                                 </div>
                                 <CatalogSidebar
                                     movie={movie}

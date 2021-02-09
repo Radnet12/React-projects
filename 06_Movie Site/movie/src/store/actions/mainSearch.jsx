@@ -32,7 +32,6 @@ export const loadSearchResults = (text, format, page = 1) => {
             format,
             page
         );
-        debugger
         dispatch(getSearchResults(results, totalPages, totalResults));
     };
 };
