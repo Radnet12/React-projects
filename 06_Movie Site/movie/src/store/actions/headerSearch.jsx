@@ -20,8 +20,8 @@ export const getSearchedMovies = (movies) => {
 };
 export const getSearchResults = (text, type) => {
     return async (dispatch) => {
-        const list = await api.search(text, type);
-        dispatch(getSearchedMovies(list));
+        const [results] = await api.search(text, type);
+        dispatch(getSearchedMovies(results));
     };
 };
 export const zeroOutSearchResults = () => {
