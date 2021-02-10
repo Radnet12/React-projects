@@ -13,6 +13,7 @@ import { useDebounce } from "../../../api/useDebounce";
 
 const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults,isSearchOpen,setIsSearchOpen}) => {
     const debouncedText = useDebounce(searchText, 400);
+
     useEffect(() => {
         if (searchText.length > 0) {
             getSearchResults(searchText, "multi");
@@ -20,7 +21,6 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
             zeroOutSearchResults();
         }
     }, [debouncedText]);
-
     const getRelevantAnswer = () => {
         if (movies.length === 0 && searchText.length > 0) {
             return (
@@ -150,6 +150,27 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                 });
         }
     };
+    const getToken = async () => {
+        const response = await fetch(
+            "https://api.themoviedb.org/3/authentication/token/new?api_key=5daf90e431960f20b1aca24657c54316"
+        );
+        const { request_token } = await response.json();
+       localStorage.setItem("token", request_token);
+        // window.location.replace(`https://www.themoviedb.org/authenticate/${tokenId}?redirect_to=http://localhost:3000/`);
+        window.open(
+            `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://localhost:3000/`,
+            "_blank"
+        );
+    };
+    
+    const getSession = async () => {
+        const token = localStorage.getItem("token")
+        const response2 = await fetch(
+            `https://api.themoviedb.org/3/authentication/session/new?request_token=${token}&api_key=5daf90e431960f20b1aca24657c54316`
+        );
+        const session = await response2.json();
+        console.log(session);
+    };
     return (
         <header className={s.header}>
             <Container>
@@ -260,6 +281,8 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                             </li>
                         </ul>
                     </nav>
+                    <button onClick={getToken}>Зарегестрироваться</button>
+                    <button onClick={getSession}>Gjlndthlbnm</button>
                     <div className={s.header__search}>
                         <input
                             className={
