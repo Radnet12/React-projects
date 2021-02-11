@@ -1,3 +1,9 @@
+$maxWidth: 1920;
+@mixin adaptiv-font($pcSize, $mobSize) {
+	$addSize: $pcSize - $mobSize;
+	$maxWidth: $maxWidth - 320;
+	font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
 .movie {
     position: relative;
     background-repeat: no-repeat;
@@ -24,6 +30,10 @@
     padding: 50px 0;
     max-width: 1400px;
     margin: 0 auto;
+
+    @media (max-width: 992px) {
+        padding: 75px 0 50px 0;
+    }
 }
 .movie__poster {
     flex-shrink: 0;
@@ -38,9 +48,16 @@
         object-fit: cover;
         border-radius: 10px;
     }
+
+    @media (max-width: 768px) {
+        max-width: 170px;
+    }
+    @media (max-width: 586px) {
+        display: none;
+    }
 }
 .movie__title {
-    font-size: 55px;
+    @include adaptiv-font(55, 25);
     margin-bottom: 10px;
 }
 .movie__details {
@@ -48,11 +65,20 @@
     align-items: center;
     font-size: 18px;
     margin-bottom: 25px;
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 .movie__detail {
     opacity: 0.7;
     &:not(:last-child) {
         margin-right: 30px;
+    }
+
+    @media (max-width: 992px) {
+        margin-top: 10px;
     }
 }
 .movie__genres_list {
@@ -60,10 +86,26 @@
     align-items: center;
     justify-content: space-between;
     margin-right: 30px;
+
+    @media (max-width: 992px) {
+        margin-top: 10px;
+    }
+
+    @media (max-width: 586px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-right: 0;
+    }
 }
 .movie__genre {
     position: relative;
     &:not(:last-child) {
+        margin-bottom: 7px;
+    }
+    @media (min-width: 586px) {
+        &:not(:last-child) {
+            margin-bottom: 0;
             margin-right: 20px;
             &::before {
                 content: '';
@@ -77,6 +119,7 @@
                 transform: translateY(-50%);
             }
         }
+    }
 }
 .movie__genre_link {
     color: var(--color-white);
@@ -96,10 +139,18 @@
     &_title {
         font-size: 25px;
         margin-bottom: 10px;
+
+        @media (max-width: 586px) {
+            font-size: 22px;
+        }
     }
     &_info {
         letter-spacing: 0.5px;
         line-height: 150%;
+
+        @media (max-width: 768px) {
+            font-size: 14px;
+        }
     }
 }
 .movie__actions {

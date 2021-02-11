@@ -6,6 +6,10 @@
     color: var(--color-black);
     border-radius: var(--border-radius);
 
+    @media (max-width: 768px) {
+        margin: 20px 0 0 0;
+    }
+
     &__title {
         font-size: 18px;
         font-weight: 600;

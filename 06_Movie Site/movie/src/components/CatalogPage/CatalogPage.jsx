@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { loadMovieInfo } from "../../store/actions/catalog";
 import { Container } from "../UI/Container/Container";
+import { Loader } from "../UI/Loader/Loader";
 import { CatalogDetails } from "./CatalogDetails/CatalogDetails";
 import { CatalogMain } from "./CatalogMain/CatalogMain";
 import s from "./CatalogPage.module.scss";
-import { CatalogSidebar } from "./CatalogSidebar/CatalogSidebar";
-import { loadMovieInfo } from "../../store/actions/catalog";
-import { Loader } from "../UI/Loader/Loader";
-import { connect } from "react-redux";
 import { CatalogRecomend } from "./CatalogRecomend/CatalogRecomend";
+import { CatalogSidebar } from "./CatalogSidebar/CatalogSidebar";
 
 const CatalogPage = ({
     match: {
@@ -21,11 +21,25 @@ const CatalogPage = ({
     recommend,
     isFetchingMovie,
 }) => {
-    console.log(recommend);
+    const [showSidebar, setShowSidebar] = useState(true);
     useEffect(() => {
         loadMovieInfo(format, id);
         window.scrollTo(0, 0);
     }, [format, id]);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(min-width: 768px)");
+        const handleTabletChange = () => {
+            if (mediaQuery.matches) {
+                setShowSidebar(true)
+            } else {
+                setShowSidebar(false)
+            }
+        };
+        mediaQuery.addListener(handleTabletChange);
+        handleTabletChange(mediaQuery);
+    }, [showSidebar]);
+
+
     return (
         <>
             {isFetchingMovie === false ? (
@@ -48,10 +62,12 @@ const CatalogPage = ({
                                         />
                                     )}
                                 </div>
-                                <CatalogSidebar
-                                    movie={movie}
-                                    keywords={keywords}
-                                />
+                                {showSidebar && (
+                                    <CatalogSidebar
+                                        movie={movie}
+                                        keywords={keywords}
+                                    />
+                                )}
                             </div>
                         </Container>
                     </div>

@@ -1,3 +1,9 @@
+$maxWidth: 1920;
+@mixin adaptiv-font($pcSize, $mobSize) {
+	$addSize: $pcSize - $mobSize;
+	$maxWidth: $maxWidth - 320;
+	font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
 .details {
     flex-basis: 100%;
     margin-right: 20px;
@@ -5,11 +11,14 @@
     background-color: var(--color-white);
     color: var(--color-black);
     border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+        margin-right: 0;
+    }
     &__header {
+        @include adaptiv-font(18, 16);
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        font-size: 18px;
         overflow-x: auto;
         overflow-y: hidden;
     }
