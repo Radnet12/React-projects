@@ -9,9 +9,21 @@ import {
     zeroOutSearchResults,
     setIsSearchOpen,
 } from "../../../store/actions/headerSearch";
+import {logout, requestNewToken} from '../../../store/actions/auth';
 import { useDebounce } from "../../../api/useDebounce";
 
-const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResults,isSearchOpen,setIsSearchOpen}) => {
+const Header = ({
+    updateText,
+    searchText,
+    getSearchResults,
+    movies,
+    zeroOutSearchResults,
+    isSearchOpen,
+    setIsSearchOpen,
+    requestNewToken,
+    isAuth,
+    logout,
+}) => {
     const debouncedText = useDebounce(searchText, 400);
 
     useEffect(() => {
@@ -52,7 +64,10 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                         <li
                             key={movie.id}
                             className={s.header__searched_item}
-                            onClick={() => {setIsSearchOpen(); zeroOutSearchResults()}}
+                            onClick={() => {
+                                setIsSearchOpen();
+                                zeroOutSearchResults();
+                            }}
                         >
                             <Link
                                 to={`/catalog/${movie.media_type}/${movie.id}`}
@@ -149,27 +164,6 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                     );
                 });
         }
-    };
-    const getToken = async () => {
-        const response = await fetch(
-            "https://api.themoviedb.org/3/authentication/token/new?api_key=5daf90e431960f20b1aca24657c54316"
-        );
-        const { request_token } = await response.json();
-       localStorage.setItem("token", request_token);
-        // window.location.replace(`https://www.themoviedb.org/authenticate/${tokenId}?redirect_to=http://localhost:3000/`);
-        window.open(
-            `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=http://localhost:3000/`,
-            "_blank"
-        );
-    };
-    
-    const getSession = async () => {
-        const token = localStorage.getItem("token")
-        const response2 = await fetch(
-            `https://api.themoviedb.org/3/authentication/session/new?request_token=${token}&api_key=5daf90e431960f20b1aca24657c54316`
-        );
-        const session = await response2.json();
-        console.log(session);
     };
     return (
         <header className={s.header}>
@@ -281,49 +275,64 @@ const Header = ({updateText,searchText,getSearchResults,movies,zeroOutSearchResu
                             </li>
                         </ul>
                     </nav>
-                    <button onClick={getToken}>Зарегестрироваться</button>
-                    <button onClick={getSession}>Gjlndthlbnm</button>
-                    <div className={s.header__search}>
-                        <input
-                            className={
-                                isSearchOpen === true
-                                    ? `${s.search} ${s.search__active}`
-                                    : `${s.search}`
-                            }
-                            placeholder="Ищите кино прямо здесь..."
-                            type="text"
-                            value={searchText}
-                            onChange={(e) => {
-                                updateText(e.target.value);
-                            }}
-                        />
-                        <button
-                            className={s.header__search_btn}
-                            onClick={() => setIsSearchOpen()}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="512"
-                                height="512"
-                                viewBox="0 0 512.005 512.005"
+                    <div className={s.header__right}>
+                        <div className={s.header__search}>
+                            <input
+                                className={
+                                    isSearchOpen === true
+                                        ? `${s.search} ${s.search__active}`
+                                        : `${s.search}`
+                                }
+                                placeholder="Ищите кино прямо здесь..."
+                                type="text"
+                                value={searchText}
+                                onChange={(e) => {
+                                    updateText(e.target.value);
+                                }}
+                            />
+                            <button
+                                className={s.header__search_btn}
+                                onClick={() => setIsSearchOpen()}
                             >
-                                <path
-                                    d="M505.749 475.587l-145.6-145.6c28.203-34.837 45.184-79.104 45.184-127.317C405.333 90.926 314.41.003 202.666.003S0 90.925 0 202.669s90.923 202.667 202.667 202.667c48.213 0 92.48-16.981 127.317-45.184l145.6 145.6c4.16 4.16 9.621 6.251 15.083 6.251s10.923-2.091 15.083-6.251c8.341-8.341 8.341-21.824-.001-30.165zM202.667 362.669c-88.235 0-160-71.765-160-160s71.765-160 160-160 160 71.765 160 160-71.766 160-160 160z"
-                                    fill="#fff"
-                                    data-original="#000000"
+                                <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                />
-                            </svg>
-                        </button>
-                        <ul
-                            className={
-                                isSearchOpen === true
-                                    ? `${s.header__searched_list} ${s.header__searched_list_active}`
-                                    : `${s.header__searched_list}`
-                            }
-                        >
-                            {getRelevantAnswer()}
-                        </ul>
+                                    width="512"
+                                    height="512"
+                                    viewBox="0 0 512.005 512.005"
+                                >
+                                    <path
+                                        d="M505.749 475.587l-145.6-145.6c28.203-34.837 45.184-79.104 45.184-127.317C405.333 90.926 314.41.003 202.666.003S0 90.925 0 202.669s90.923 202.667 202.667 202.667c48.213 0 92.48-16.981 127.317-45.184l145.6 145.6c4.16 4.16 9.621 6.251 15.083 6.251s10.923-2.091 15.083-6.251c8.341-8.341 8.341-21.824-.001-30.165zM202.667 362.669c-88.235 0-160-71.765-160-160s71.765-160 160-160 160 71.765 160 160-71.766 160-160 160z"
+                                        fill="#fff"
+                                        data-original="#000000"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    />
+                                </svg>
+                            </button>
+                            <ul
+                                className={
+                                    isSearchOpen === true
+                                        ? `${s.header__searched_list} ${s.header__searched_list_active}`
+                                        : `${s.header__searched_list}`
+                                }
+                            >
+                                {getRelevantAnswer()}
+                            </ul>
+                        </div>
+                        {isAuth ? (
+                            <button
+                                className={s.header__login}
+                                onClick={logout}
+                            >
+                                Выйти
+                            </button>
+                        ) : (
+                            <button
+                                className={s.header__login}
+                                onClick={requestNewToken}
+                            >
+                                Войти
+                            </button>
+                        )}
                     </div>
                 </div>
             </Container>
@@ -336,6 +345,7 @@ function mapStateToProps(state) {
         searchText: state.headerSearch.searchText,
         movies: state.headerSearch.searchedMovies,
         isSearchOpen: state.headerSearch.isSearchOpen,
+        isAuth: state.auth.isAuth
     };
 }
 
@@ -343,5 +353,7 @@ export default connect(mapStateToProps, {
     updateText,
     getSearchResults,
     zeroOutSearchResults,
-    setIsSearchOpen
+    setIsSearchOpen,
+    requestNewToken,
+    logout,
 })(Header);
