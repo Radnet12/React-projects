@@ -10,51 +10,53 @@ import { Loader } from "../UI/Loader/Loader";
 import { MainTemplate } from "../UI/MainTemplate/MainTemplate";
 import { Sidebar } from "../UI/Sidebar/Sidebar";
 
-const Movie = (props) => {
+const Movie = ({
+    movies,
+    isFetchingGenres,
+    isFetchingMovies,
+    sorted,
+    genres,
+    format,
+    currentPage,
+    totalPages,
+    url,
+    loadGenres,
+    loadMovies,
+    loadMovieWithGenre,
+    match: {
+        params: { id, pageId },
+    },
+}) => {
     useEffect(() => {
-        if (props.genres.length === 16 || props.genres.length === 0) {props.loadGenres(props.format);}
-        if (props.match.params.id === undefined) {
-            props.loadMovies(props.format);
-        } else if (isNaN(parseInt(props.match.params.id))) {
-            props.loadMovies(
-                props.format,
-                props.match.params.id,
-                props.match.params.pageId
-            );
-        } else if (isNaN(parseInt(props.match.params.id)) === false) {
-            props.loadMovieWithGenre(
-                props.format,
-                props.match.params.id,
-                props.match.params.pageId
-            );
-        } else {
-            props.loadMovies(
-                props.format,
-                props.match.params.id,
-                props.match.params.pageId
-            );
+        if (genres.length === 16 || genres.length === 0) {
+            loadGenres(format);
         }
-    }, [props.match.params.id, props.match.params.pageId]);
+        if (id === undefined) {
+            loadMovies(format);
+        } else if (isNaN(parseInt(id))) {
+            loadMovies(format, id, pageId);
+        } else if (isNaN(parseInt(id)) === false) {
+            loadMovieWithGenre(format, id, pageId);
+        } else {
+            loadMovies(format, id, pageId);
+        }
+    }, [id, pageId]);
 
     return (
         <MainTemplate>
-            {props.isFetchingGenres === false ? (
-                <Sidebar
-                    genres={props.genres}
-                    sort={props.sorted}
-                    genreFormat={props.format}
-                />
+            {isFetchingGenres === false ? (
+                <Sidebar genres={genres} sort={sorted} genreFormat={format} />
             ) : (
                 <Loader />
             )}
-            {props.isFetchingMovies === false ? (
+            {isFetchingMovies === false ? (
                 <Cards
-                    genreFormat={props.format}
-                    movies={props.movies}
-                    genres={props.genres}
-                    currentPage={props.currentPage}
-                    totalPages={props.totalPages}
-                    url={props.url}
+                    genreFormat={format}
+                    movies={movies}
+                    genres={genres}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    url={url}
                 />
             ) : (
                 <Loader />

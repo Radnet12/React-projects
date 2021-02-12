@@ -9,7 +9,7 @@ import {
     zeroOutSearchResults,
     setIsSearchOpen,
 } from "../../../store/actions/headerSearch";
-import {logout, requestNewToken} from '../../../store/actions/auth';
+import { logout, requestNewToken } from '../../../store/actions/auth';
 import { useDebounce } from "../../../api/useDebounce";
 
 const Header = ({

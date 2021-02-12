@@ -10,7 +10,7 @@ export const Sidebar = ({ genres, sort, genreFormat }) => {
     };
 
     return (
-        <div
+        <aside
             className={`${s.sidebar} ${isFilterClosed ? s.sidebar_close : ""}`}
         >
             <h2
@@ -65,6 +65,6 @@ export const Sidebar = ({ genres, sort, genreFormat }) => {
                     </ul>
                 </div>
             </div>
-        </div>
+        </aside>
     );
 };
