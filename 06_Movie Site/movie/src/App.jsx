@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import CatalogPage from "./components/CatalogPage/CatalogPage";
+import Main from "./components/MainPage/Main";
 import Movie from "./components/MoviePage/Movie";
+import SearchPage from "./components/SearchPage/SearchPage";
 import Tv from "./components/TvPage/Tv";
 import { MainWrap } from "./components/UI/Main/Main";
-import Main from "./components/MainPage/Main";
-import CatalogPage from "./components/CatalogPage/CatalogPage";
-import SearchPage from "./components/SearchPage/SearchPage";
-import { connect } from "react-redux";
-import {autoLogin, requestSessionId} from './store/actions/auth';
+import { autoLogin, requestSessionId } from './store/reducers/authReducer';
 
 function App({ requestSessionId, autoLogin }) {
     useEffect(() => {
         const token = localStorage.getItem("token");
         const session = localStorage.getItem("sessionId");
         if (!!token) {
-            console.log("token", token);
             requestSessionId(token);
             localStorage.removeItem("token");
         } else if (!!session) {

@@ -5,7 +5,7 @@ import {
     loadSearchResults,
     updateSearchText,
     zeroOutSearchResults,
-} from "../../store/actions/mainSearch";
+} from "../../store/reducers/mainSearchReducer";
 import { Container } from "../UI/Container/Container";
 import { Loader } from "../UI/Loader/Loader";
 import { SearchDetails } from "./SearchDetails/SearchDetails";

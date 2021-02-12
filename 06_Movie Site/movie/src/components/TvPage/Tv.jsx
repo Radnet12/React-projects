@@ -4,7 +4,7 @@ import {
     loadGenres,
     loadMovies,
     loadMovieWithGenre,
-} from "../../store/actions/movies";
+} from "../../store/reducers/moviesReducer";
 import { Cards } from "../UI/Cards/Cards";
 import { Loader } from "../UI/Loader/Loader";
 import { MainTemplate } from "../UI/MainTemplate/MainTemplate";

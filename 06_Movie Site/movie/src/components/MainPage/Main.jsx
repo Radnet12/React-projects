@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { updateSearchText } from "../../store/actions/mainSearch";
+import { updateSearchText } from "../../store/reducers/mainSearchReducer";
 import { Container } from "../UI/Container/Container";
 import s from "./Main.module.scss";
 

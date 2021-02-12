@@ -8,8 +8,8 @@ import {
     getSearchResults,
     zeroOutSearchResults,
     setIsSearchOpen,
-} from "../../../store/actions/headerSearch";
-import { logout, requestNewToken } from '../../../store/actions/auth';
+} from "../../../store/reducers/headerSearchReducer";
+import { logout, requestNewToken } from "../../../store/reducers/authReducer";
 import { useDebounce } from "../../../api/useDebounce";
 
 const Header = ({

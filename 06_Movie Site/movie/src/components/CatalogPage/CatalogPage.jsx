@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { loadMovieInfo } from "../../store/actions/catalog";
+import { loadMovieInfo } from "../../store/reducers/catalogReducer";
 import { Container } from "../UI/Container/Container";
 import { Loader } from "../UI/Loader/Loader";
 import { CatalogDetails } from "./CatalogDetails/CatalogDetails";

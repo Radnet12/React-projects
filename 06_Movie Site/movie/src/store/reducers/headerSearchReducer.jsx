@@ -1,4 +1,9 @@
-import { GET_SEARCHED_MOVIES, SET_IS_SEARCH_OPEN, UPDATE_TEXT, ZERO_OUT_SEARCH_RESULTS } from "../actions/actionTypes";
+import { api } from "../../api/api";
+
+const GET_SEARCHED_MOVIES = "GET_SEARCHED_MOVIES";
+const SET_IS_SEARCH_OPEN = "SET_IS_SEARCH_OPEN";
+const UPDATE_TEXT = "UPDATE_TEXT";
+const ZERO_OUT_SEARCH_RESULTS = "ZERO_OUT_SEARCH_RESULTS";
 
 const initialStata = {
     searchedMovies: [],
@@ -33,4 +38,34 @@ export const headerSearchReducer = (state = initialStata, action) => {
             return state;
         }
     }
+};
+
+export const updateText = (text) => {
+    return {
+        type: UPDATE_TEXT,
+        text,
+    };
+};
+export const getSearchedMovies = (movies) => {
+    return {
+        type: GET_SEARCHED_MOVIES,
+        movies,
+    };
+};
+export const zeroOutSearchResults = () => {
+    return {
+        type: ZERO_OUT_SEARCH_RESULTS,
+    };
+};
+export const setIsSearchOpen = () => {
+    return {
+        type: SET_IS_SEARCH_OPEN,
+    };
+};
+
+export const getSearchResults = (text, type) => {
+    return async (dispatch) => {
+        const [results] = await api.search(text, type);
+        dispatch(getSearchedMovies(results));
+    };
 };
