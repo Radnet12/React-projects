@@ -30,8 +30,7 @@ const Movie = ({
     useEffect(() => {
         if (genres.length === 16 || genres.length === 0) {
             loadGenres(format);
-        }
-        if (id === undefined) {
+        } else if (id === undefined) {
             loadMovies(format);
         } else if (isNaN(parseInt(id))) {
             loadMovies(format, id, pageId);

@@ -22,7 +22,7 @@ const initialState = {
     isFetchingGenres: true,
     movies: [],
     genres: [],
-    currentPage: 1,
+    currentPage: "1",
     totalPages: 1,
     url: "popular"
 };
