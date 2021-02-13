@@ -29,3 +29,4 @@ export const SearchSidebar = () => {
         </section>
     );
 };
+export const MemoizedSearchSidebar = React.memo(SearchSidebar);

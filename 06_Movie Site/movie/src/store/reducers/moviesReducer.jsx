@@ -1,8 +1,8 @@
 import { api } from "../../api/api";
 
-const SET_PAGE_PARAMS = "SET_PAGE_PARAMS";
-const GET_GENRES = "GET_GENRES";
-const GET_MOVIES = "GET_MOVIES";
+const SET_PAGE_PARAMS = "react-movie/movies/SET_PAGE_PARAMS";
+const GET_GENRES = "react-movie/movies/GET_GENRES";
+const GET_MOVIES = "react-movie/movies/GET_MOVIES";
 
 const initialState = {
     sortedMovies: [

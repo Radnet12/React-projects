@@ -19,7 +19,7 @@ function App({ requestSessionId, autoLogin }) {
         } else if (!!session) {
             autoLogin(session);
         }
-    }, []);
+    }, [autoLogin, requestSessionId]);
     return (
         <MainWrap>
             <Switch>

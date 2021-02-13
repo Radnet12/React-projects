@@ -1,9 +1,9 @@
 import { api } from "../../api/api";
 
-const GET_SEARCHED_MOVIES = "GET_SEARCHED_MOVIES";
-const SET_IS_SEARCH_OPEN = "SET_IS_SEARCH_OPEN";
-const UPDATE_TEXT = "UPDATE_TEXT";
-const ZERO_OUT_SEARCH_RESULTS = "ZERO_OUT_SEARCH_RESULTS";
+const GET_SEARCHED_MOVIES = "react-movie/header/GET_SEARCHED_MOVIES";
+const SET_IS_SEARCH_OPEN = "react-movie/header/SET_IS_SEARCH_OPEN";
+const UPDATE_TEXT = "react-movie/header/UPDATE_TEXT";
+const ZERO_OUT_SEARCH_RESULTS = "react-movie/header/ZERO_OUT_SEARCH_RESULTS";
 
 const initialStata = {
     searchedMovies: [],

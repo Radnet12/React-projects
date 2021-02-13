@@ -1,7 +1,7 @@
 import { api } from "../../api/api";
 
-const GET_MOVIE_INFO = "GET_MOVIE_INFO";
-const LOADING_MOVIE = "LOADING_MOVIE";
+const GET_MOVIE_INFO = "react-movie/catalog/GET_MOVIE_INFO";
+const LOADING_MOVIE = "react-movie/catalog/LOADING_MOVIE";
 
 const initialState = {
     movie: [],
@@ -61,7 +61,8 @@ export const loadMovieInfo = (format, id) => {
         const recommend = await api.getAnotherMovieInfo(
             format,
             id,
-            "recommendations"
+            "recommendations",
+            "&language=ru-RU"
         );
         dispatch(getMovieInfo(movie, credits, reviews, keywords, recommend));
     };

@@ -10,7 +10,7 @@ import { Container } from "../UI/Container/Container";
 import { Loader } from "../UI/Loader/Loader";
 import { SearchDetails } from "./SearchDetails/SearchDetails";
 import s from "./SearchPage.module.scss";
-import { SearchSidebar } from "./SearchSidebar/SearchSidebar";
+import { MemoizedSearchSidebar } from "./SearchSidebar/SearchSidebar";
 import { SearchTop } from "./SearchTop/SearchTop";
 
 const SearchPage = ({
@@ -27,14 +27,15 @@ const SearchPage = ({
         params: {format, pageId}
     }
 }) => {
-    const debouncedText = useDebounce(searchText, 500);
+    const debouncedText = useDebounce(searchText, 400);
     useEffect(() => {
-        if (searchText.length !== 0) {
-            loadSearchResults(searchText, format, pageId);
+        if (debouncedText.length !== 0) {
+            loadSearchResults(debouncedText, format, pageId);
         } else {
             zeroOutSearchResults();
         }
-    }, [format, pageId, debouncedText]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debouncedText, loadSearchResults, zeroOutSearchResults]);
 
 
     const returnRelevantAnswer = () => {
@@ -73,7 +74,7 @@ const SearchPage = ({
                 />
                 <div className={s.search__wrapper}>
                     <>
-                        <SearchSidebar />
+                        <MemoizedSearchSidebar />
                         {returnRelevantAnswer()}
                     </>
                 </div>

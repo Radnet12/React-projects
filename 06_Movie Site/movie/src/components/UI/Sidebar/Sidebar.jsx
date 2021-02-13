@@ -68,3 +68,4 @@ export const Sidebar = ({ genres, sort, genreFormat }) => {
         </aside>
     );
 };
+export const MemoizedSidebar = React.memo(Sidebar);

@@ -8,7 +8,7 @@ import {
 import { Cards } from "../UI/Cards/Cards";
 import { Loader } from "../UI/Loader/Loader";
 import { MainTemplate } from "../UI/MainTemplate/MainTemplate";
-import { Sidebar } from "../UI/Sidebar/Sidebar";
+import { MemoizedSidebar } from "../UI/Sidebar/Sidebar";
 
 const Movie = ({
     movies,
@@ -40,12 +40,16 @@ const Movie = ({
         } else {
             loadMovies(format, id, pageId);
         }
-    }, [id, pageId]);
+    }, [format, genres.length, id, loadGenres, loadMovieWithGenre, loadMovies, pageId]);
 
     return (
         <MainTemplate>
             {isFetchingGenres === false ? (
-                <Sidebar genres={genres} sort={sorted} genreFormat={format} />
+                <MemoizedSidebar
+                    genres={genres}
+                    sort={sorted}
+                    genreFormat={format}
+                />
             ) : (
                 <Loader />
             )}

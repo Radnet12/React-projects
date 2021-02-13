@@ -25,7 +25,7 @@ const CatalogPage = ({
     useEffect(() => {
         loadMovieInfo(format, id);
         window.scrollTo(0, 0);
-    }, [format, id]);
+    }, [format, id, loadMovieInfo]);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(min-width: 768px)");
         const handleTabletChange = () => {

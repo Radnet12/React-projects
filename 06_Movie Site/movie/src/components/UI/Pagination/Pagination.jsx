@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Pagination = ({totalPages,currentPage, rangeOfItems = 10, genreFormat,url = "" }) => {
     const [itemsRange, setItemsRange] = useState(rangeOfItems);
+    const rangesCount = Math.ceil(totalPages / itemsRange);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
         const handleTabletChange = () => {
@@ -19,7 +20,7 @@ export const Pagination = ({totalPages,currentPage, rangeOfItems = 10, genreForm
         return () => {
             mediaQuery.removeListener(handleTabletChange);
         };
-    }, [itemsRange]);
+    }, [currentPage, itemsRange, rangesCount]);
 
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -34,7 +35,6 @@ export const Pagination = ({totalPages,currentPage, rangeOfItems = 10, genreForm
         }
     };
 
-    const rangesCount = Math.ceil(totalPages / itemsRange);
     const [rangeIndex, setRangeIndex] = useState(defineRange(rangesCount, itemsRange, currentPage));
     const startRangeIndex = (rangeIndex - 1) * itemsRange + 1;
     const endRangeIndex = rangeIndex * itemsRange;

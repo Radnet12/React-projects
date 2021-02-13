@@ -1,9 +1,9 @@
 import { api } from "../../api/api";
 
-const GET_SEARCH_RESULTS = "GET_SEARCH_RESULTS";
-const SET_INITIAL_SETTINGS = "SET_INITIAL_SETTINGS";
-const UPDATE_SEARCH_TEXT = "UPDATE_SEARCH_TEXT";
-const ZERO_OUT_SEARCH_RESULTS = "ZERO_OUT_SEARCH_RESULTS";
+const GET_SEARCH_RESULTS = "react-movie/mainSearch/GET_SEARCH_RESULTS";
+const SET_INITIAL_SETTINGS = "react-movie/mainSearch/SET_INITIAL_SETTINGS";
+const UPDATE_SEARCH_TEXT = "react-movie/mainSearch/UPDATE_SEARCH_TEXT";
+const ZERO_OUT_SEARCH_RESULTS = "react-movie/mainSearch/ZERO_OUT_SEARCH_RESULTS";
 
 const initialState = {
     searchText: "",

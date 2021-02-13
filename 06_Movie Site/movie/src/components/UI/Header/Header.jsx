@@ -27,12 +27,12 @@ const Header = ({
     const debouncedText = useDebounce(searchText, 400);
 
     useEffect(() => {
-        if (searchText.length > 0) {
-            getSearchResults(searchText, "multi");
+        if (debouncedText.length > 0) {
+            getSearchResults(debouncedText, "multi");
         } else {
             zeroOutSearchResults();
         }
-    }, [debouncedText]);
+    }, [debouncedText, getSearchResults, zeroOutSearchResults]);
     const getRelevantAnswer = () => {
         if (movies.length === 0 && searchText.length > 0) {
             return (
