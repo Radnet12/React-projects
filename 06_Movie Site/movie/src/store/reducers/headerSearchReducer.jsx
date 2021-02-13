@@ -65,7 +65,11 @@ export const setIsSearchOpen = () => {
 
 export const getSearchResults = (text, type) => {
     return async (dispatch) => {
-        const [results] = await api.search(text, type);
-        dispatch(getSearchedMovies(results));
+        try {
+            const [results] = await api.search(text, type);
+            dispatch(getSearchedMovies(results));
+        } catch (e) {
+            alert("Please, refresh the page, search is not working", e);
+        }
     };
 };

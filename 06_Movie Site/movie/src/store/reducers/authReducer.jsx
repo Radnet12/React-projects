@@ -42,20 +42,28 @@ export const logout = () => {
 
 export const requestNewToken = () => {
     return async (dispatch) => {
-        dispatch(logout());
-        const token = await api.getNewToken();
-        localStorage.setItem("token", token);
-        window.location.replace(
-            `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.href}`
-        );
+        try {
+            dispatch(logout());
+            const token = await api.getNewToken();
+            localStorage.setItem("token", token);
+            window.location.replace(
+                `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.href}`
+            );
+        } catch (e) {
+            alert("Sorry we cannot get token in order to register you! Try later, please!", e);
+        }
     };
 };
 export const requestSessionId = (token) => {
     return async (dispatch) => {
-        const sessionInfo = await api.getSessionId(token);
-        localStorage.setItem("sessionId", sessionInfo.session_id);
-        dispatch(setNewSessionId(sessionInfo.session_id));
-        dispatch(autoLogout(60 * 60 * 1000));
+        try {
+            const sessionInfo = await api.getSessionId(token);
+            localStorage.setItem("sessionId", sessionInfo.session_id);
+            dispatch(setNewSessionId(sessionInfo.session_id));
+            dispatch(autoLogout(60 * 60 * 1000));
+        } catch (e) {
+            alert("Sorry we cannot create session! Try later, please!", e);
+        }
     };
 };
 export const autoLogin = (sessionId) => {

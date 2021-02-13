@@ -78,12 +78,16 @@ export const zeroOutSearchResults = () => {
 
 export const loadSearchResults = (text, format, page = 1) => {
     return async (dispatch) => {
-        dispatch(setInitialSettings(page));
-        const [results, totalPages, totalResults] = await api.search(
-            text,
-            format,
-            page
-        );
-        dispatch(getSearchResults(results, totalPages, totalResults));
+        try {
+            dispatch(setInitialSettings(page));
+            const [results, totalPages, totalResults] = await api.search(
+                text,
+                format,
+                page
+            );
+            dispatch(getSearchResults(results, totalPages, totalResults));
+        } catch (e) {
+            alert("Please refresh the page! Unfortunately, we cannot load the search results!", e);
+        }
     };
 };

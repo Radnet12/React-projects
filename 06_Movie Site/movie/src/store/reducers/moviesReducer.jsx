@@ -78,25 +78,37 @@ export const setPageParams = (filter, page) => {
 
 export const loadMovies = (format, filter = "popular", page = "1") => {
     return async (dispatch) => {
-        dispatch(setPageParams(filter, page));
-        const [list, totalPages] = await api.getMovies(format, filter, page);
-        dispatch(getMovies(list, totalPages));
+        try {
+            dispatch(setPageParams(filter, page));
+            const [list, totalPages] = await api.getMovies(format, filter, page);
+            dispatch(getMovies(list, totalPages));
+        } catch (e) {
+            alert("Refresh the page! We cannot load movies!", e);
+        }
     };
 };
 export const loadGenres = (format) => {
     return async (dispatch) => {
-        const list = await api.getGenres(format);
-        dispatch(getGenres(list));
+        try {
+            const list = await api.getGenres(format);
+            dispatch(getGenres(list));
+        } catch (e) {
+            alert("Refresh the page! We cannot load genres!", e);
+        }
     };
 };
 export const loadMovieWithGenre = (format, id = 80, page = "1") => {
     return async (dispatch) => {
-        dispatch(setPageParams(id, page));
-        const [list, totalPages] = await api.getMovieWithGenre(
-            format,
-            id,
-            page
-        );
-        dispatch(getMovies(list, totalPages));
+        try {
+            dispatch(setPageParams(id, page));
+            const [list, totalPages] = await api.getMovieWithGenre(
+                format,
+                id,
+                page
+            );
+            dispatch(getMovies(list, totalPages));
+        } catch (e) {
+            alert("Refresh the page! We cannot load movies!", e);
+        }
     };
 };
