@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./Header.module.scss";
 import { NavLink, Link } from "react-router-dom";
 import { Container } from "../Container/Container";
@@ -8,9 +8,11 @@ import {
     getSearchResults,
     zeroOutSearchResults,
     setIsSearchOpen,
+    setIsSearchClose,
 } from "../../../store/reducers/headerSearchReducer";
 import { logout, requestNewToken } from "../../../store/reducers/authReducer";
 import { useDebounce } from "../../../api/useDebounce";
+import { useMediaQuery } from "../../../api/useMediaQuery";
 
 const Header = ({
     updateText,
@@ -20,11 +22,22 @@ const Header = ({
     zeroOutSearchResults,
     isSearchOpen,
     setIsSearchOpen,
+    setIsSearchClose,
     requestNewToken,
     isAuth,
     logout,
 }) => {
+    const isBurgerShown = useMediaQuery("(max-width: 568px)", true);
+    const [isBurgerOpen, setIsBurgerOpen] = useState(false);
     const debouncedText = useDebounce(searchText, 400);
+
+    useEffect(() => {
+        if (isBurgerOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+    }, [isBurgerOpen]);
 
     useEffect(() => {
         if (debouncedText.length > 0) {
@@ -33,7 +46,7 @@ const Header = ({
             zeroOutSearchResults();
         }
     }, [debouncedText, getSearchResults, zeroOutSearchResults]);
-    const getRelevantAnswer = () => {
+    const getRelevantSearchAnswer = () => {
         if (movies.length === 0 && searchText.length > 0) {
             return (
                 <li className={s.header__searched_info}>
@@ -169,10 +182,7 @@ const Header = ({
         <header className={s.header}>
             <Container>
                 <div className={s.header__wrapper}>
-                    <div
-                        className={s.header__logo}
-                        onClick={isSearchOpen ? () => setIsSearchOpen() : null}
-                    >
+                    <div className={s.header__logo} onClick={setIsSearchClose}>
                         <Link to="/">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -243,18 +253,23 @@ const Header = ({
                             </svg>
                         </Link>
                     </div>
-                    <nav>
+                    <nav
+                        className={
+                            isBurgerOpen
+                                ? `${s.header__nav} ${s.header__nav_active}`
+                                : `${s.header__nav}`
+                        }
+                    >
                         <ul className={s.header__list}>
                             <li className={s.header__item}>
                                 <NavLink
                                     activeClassName={s.header__link_active}
                                     className={s.header__link}
                                     to="/movie"
-                                    onClick={
-                                        isSearchOpen
-                                            ? () => setIsSearchOpen()
-                                            : null
-                                    }
+                                    onClick={() => {
+                                        setIsSearchClose();
+                                        setIsBurgerOpen(false);
+                                    }}
                                 >
                                     Фильмы
                                 </NavLink>
@@ -264,11 +279,10 @@ const Header = ({
                                     activeClassName={s.header__link_active}
                                     className={s.header__link}
                                     to="/tv"
-                                    onClick={
-                                        isSearchOpen
-                                            ? () => setIsSearchOpen()
-                                            : null
-                                    }
+                                    onClick={() => {
+                                        setIsSearchClose();
+                                        setIsBurgerOpen(false);
+                                    }}
                                 >
                                     Сериалы
                                 </NavLink>
@@ -276,38 +290,46 @@ const Header = ({
                         </ul>
                     </nav>
                     <div className={s.header__right}>
-                        <div className={s.header__search}>
-                            <input
-                                className={
-                                    isSearchOpen === true
-                                        ? `${s.search} ${s.search__active}`
-                                        : `${s.search}`
-                                }
-                                placeholder="Ищите кино прямо здесь..."
-                                type="text"
-                                value={searchText}
-                                onChange={(e) => {
-                                    updateText(e.target.value);
-                                }}
-                            />
-                            <button
-                                className={s.header__search_btn}
-                                onClick={() => setIsSearchOpen()}
+                        <button
+                            className={s.header__search_btn}
+                            onClick={() => setIsSearchOpen()}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="512"
+                                height="512"
+                                viewBox="0 0 512.005 512.005"
                             >
-                                <svg
+                                <path
+                                    d="M505.749 475.587l-145.6-145.6c28.203-34.837 45.184-79.104 45.184-127.317C405.333 90.926 314.41.003 202.666.003S0 90.925 0 202.669s90.923 202.667 202.667 202.667c48.213 0 92.48-16.981 127.317-45.184l145.6 145.6c4.16 4.16 9.621 6.251 15.083 6.251s10.923-2.091 15.083-6.251c8.341-8.341 8.341-21.824-.001-30.165zM202.667 362.669c-88.235 0-160-71.765-160-160s71.765-160 160-160 160 71.765 160 160-71.766 160-160 160z"
+                                    fill="#fff"
+                                    data-original="#000000"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    width="512"
-                                    height="512"
-                                    viewBox="0 0 512.005 512.005"
-                                >
-                                    <path
-                                        d="M505.749 475.587l-145.6-145.6c28.203-34.837 45.184-79.104 45.184-127.317C405.333 90.926 314.41.003 202.666.003S0 90.925 0 202.669s90.923 202.667 202.667 202.667c48.213 0 92.48-16.981 127.317-45.184l145.6 145.6c4.16 4.16 9.621 6.251 15.083 6.251s10.923-2.091 15.083-6.251c8.341-8.341 8.341-21.824-.001-30.165zM202.667 362.669c-88.235 0-160-71.765-160-160s71.765-160 160-160 160 71.765 160 160-71.766 160-160 160z"
-                                        fill="#fff"
-                                        data-original="#000000"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    />
-                                </svg>
-                            </button>
+                                />
+                            </svg>
+                        </button>
+                        <div
+                            className={
+                                isSearchOpen === true
+                                    ? `${s.header__search} ${s.header__search_active}`
+                                    : `${s.header__search}`
+                            }
+                        >
+                            <div className={s.search__wrap}>
+                                <input
+                                    className={
+                                        isSearchOpen === true
+                                            ? `${s.search} ${s.search__active}`
+                                            : `${s.search}`
+                                    }
+                                    placeholder="Ищите кино прямо здесь..."
+                                    type="text"
+                                    value={searchText}
+                                    onChange={(e) => {
+                                        updateText(e.target.value);
+                                    }}
+                                />
+                            </div>
                             <ul
                                 className={
                                     isSearchOpen === true
@@ -315,7 +337,7 @@ const Header = ({
                                         : `${s.header__searched_list}`
                                 }
                             >
-                                {getRelevantAnswer()}
+                                {getRelevantSearchAnswer()}
                             </ul>
                         </div>
                         {isAuth ? (
@@ -334,6 +356,21 @@ const Header = ({
                             </button>
                         )}
                     </div>
+                    {isBurgerShown && (
+                        <button
+                            className={
+                                isBurgerOpen
+                                    ? `${s.burger} ${s.burger_active}`
+                                    : `${s.burger}`
+                            }
+                            onClick={() =>
+                                setIsBurgerOpen((prevState) => !prevState)
+                            }
+                            aria-label="Открыть/закрыть меню"
+                        >
+                            <span></span>
+                        </button>
+                    )}
                 </div>
             </Container>
         </header>
@@ -356,4 +393,5 @@ export default connect(mapStateToProps, {
     setIsSearchOpen,
     requestNewToken,
     logout,
+    setIsSearchClose,
 })(Header);

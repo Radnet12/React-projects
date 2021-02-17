@@ -194,14 +194,19 @@ $maxWidth: 1920;
         a {
             display: flex;
         }
-
-        @media (min-width: 992px) {
-            &:hover,
-            &:focus {
-                .movie__action_tooltip {
-                    opacity: 1;
-                    visibility: visible;
-                    transition: opacity 0.5s, visibility 0.5s;
+        &:hover,
+        &:focus {
+            .movie__action_tooltip {
+                opacity: 1;
+                visibility: visible;
+                transition: opacity 0.5s, visibility 0.5s;
+            }
+        }
+        &:nth-child(4) {
+            .movie__action_tooltip {
+                left: -250%;
+                &::before {
+                    left: 81%;
                 }
             }
         }

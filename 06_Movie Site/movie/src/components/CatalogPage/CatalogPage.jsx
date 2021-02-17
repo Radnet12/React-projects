@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useMediaQuery } from "../../api/useMediaQuery";
 import { loadMovieInfo } from "../../store/reducers/catalogReducer";
 import { Container } from "../UI/Container/Container";
 import { Loader } from "../UI/Loader/Loader";
@@ -21,24 +22,11 @@ const CatalogPage = ({
     recommend,
     isFetchingMovie,
 }) => {
-    const [showSidebar, setShowSidebar] = useState(true);
+    const isSidebarShown = useMediaQuery("(min-width: 769px)", true);
     useEffect(() => {
         loadMovieInfo(format, id);
         window.scrollTo(0, 0);
     }, [format, id, loadMovieInfo]);
-    useEffect(() => {
-        const mediaQuery = window.matchMedia("(min-width: 768px)");
-        const handleTabletChange = () => {
-            if (mediaQuery.matches) {
-                setShowSidebar(true)
-            } else {
-                setShowSidebar(false)
-            }
-        };
-        mediaQuery.addListener(handleTabletChange);
-        handleTabletChange(mediaQuery);
-    }, [showSidebar]);
-
 
     return (
         <>
@@ -62,7 +50,7 @@ const CatalogPage = ({
                                         />
                                     )}
                                 </div>
-                                {showSidebar && (
+                                {isSidebarShown && (
                                     <CatalogSidebar
                                         movie={movie}
                                         keywords={keywords}

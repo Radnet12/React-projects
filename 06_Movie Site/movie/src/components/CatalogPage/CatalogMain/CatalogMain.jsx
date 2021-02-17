@@ -283,8 +283,7 @@ export const CatalogMain = ({ movie, format }) => {
                         <li className={s.movie__action}>
                             <span>{movie.vote_average.toFixed(1)}</span>
                             <div className={s.movie__action_tooltip}>
-                                Рейтинг:
-                                <div>{movie.vote_count} голосов</div>
+                                Рейтинг: {movie.vote_count} голосов
                             </div>
                         </li>
                     </ul>

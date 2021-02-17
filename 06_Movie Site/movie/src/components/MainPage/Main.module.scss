@@ -78,6 +78,10 @@ $maxWidth: 1920;
         visibility: hidden;
         transition: opacity 0.3s, visibility 0.3s;
 
+        @media (max-width: 1200px) {
+            left: -20%;
+        }
+
         &::before {
             content: "";
             position: absolute;
@@ -89,6 +93,10 @@ $maxWidth: 1920;
             border-width: 0 6px 6px 6px;
             border-color: transparent transparent rgba(0, 0, 0, 0.5) transparent;
             transform: translateX(-50%);
+
+            @media (max-width: 1200px) {
+                left: 83%;
+            }
         }
     }
 }
