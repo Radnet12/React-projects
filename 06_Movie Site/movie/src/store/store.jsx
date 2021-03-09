@@ -14,17 +14,5 @@ export const store = createStore(
         headerSearch: headerSearchReducer,
         mainSearch: mainSearchReducer,
         auth: authReducer,
-    }),
-    /* preloadedState, */ composeEnhancers(applyMiddleware(thunkMiddleware))
+    }), composeEnhancers(applyMiddleware(thunkMiddleware))
 );
-
-// export const store = createStore(
-//     combineReducers({
-//         moviesPage: moviesReducer,
-//         catalogPage: catalogReducer,
-//         headerSearch: headerSearchReducer,
-//         mainSearch: mainSearchReducer,
-//         auth: authReducer,
-//     }),
-//     applyMiddleware(thunkMiddleware)
-// );

@@ -39,7 +39,15 @@ const Movie = ({
         } else {
             loadMovies(format, id, pageId);
         }
-    }, [format, genres.length, id, loadGenres, loadMovieWithGenre, loadMovies, pageId]);
+    }, [
+        format,
+        genres.length,
+        id,
+        loadGenres,
+        loadMovieWithGenre,
+        loadMovies,
+        pageId,
+    ]);
 
     return (
         <MainTemplate>
